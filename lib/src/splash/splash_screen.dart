@@ -1,4 +1,4 @@
-import 'package:botiblog/src/shared/app_colors.dart';
+import 'package:botiblog/src/shared/theme/app_colors.dart';
 import 'package:botiblog/src/sign_in/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 
