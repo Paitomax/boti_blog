@@ -1,5 +1,5 @@
-import 'package:equatable/equatable.dart';
-
-abstract class SignInEvent extends Equatable {
+abstract class SignInEvent {
   const SignInEvent();
 }
+
+class SignInRequested extends SignInEvent {}
