@@ -4,7 +4,7 @@ import './bloc.dart';
 
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
   @override
-  SignInState get initialState => InitialSignInState();
+  SignInState get initialState => SignInInitial();
 
   @override
   Stream<SignInState> mapEventToState(
