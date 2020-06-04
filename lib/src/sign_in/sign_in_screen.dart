@@ -6,6 +6,7 @@ import 'package:botiblog/src/sign_in/sign_in_event.dart';
 import 'package:botiblog/src/sign_in/sign_in_state.dart';
 import 'package:botiblog/src/sign_up/sign_up_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -92,7 +93,9 @@ class _SignInScreenState extends State<SignInScreen> {
     return TextFormField(
       controller: _passController,
       maxLines: 1,
-      maxLength: 24,
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(24),
+      ],
       decoration: const InputDecoration(
         hintText: 'Senha',
         hintStyle: TextStyle(fontSize: 18),

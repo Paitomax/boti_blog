@@ -16,7 +16,7 @@ class BotiApp extends StatelessWidget {
     final materialApp = MaterialApp(
         title: 'Boti Blog',
         theme: ThemeData(
-          primarySwatch: Colors.deepOrange,
+          primarySwatch: Colors.blue,
         ),
         initialRoute: SplashScreen.routeName,
         routes: AppRoutes.routes);
