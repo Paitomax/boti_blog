@@ -10,13 +10,8 @@ class SignInInitial extends SignInState {
 }
 
 class SignInLoadInProgress extends SignInState {
-  final String email;
-  final String password;
-
-  SignInLoadInProgress(this.email, this.password);
-
   @override
-  List<Object> get props => [email, password];
+  List<Object> get props => [];
 }
 
 class SignInLoadSuccess extends SignInState {
