@@ -1,4 +1,5 @@
 import 'package:botiblog/src/home/home_screen.dart';
+import 'package:botiblog/src/home/post_editor/post_editor_screen.dart';
 import 'package:botiblog/src/sign_in/sign_in_screen.dart';
 import 'package:botiblog/src/sign_up/sign_up_screen.dart';
 import 'package:botiblog/src/splash/splash_screen.dart';
@@ -9,5 +10,6 @@ class AppRoutes {
     SignInScreen.routeName: (context) => SignInScreen(),
     SignUpScreen.routeName: (context) => SignUpScreen(),
     HomeScreen.routeName: (context) => HomeScreen(),
+    PostEditorScreen.routeName: (context) => PostEditorScreen(),
   };
 }
