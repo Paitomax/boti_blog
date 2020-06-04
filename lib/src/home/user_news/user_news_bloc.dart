@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:botiblog/src/home/user_news/user_news_repository_interface.dart';
+import 'package:botiblog/src/shared/current_datetime/current_date_interface.dart';
+import 'package:botiblog/src/shared/formatters/date_formatter.dart';
 import 'package:botiblog/src/shared/user/user_repository_interface.dart';
 
 import './bloc.dart';
@@ -10,8 +12,10 @@ import 'model/user_post_model.dart';
 class UserNewsBloc extends Bloc<UserNewsEvent, UserNewsState> {
   final UserNewsRepositoryInterface userNewsRepository;
   final UserRepositoryInterface userRepository;
+  final CurrentDateTimeInterface currentDateTime;
 
-  UserNewsBloc(this.userNewsRepository, this.userRepository);
+  UserNewsBloc(
+      this.userNewsRepository, this.userRepository, this.currentDateTime);
 
   @override
   UserNewsState get initialState => UserNewsLoadInProgress();
@@ -36,8 +40,8 @@ class UserNewsBloc extends Bloc<UserNewsEvent, UserNewsState> {
       yield UserNewsLoadInProgress();
       final user = await userRepository.get();
 
-      final String date = '2020-02-02T16:00:00Z';
-      final post = UserPostModel(user.id, event.text, date);
+      final String date = DateFormatter.toDatabaseFormat(currentDateTime.now());
+      final post = UserPostModel(event.text, date, id: user.id);
       await userNewsRepository.add(post);
 
       final posts = await userNewsRepository.fetch(user);
@@ -51,7 +55,7 @@ class UserNewsBloc extends Bloc<UserNewsEvent, UserNewsState> {
       UserNewsRemoved event) async* {
     try {
       yield UserNewsLoadInProgress();
-      await userNewsRepository.remove(event.userPost);
+      await userNewsRepository.remove(event.userPost.post);
 
       final user = await userRepository.get();
       final posts = await userNewsRepository.fetch(user);
@@ -65,7 +69,13 @@ class UserNewsBloc extends Bloc<UserNewsEvent, UserNewsState> {
       UserNewsUpdated event) async* {
     try {
       yield UserNewsLoadInProgress();
-      await userNewsRepository.update(event.userPost);
+
+      final currentDate = DateFormatter.toDatabaseFormat(currentDateTime.now());
+
+      final oldPost = event.userPost.post;
+      final newPost = UserPostModel(oldPost.text, currentDate, id: oldPost.id);
+
+      await userNewsRepository.update(newPost);
 
       final user = await userRepository.get();
       final posts = await userNewsRepository.fetch(user);

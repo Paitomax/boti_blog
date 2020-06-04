@@ -2,6 +2,7 @@ import 'package:botiblog/src/home/user_news/user_news_bloc.dart';
 import 'package:botiblog/src/home/user_news/user_news_event.dart';
 import 'package:botiblog/src/home/user_news/user_news_state.dart';
 import 'package:botiblog/src/home/user_news/user_news_tab_texts.dart';
+import 'package:botiblog/src/shared/formatters/date_formatter.dart';
 import 'package:botiblog/src/shared/theme/app_colors.dart';
 import 'package:botiblog/src/shared/widgets/boti_flat_button.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,6 @@ class _UserNewsTabState extends State<UserNewsTab> {
             ),
             SizedBox(height: 8),
             Divider(),
-
             SizedBox(height: 16),
             BlocBuilder<UserNewsBloc, UserNewsState>(
               builder: (context, state) {
@@ -61,20 +61,28 @@ class _UserNewsTabState extends State<UserNewsTab> {
                     itemBuilder: (listViewContext, index) {
                       final item = state.posts[index];
                       return Card(
-
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text(item.userName, style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold, color: AppColors.blue )),
+                              Text(item.user.name,
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.blue)),
                               SizedBox(height: 4),
-                              Text(item.text,style: TextStyle(color: AppColors.lightOrange )),
+                              Text(item.post.text,
+                                  style:
+                                      TextStyle(color: AppColors.lightOrange)),
                               SizedBox(height: 4),
-
                               Align(
-                                alignment: Alignment.centerRight,
-                                  child: Text(item.date,style: TextStyle(fontSize: 12,color: Color(0xFFBABABA)),)),
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    DateFormatter.format(item.post.getDateTime),
+                                    style: TextStyle(
+                                        fontSize: 12, color: Color(0xFFBABABA)),
+                                  )),
                             ],
                           ),
                         ),

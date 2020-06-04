@@ -5,7 +5,11 @@ class DateFormatter {
     return dateTime.toIso8601String();
   }
 
-  static String toString(DateTime dateTime) {
-    return DateFormat('dd/MM/YYYY - HH:mm').format(dateTime);
+  static String format(DateTime dateTime) {
+    return DateFormat('dd/MM/yyyy - HH:mm').format(dateTime);
+  }
+
+  static DateTime parse(String date) {
+    return DateTime.parse(date);
   }
 }

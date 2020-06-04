@@ -3,6 +3,8 @@ import 'package:botiblog/src/home/user_news/user_news_bloc.dart';
 import 'package:botiblog/src/home/user_news/user_news_data_provider.dart';
 import 'package:botiblog/src/home/user_news/user_news_repository.dart';
 import 'package:botiblog/src/home/user_news/user_news_repository_interface.dart';
+import 'package:botiblog/src/shared/current_datetime/current_date.dart';
+import 'package:botiblog/src/shared/current_datetime/current_date_interface.dart';
 import 'package:botiblog/src/shared/user/user_repository.dart';
 import 'package:botiblog/src/shared/user/user_repository_interface.dart';
 import 'package:botiblog/src/sign_in/sign_in_bloc.dart';
@@ -37,7 +39,7 @@ class BotiApp extends StatelessWidget {
     final SignInDataProvider signInDataProvider = SignInDataProvider();
     final SignUpDataProvider signUpDataProvider = SignUpDataProvider();
     final UserNewsDataProvider userNewsDataProvider = UserNewsDataProvider();
-
+    final CurrentDateTimeInterface currentDateTime = CurrentDateTime();
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<SignInRepositoryInterface>(
@@ -71,6 +73,7 @@ class BotiApp extends StatelessWidget {
             create: (context) => UserNewsBloc(
               RepositoryProvider.of<UserNewsRepositoryInterface>(context),
               RepositoryProvider.of<UserRepositoryInterface>(context),
+              currentDateTime,
             ),
           ),
         ],

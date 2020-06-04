@@ -9,7 +9,7 @@ class UserNewsDataProvider {
   Future<List<UserPostResponseModel>> fetch(UserModel userModel) async {
     Database db;
     try {
-      db  = await LocalDatabase.openLocalDatabase();
+      db = await LocalDatabase.openLocalDatabase();
 
       String sql =
           'SELECT rowid, text, date, name, email, userId FROM UserPost INNER JOIN User on UserPost.userId = User.id';
@@ -21,14 +21,11 @@ class UserNewsDataProvider {
       List<UserPostResponseModel> list = [];
 
       for (var line in result) {
-        UserPostResponseModel item = UserPostResponseModel(
-          line['rowid'],
-          line['date'],
-          line['text'],
-          line['userId'],
-          line['name'],
-          line['email'],
-        );
+        final userPost =
+            UserPostModel(line['text'], line['date'], id: line['rowid']);
+        final user = UserModel(line['userId'], line['name'], line['email']);
+
+        UserPostResponseModel item = UserPostResponseModel(userPost, user);
         list.add(item);
       }
       return list;
