@@ -1,4 +1,5 @@
 import 'package:botiblog/src/home/user_news/model/user_post_model.dart';
+import 'package:botiblog/src/home/user_news/model/user_post_response_model.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class UserNewsState extends Equatable {
@@ -11,7 +12,7 @@ class UserNewsLoadInProgress extends UserNewsState {
 }
 
 class UserNewsLoadSuccess extends UserNewsState {
-  final List<UserPostModel> posts;
+  final List<UserPostResponseModel> posts;
 
   UserNewsLoadSuccess(this.posts);
 

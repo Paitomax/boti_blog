@@ -1,22 +1,18 @@
 import 'package:botiblog/src/home/user_news/model/user_post_model.dart';
 import 'package:botiblog/src/shared/database.dart';
 import 'package:botiblog/src/shared/user/user_model.dart';
+import 'package:sqflite/sqflite.dart';
 
 import 'model/user_post_response_model.dart';
 
 class UserNewsDataProvider {
   Future<List<UserPostResponseModel>> fetch(UserModel userModel) async {
-    final db = await LocalDatabase.openLocalDatabase();
+    Database db;
     try {
-      final response = await db.query(
-        'UserPost',
-        columns: ['rowid', 'text', 'date', 'userId'],
-      );
-
-      if (response.isNotEmpty) return null;
+      db  = await LocalDatabase.openLocalDatabase();
 
       String sql =
-          'SELECT rowid, text, date, name, email, userId FROM UserPost INNER JOIN User on User.id = UserPost.userId';
+          'SELECT rowid, text, date, name, email, userId FROM UserPost INNER JOIN User on UserPost.userId = User.id';
 
       final result = await db.rawQuery(sql);
 
@@ -30,8 +26,8 @@ class UserNewsDataProvider {
           line['date'],
           line['text'],
           line['userId'],
-          line['userName'],
-          line['userEmail'],
+          line['name'],
+          line['email'],
         );
         list.add(item);
       }
@@ -39,7 +35,7 @@ class UserNewsDataProvider {
     } catch (e) {
       throw Exception('Não foi possível conectar com o servidor.');
     } finally {
-      db.close();
+      db?.close();
     }
   }
 
