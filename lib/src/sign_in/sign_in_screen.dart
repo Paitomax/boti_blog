@@ -24,6 +24,8 @@ class _SignInScreenState extends State<SignInScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
+  final _emailFocusNode = FocusNode();
+  final _passFocusNode = FocusNode();
 
   @override
   void initState() {
@@ -79,10 +81,16 @@ class _SignInScreenState extends State<SignInScreen> {
     return TextFormField(
       autofocus: true,
       controller: _emailController,
+      focusNode: _emailFocusNode,
+      textInputAction: TextInputAction.next,
       decoration: const InputDecoration(
         hintText: 'Email',
         hintStyle: TextStyle(fontSize: 18),
       ),
+      onFieldSubmitted: (text) {
+        _emailFocusNode.unfocus();
+        FocusScope.of(context).requestFocus(_passFocusNode);
+      },
       validator: (text) {
         if (text.isEmpty) return 'Informe seu email';
 
@@ -97,6 +105,12 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget _buildPasswordInput() {
     return TextFormField(
       controller: _passController,
+      focusNode: _passFocusNode,
+      textInputAction: TextInputAction.done,
+      onFieldSubmitted: (text) {
+        _passFocusNode.unfocus();
+        _onEnterButtonPressed();
+      },
       maxLines: 1,
       inputFormatters: [
         LengthLimitingTextInputFormatter(24),
@@ -134,14 +148,18 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget _buildEnterButton() {
     return BotiRaisedButton(
       text: 'Entrar',
-      onPressed: () {
-        if (_formKey.currentState.validate()) {
-          final email = _emailController.text;
-          final pass = _passController.text;
-          context.bloc<SignInBloc>().add(SignInRequested(email, pass));
-        }
-      },
+      onPressed: _onEnterButtonPressed,
     );
+  }
+
+  void _onEnterButtonPressed() {
+    _emailFocusNode.unfocus();
+    _passFocusNode.unfocus();
+    if (_formKey.currentState.validate()) {
+      final email = _emailController.text;
+      final pass = _passController.text;
+      context.bloc<SignInBloc>().add(SignInRequested(email, pass));
+    }
   }
 
   Widget _buildSignUpButton() {
