@@ -2,7 +2,7 @@ import 'package:botiblog/src/home/user_news/model/user_post_response_model.dart'
 import 'package:botiblog/src/home/user_news/user_news_bloc.dart';
 import 'package:botiblog/src/home/user_news/user_news_event.dart';
 import 'package:botiblog/src/home/user_news/user_news_state.dart';
-import 'package:botiblog/src/home/user_news/user_news_tab_texts.dart';
+import 'package:botiblog/src/home/user_news/user_news_tab_screen_texts.dart';
 import 'package:botiblog/src/shared/formatters/date_formatter.dart';
 import 'package:botiblog/src/shared/theme/app_colors.dart';
 import 'package:botiblog/src/shared/user/user_model.dart';
@@ -10,12 +10,12 @@ import 'package:botiblog/src/shared/widgets/boti_flat_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class UserNewsTab extends StatefulWidget {
+class UserNewsTabScreen extends StatefulWidget {
   @override
-  _UserNewsTabState createState() => _UserNewsTabState();
+  _UserNewsTabScreenState createState() => _UserNewsTabScreenState();
 }
 
-class _UserNewsTabState extends State<UserNewsTab> {
+class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
   @override
   void initState() {
     super.initState();
