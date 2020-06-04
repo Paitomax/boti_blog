@@ -12,7 +12,7 @@ class UserNewsDataProvider {
       db = await LocalDatabase.openLocalDatabase();
 
       String sql =
-          'SELECT rowid, text, date, name, email, userId FROM UserPost INNER JOIN User on UserPost.userId = User.id';
+          'SELECT UserPost.id, text, date, name, email, userId FROM UserPost INNER JOIN User on UserPost.userId = User.id';
 
       final result = await db.rawQuery(sql);
 
@@ -22,7 +22,7 @@ class UserNewsDataProvider {
 
       for (var line in result) {
         final userPost =
-            UserPostModel(line['text'], line['date'], id: line['rowid']);
+            UserPostModel(line['text'], line['date'], id: line['id']);
         final user = UserModel(line['userId'], line['name'], line['email']);
 
         UserPostResponseModel item = UserPostResponseModel(userPost, user);
