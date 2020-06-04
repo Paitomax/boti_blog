@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:botiblog/src/home/user_news/model/user_post_response_model.dart';
 import 'package:botiblog/src/home/user_news/user_news_repository_interface.dart';
 import 'package:botiblog/src/shared/current_datetime/current_date_interface.dart';
-import 'package:botiblog/src/shared/formatters/date_formatter.dart';
 import 'package:botiblog/src/shared/user/user_repository_interface.dart';
 
 import './bloc.dart';
@@ -41,8 +40,8 @@ class UserNewsBloc extends Bloc<UserNewsEvent, UserNewsState> {
       yield UserNewsLoadInProgress();
       final user = await userRepository.get();
 
-      final String date = DateFormatter.toDatabaseFormat(currentDateTime.now());
-      final post = UserPostModel(event.text, date, id: user.id);
+      final post =
+          UserPostModel(event.text, currentDateTime.now(), id: user.id);
       final userPost = UserPostResponseModel(post, user);
       await userNewsRepository.add(userPost);
 
@@ -72,10 +71,9 @@ class UserNewsBloc extends Bloc<UserNewsEvent, UserNewsState> {
     try {
       yield UserNewsLoadInProgress();
 
-      final currentDate = DateFormatter.toDatabaseFormat(currentDateTime.now());
-
       final oldPost = event.userPost.post;
-      final newPost = UserPostModel(oldPost.text, currentDate, id: oldPost.id);
+      final newPost =
+          UserPostModel(oldPost.text, currentDateTime.now(), id: oldPost.id);
 
       await userNewsRepository.update(newPost);
 

@@ -1,5 +1,6 @@
 import 'package:botiblog/src/home/user_news/model/user_post_model.dart';
 import 'package:botiblog/src/shared/database.dart';
+import 'package:botiblog/src/shared/formatters/date_formatter.dart';
 import 'package:botiblog/src/shared/user/user_model.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -21,13 +22,15 @@ class UserNewsDataProvider {
       List<UserPostResponseModel> list = [];
 
       for (var line in result) {
-        final userPost =
-            UserPostModel(line['text'], line['date'], id: line['id']);
+        final userPost = UserPostModel(
+            line['text'], DateFormatter.parse(line['date']),
+            id: line['id']);
         final user = UserModel(line['userId'], line['name'], line['email']);
 
         UserPostResponseModel item = UserPostResponseModel(userPost, user);
         list.add(item);
       }
+      list.sort((b, a) => a.post.date.compareTo(b.post.date));
       return list;
     } catch (e) {
       throw Exception('Não foi possível conectar com o servidor.');

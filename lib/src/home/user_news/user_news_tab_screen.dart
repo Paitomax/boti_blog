@@ -16,6 +16,8 @@ class UserNewsTabScreen extends StatefulWidget {
 }
 
 class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
+  final _textController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -37,6 +39,7 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
             SizedBox(height: 24),
             Form(
               child: TextField(
+                controller: _textController,
                 maxLength: 280,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -53,7 +56,11 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
                     children: <Widget>[
                       BotiFlatButton(
                         text: UserNewsTabTexts.publishButton,
-                        onPressed: () {},
+                        onPressed: () {
+                          context
+                              .bloc<UserNewsBloc>()
+                              .add(UserNewsAdded(_textController.text));
+                        },
                       ),
                       SizedBox(height: 8),
                       Divider(),
@@ -135,7 +142,7 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
                 child: Padding(
                   padding: const EdgeInsets.only(right: 16.0),
                   child: Text(
-                    DateFormatter.format(item.post.getDateTime),
+                    DateFormatter.format(item.post.date),
                     style: TextStyle(fontSize: 12, color: Color(0xFFBABABA)),
                   ),
                 )),
@@ -190,7 +197,8 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
           style: TextStyle(color: Colors.red, fontSize: 16),
         ),
         FlatButton(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
           textColor: AppColors.blue,
           child: Text(
             UserNewsTabTexts.loadScreen,
