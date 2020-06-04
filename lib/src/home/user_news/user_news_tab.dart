@@ -44,55 +44,63 @@ class _UserNewsTabState extends State<UserNewsTab> {
                 ),
               ),
             ),
-            BotiFlatButton(
-              text: UserNewsTabTexts.publishButton,
-              onPressed: () {},
-            ),
-            SizedBox(height: 8),
-            Divider(),
-            SizedBox(height: 16),
+
             BlocBuilder<UserNewsBloc, UserNewsState>(
               builder: (context, state) {
                 if (state is UserNewsLoadSuccess) {
-                  return ListView.builder(
-                    itemCount: state.posts.length,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (listViewContext, index) {
-                      final item = state.posts[index];
-                      return Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(item.user.name,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.blue)),
-                              SizedBox(height: 4),
-                              Text(item.post.text,
-                                  style:
-                                      TextStyle(color: AppColors.lightOrange)),
-                              SizedBox(height: 4),
-                              Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    DateFormatter.format(item.post.getDateTime),
-                                    style: TextStyle(
-                                        fontSize: 12, color: Color(0xFFBABABA)),
-                                  )),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
+                  return Column(
+                    children: <Widget>[
+                      BotiFlatButton(
+                        text: UserNewsTabTexts.publishButton,
+                        onPressed: () {},
+                      ),
+                      SizedBox(height: 8),
+                      Divider(),
+                      SizedBox(height: 16),
+                      ListView.builder(
+                        itemCount: state.posts.length,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (listViewContext, index) {
+                          final item = state.posts[index];
+                          return Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(item.user.name,
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.blue)),
+                                  SizedBox(height: 4),
+                                  Text(item.post.text,
+                                      style:
+                                          TextStyle(color: AppColors.lightOrange)),
+                                  SizedBox(height: 4),
+                                  Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        DateFormatter.format(item.post.getDateTime),
+                                        style: TextStyle(
+                                            fontSize: 12, color: Color(0xFFBABABA)),
+                                      )),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   );
                 } else if (state is UserNewsLoadFailure) {
                   return Text('');
                 } else {
-                  return CircularProgressIndicator();
+                  return Padding(
+                    padding: const EdgeInsets.only(top:32.0),
+                    child: CircularProgressIndicator(),
+                  );
                 }
               },
             )
