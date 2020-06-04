@@ -1,6 +1,9 @@
+import 'package:botiblog/src/home/home_screen.dart';
 import 'package:botiblog/src/shared/validators/email_validator.dart';
 import 'package:botiblog/src/shared/validators/text_validator.dart';
 import 'package:botiblog/src/shared/widgets/boti_raised_button.dart';
+import 'package:botiblog/src/sign_up/model/user_account_model.dart';
+import 'package:botiblog/src/sign_up/sign_up_event.dart';
 import 'package:botiblog/src/sign_up/sign_up_screen_texts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -186,8 +189,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SignUpScreenTexts.successDialogTitle,
               SignUpScreenTexts.successDialogMessage,
               SignUpScreenTexts.successDialogButtonText, () {
-            Navigator.of(context)
-                .pushNamedAndRemoveUntil('/home', (route) => false);
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                HomeScreen.routeName, (route) => false);
           });
         } else if (state is SignUpLoadFailure) {
           _showDialog(SignUpScreenTexts.failureDialogTitle,
@@ -219,7 +222,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   void _onButtonPressed() {
-    if (_formKey.currentState.validate()) {}
+    if (_formKey.currentState.validate()) {
+      final userAccount = UserAccountModel(
+          _nameController.text, _emailController.text, _passController.text);
+
+      context.bloc<SignUpBloc>().add(SignUpRequested(userAccount));
+    }
   }
 
   void _showDialog(String title, String message, String buttonText,
