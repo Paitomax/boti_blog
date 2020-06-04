@@ -6,9 +6,9 @@ import 'model/user_post_response_model.dart';
 abstract class UserNewsRepositoryInterface {
   Future<List<UserPostResponseModel>> fetch(UserModel userModel);
 
-  Future<bool> add(UserPostResponseModel userPost);
+  Future<void> add(UserPostResponseModel userPost);
 
-  Future<bool> remove(UserPostModel userPost);
+  Future<void> remove(UserPostModel userPost);
 
-  Future<bool> update(UserPostModel userPost);
+  Future<void> update(UserPostModel userPost);
 }

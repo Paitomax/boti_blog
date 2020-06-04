@@ -47,7 +47,7 @@ class UserNewsBloc extends Bloc<UserNewsEvent, UserNewsState> {
       await userNewsRepository.add(userPost);
 
       final posts = await userNewsRepository.fetch(user);
-      yield UserNewsLoadSuccess(posts);
+      yield UserNewsLoadSuccess(posts, user);
     } catch (e) {
       yield UserNewsLoadFailure();
     }
@@ -61,7 +61,7 @@ class UserNewsBloc extends Bloc<UserNewsEvent, UserNewsState> {
 
       final user = await userRepository.get();
       final posts = await userNewsRepository.fetch(user);
-      yield UserNewsLoadSuccess(posts);
+      yield UserNewsLoadSuccess(posts, user);
     } catch (e) {
       yield UserNewsLoadFailure();
     }
@@ -81,7 +81,7 @@ class UserNewsBloc extends Bloc<UserNewsEvent, UserNewsState> {
 
       final user = await userRepository.get();
       final posts = await userNewsRepository.fetch(user);
-      yield UserNewsLoadSuccess(posts);
+      yield UserNewsLoadSuccess(posts, user);
     } catch (e) {
       yield UserNewsLoadFailure();
     }
@@ -92,7 +92,7 @@ class UserNewsBloc extends Bloc<UserNewsEvent, UserNewsState> {
       yield UserNewsLoadInProgress();
       final user = await userRepository.get();
       final posts = await userNewsRepository.fetch(user);
-      yield UserNewsLoadSuccess(posts);
+      yield UserNewsLoadSuccess(posts, user);
     } catch (e) {
       yield UserNewsLoadFailure();
     }

@@ -5,6 +5,7 @@ import 'package:botiblog/src/home/user_news/user_news_state.dart';
 import 'package:botiblog/src/home/user_news/user_news_tab_texts.dart';
 import 'package:botiblog/src/shared/formatters/date_formatter.dart';
 import 'package:botiblog/src/shared/theme/app_colors.dart';
+import 'package:botiblog/src/shared/user/user_model.dart';
 import 'package:botiblog/src/shared/widgets/boti_flat_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -57,7 +58,7 @@ class _UserNewsTabState extends State<UserNewsTab> {
                       SizedBox(height: 8),
                       Divider(),
                       SizedBox(height: 16),
-                      _buildPostList(state.posts),
+                      _buildPostList(state.posts, state.user),
                     ],
                   );
                 } else if (state is UserNewsLoadFailure) {
@@ -76,39 +77,67 @@ class _UserNewsTabState extends State<UserNewsTab> {
     );
   }
 
-  Widget _buildPostList(List<UserPostResponseModel> posts) {
+  Widget _buildPostList(List<UserPostResponseModel> posts, UserModel user) {
     return ListView.builder(
       itemCount: posts.length,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (listViewContext, index) {
         final item = posts[index];
-        return _buildCard(item);
+        return _buildCard(item, user);
       },
     );
   }
 
-  Widget _buildCard(UserPostResponseModel item) {
+  Widget _buildCard(UserPostResponseModel item, UserModel user) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.only(left: 16.0, bottom: 16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(item.user.name,
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.blue)),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 16.0),
+                    child: Text(item.user.name,
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.blue)),
+                  ),
+                ),
+                Visibility(
+                  visible: item.isAuthor(user),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(32),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Icon(Icons.close, size: 12, color: Colors.red),
+                    ),
+                    onTap: () {
+                      context.bloc<UserNewsBloc>().add(UserNewsRemoved(item));
+                    },
+                  ),
+                ),
+              ],
+            ),
             SizedBox(height: 4),
-            Text(item.post.text,
-                style: TextStyle(color: AppColors.lightOrange)),
+            Padding(
+              padding: const EdgeInsets.only(right: 16.0),
+              child: Text(item.post.text,
+                  style: TextStyle(color: AppColors.lightOrange)),
+            ),
             SizedBox(height: 4),
             Align(
                 alignment: Alignment.centerRight,
-                child: Text(
-                  DateFormatter.format(item.post.getDateTime),
-                  style: TextStyle(fontSize: 12, color: Color(0xFFBABABA)),
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 16.0),
+                  child: Text(
+                    DateFormatter.format(item.post.getDateTime),
+                    style: TextStyle(fontSize: 12, color: Color(0xFFBABABA)),
+                  ),
                 )),
           ],
         ),
