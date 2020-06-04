@@ -17,6 +17,7 @@ class UserNewsTabScreen extends StatefulWidget {
 
 class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
   final _textController = TextEditingController();
+  final _publishFocusNode = FocusNode();
 
   @override
   void initState() {
@@ -39,7 +40,11 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
             SizedBox(height: 24),
             Form(
               child: TextField(
+                onSubmitted: (text) {
+                  _onPublishButtonPressed();
+                },
                 controller: _textController,
+                focusNode: _publishFocusNode,
                 maxLength: 280,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -56,11 +61,7 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
                     children: <Widget>[
                       BotiFlatButton(
                         text: UserNewsTabTexts.publishButton,
-                        onPressed: () {
-                          context
-                              .bloc<UserNewsBloc>()
-                              .add(UserNewsAdded(_textController.text));
-                        },
+                        onPressed: _onPublishButtonPressed,
                       ),
                       SizedBox(height: 8),
                       Divider(),
@@ -82,6 +83,11 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
         ),
       ),
     );
+  }
+
+  void _onPublishButtonPressed() {
+    _publishFocusNode.unfocus();
+    context.bloc<UserNewsBloc>().add(UserNewsAdded(_textController.text));
   }
 
   Widget _buildPostList(List<UserPostResponseModel> posts, UserModel user) {
