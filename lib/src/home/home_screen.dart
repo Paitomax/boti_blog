@@ -16,6 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _tabs[_tabIndex],
+      appBar: AppBar(title: Text('Boti Blog'),),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _tabIndex,
         onTap: _onTabPressed,
