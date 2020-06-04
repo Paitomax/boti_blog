@@ -36,15 +36,59 @@ class UserNewsDataProvider {
     }
   }
 
-  Future<bool> add(UserPostModel post) async {
-    return true;
+  Future<void> add(UserPostResponseModel post) async {
+    Database db;
+    try {
+      db = await LocalDatabase.openLocalDatabase();
+
+      await db.insert('UserPost', {
+        'text': post.post.text,
+        'date': post.post.date,
+        'userId': post.user.id
+      });
+
+      await Future.delayed(Duration(seconds: 2));
+    } catch (e) {
+      throw Exception('Não foi possível conectar com o servidor.');
+    } finally {
+      db?.close();
+    }
   }
 
-  Future<bool> update(UserPostModel post) async {
-    return true;
+  Future<void> update(UserPostModel post) async {
+    Database db;
+    try {
+      db = await LocalDatabase.openLocalDatabase();
+
+      await db.update(
+          'UserPost',
+          {
+            'text': post.text,
+            'date': post.date,
+          },
+          where: 'id = ?',
+          whereArgs: [post.id]);
+
+      await Future.delayed(Duration(seconds: 2));
+    } catch (e) {
+      throw Exception('Não foi possível conectar com o servidor.');
+    } finally {
+      db?.close();
+    }
   }
 
-  Future<bool> remove(UserPostModel post) async {
-    return true;
+  Future<void> remove(UserPostModel post) async {
+    Database db;
+    try {
+      db = await LocalDatabase.openLocalDatabase();
+
+      await db.delete('UserPost', where: 'id = ?', whereArgs: [post.id]);
+
+      await Future.delayed(Duration(seconds: 2));
+    } catch (e) {
+      throw Exception('Não foi possível conectar com o servidor.');
+    } finally {
+      db?.close();
+    }
   }
 }

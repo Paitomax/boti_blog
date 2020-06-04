@@ -11,7 +11,7 @@ class UserNewsRepository extends UserNewsRepositoryInterface {
   UserNewsRepository(this.userNewsDataProvider);
 
   @override
-  Future<bool> add(UserPostModel userPost) {
+  Future<bool> add(UserPostResponseModel userPost) {
     return userNewsDataProvider.add(userPost);
   }
 
