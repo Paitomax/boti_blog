@@ -124,8 +124,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       inputFormatters: [
         LengthLimitingTextInputFormatter(100),
       ],
-      decoration: const InputDecoration(
-        hintText: 'Nome',
+      decoration: InputDecoration(
+        hintText: SignUpScreenTexts.nameHint,
         hintStyle: TextStyle(fontSize: 18),
       ),
       validator: (text) {
@@ -177,7 +177,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   String passwordConfirmationValidator(String text) {
     if (_passConfirmationController.text != _passController.text)
-      return 'As senhas não batem';
+      return SignUpScreenTexts.passwordConfirmationErrorMessage;
     return null;
   }
 
@@ -195,8 +195,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         } else if (state is SignUpLoadFailure) {
           _showDialog(SignUpScreenTexts.failureDialogTitle,
               SignUpScreenTexts.failureDialogMessage, SignUpScreenTexts.ok, () {
-            Navigator.of(context).pop();
-          });
+                Navigator.of(context).pop();
+              });
         } else if (state is SignUpLoadFailureEmailAlreadyRegistered) {
           _showDialog(
               SignUpScreenTexts.failureDialogTitle,

@@ -17,7 +17,7 @@ class SignUpScreenTexts {
   static final String passwordConfirmationHint = 'Confirme sua Senha';
   static final String passwordErrorMessageAtLeastSixCharacters =
       'Informe uma senha com pelo menos 6 caracteres';
-
+static final String passwordConfirmationErrorMessage = 'As senhas não batem';
   static final String emailHint = 'Email';
   static final String emailErrorMessageEnterYourEmail = 'Informe seu email';
   static final String emailErrorMessageInvalid = 'Email invalido';
