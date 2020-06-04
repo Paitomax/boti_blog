@@ -4,13 +4,15 @@ import 'package:botiblog/src/shared/user/user_model.dart';
 
 class SignInDataProvider {
   Future<UserModel> requestLogin(String email, String password) async {
+    final db = await LocalDatabase.openLocalDatabase();
     try {
-      final db = await LocalDatabase.openLocalDatabase();
       final cryptedPass = Encryption.encrypt(password);
       final response = await db.query('User',
           columns: ['id', 'name', 'email', 'password'],
-          where: 'password = ?',
-          whereArgs: [cryptedPass]);
+          where: 'email = ? AND password = ?',
+          whereArgs: [email, cryptedPass]);
+
+      await Future.delayed(Duration(seconds: 2));
 
       if (response.isEmpty) return null;
 
@@ -20,6 +22,8 @@ class SignInDataProvider {
       return user;
     } catch (e) {
       throw Exception('Não foi possível conectar com o servidor.');
+    } finally {
+      db.close();
     }
   }
 }
