@@ -6,24 +6,24 @@ import '../theme/app_colors.dart';
 class BotiFlatButton extends StatelessWidget {
   final String text;
   final Function onPressed;
+  final bool enabled;
 
-  const BotiFlatButton({Key key, this.text, this.onPressed}) : super(key: key);
+  const BotiFlatButton(
+      {Key key, this.text, this.onPressed, this.enabled = true})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      child: FlatButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-        textColor: AppColors.blue,
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 16,
-          ),
+    return FlatButton(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      textColor: AppColors.blue,
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 16,
         ),
-        onPressed: onPressed,
       ),
+      onPressed: enabled ? onPressed : null,
     );
   }
 }

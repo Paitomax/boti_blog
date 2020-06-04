@@ -18,6 +18,7 @@ class UserNewsTabScreen extends StatefulWidget {
 class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
   final _textController = TextEditingController();
   final _publishFocusNode = FocusNode();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -39,9 +40,14 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
             ),
             SizedBox(height: 24),
             Form(
-              child: TextField(
-                onSubmitted: (text) {
+              key: _formKey,
+              child: TextFormField(
+                onFieldSubmitted: (text) {
                   _onPublishButtonPressed();
+                },
+                validator: (text) {
+                  if (text.isEmpty) return 'Escreva algo';
+                  return null;
                 },
                 controller: _textController,
                 focusNode: _publishFocusNode,
@@ -86,8 +92,11 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
   }
 
   void _onPublishButtonPressed() {
-    _publishFocusNode.unfocus();
-    context.bloc<UserNewsBloc>().add(UserNewsAdded(_textController.text));
+    if (_formKey.currentState.validate()) {
+      _publishFocusNode.unfocus();
+      context.bloc<UserNewsBloc>().add(UserNewsAdded(_textController.text));
+      _textController.text = '';
+    }
   }
 
   Widget _buildPostList(List<UserPostResponseModel> posts, UserModel user) {

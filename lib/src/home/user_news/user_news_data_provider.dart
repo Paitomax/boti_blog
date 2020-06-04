@@ -46,7 +46,7 @@ class UserNewsDataProvider {
 
       await db.insert('UserPost', {
         'text': post.post.text,
-        'date': post.post.date,
+        'date': DateFormatter.toDatabaseFormat(post.post.date),
         'userId': post.user.id
       });
 
@@ -67,7 +67,7 @@ class UserNewsDataProvider {
           'UserPost',
           {
             'text': post.text,
-            'date': post.date,
+            'date': DateFormatter.toDatabaseFormat(post.date),
           },
           where: 'id = ?',
           whereArgs: [post.id]);
