@@ -62,7 +62,7 @@ class _UserNewsTabState extends State<UserNewsTab> {
                     ],
                   );
                 } else if (state is UserNewsLoadFailure) {
-                  return Text('');
+                  return _buildErrorMessage();
                 } else {
                   return Padding(
                     padding: const EdgeInsets.only(top: 32.0),
@@ -173,6 +173,34 @@ class _UserNewsTabState extends State<UserNewsTab> {
           ],
         );
       },
+    );
+  }
+
+  Widget _buildErrorMessage() {
+    return Column(
+      children: <Widget>[
+        Icon(
+          Icons.error,
+          color: AppColors.lightOrange,
+          size: 32,
+        ),
+        SizedBox(height: 8),
+        Text(
+          UserNewsTabTexts.errorMessage,
+          style: TextStyle(color: Colors.red, fontSize: 16),
+        ),
+        FlatButton(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+          textColor: AppColors.blue,
+          child: Text(
+            UserNewsTabTexts.loadScreen,
+            style: TextStyle(color: AppColors.blue),
+          ),
+          onPressed: () {
+            context.bloc<UserNewsBloc>().add(UserNewsLoaded());
+          },
+        ),
+      ],
     );
   }
 }

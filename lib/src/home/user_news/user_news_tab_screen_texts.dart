@@ -9,5 +9,7 @@ class UserNewsTabTexts {
   static final String dialogHaveSure = 'Você realmente deseja apagar essa postagem?';
   static final String dialogYesButtonText = 'Sim';
   static final String dialogNoButtonText = 'Não!';
+  static final String errorMessage = 'Ops, algo de errado!';
+  static final String loadScreen = 'Recarregar a tela';
 
 }
