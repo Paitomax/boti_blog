@@ -2,6 +2,7 @@ import 'package:botiblog/src/shared/theme/app_colors.dart';
 import 'package:botiblog/src/shared/validators/email_validator.dart';
 import 'package:botiblog/src/shared/widgets/boti_flat_button.dart';
 import 'package:botiblog/src/shared/widgets/boti_raised_button.dart';
+import 'package:botiblog/src/sign_in/sign_in_event.dart';
 import 'package:botiblog/src/sign_in/sign_in_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -18,6 +19,8 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +67,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   Widget _buildEmailInput() {
     return TextFormField(
+      controller: _emailController,
       decoration: const InputDecoration(
         hintText: 'Email',
         hintStyle: TextStyle(fontSize: 18),
@@ -81,6 +85,9 @@ class _SignInScreenState extends State<SignInScreen> {
 
   Widget _buildPasswordInput() {
     return TextFormField(
+      controller: _passController,
+      maxLines: 1,
+      maxLength: 24,
       decoration: const InputDecoration(
         hintText: 'Senha',
         hintStyle: TextStyle(fontSize: 18),
@@ -91,11 +98,13 @@ class _SignInScreenState extends State<SignInScreen> {
 
   Widget _buildButtons() {
     return BlocConsumer<SignInBloc, SignInState>(
-        listener: (BuildContext context, SignInState state) {
-      if (state is SignInLoadFailure) {
-        _showErrorDialog();
-      } else if (state is SignInLoadSuccess) {
+        listener: (context, state) {
+      if (state is SignInLoadSuccess) {
         _navigateToHome();
+      } else if (state is SignInLoadFailure) {
+        _showErrorDialog('Ops :(', 'Algo deu errado.');
+      } else if (state is SignInLoadFailureWrongUserOrPass) {
+        _showErrorDialog('Atenção', 'Usuário ou senha incorreto.');
       }
     }, builder: (BuildContext context, state) {
       if (state is SignInLoadInProgress) {
@@ -114,7 +123,11 @@ class _SignInScreenState extends State<SignInScreen> {
     return BotiRaisedButton(
       text: 'Entrar',
       onPressed: () {
-        if (_formKey.currentState.validate()) {}
+        if (_formKey.currentState.validate()) {
+          final email = _emailController.text;
+          final pass = _passController.text;
+          context.bloc<SignInBloc>().add(SignInRequested(email, pass));
+        }
       },
     );
   }
@@ -126,14 +139,14 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  void _showErrorDialog() {
+  void _showErrorDialog(String title, String message) {
     showDialog<void>(
       context: context,
       barrierDismissible: true,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
-          title: Text('Atenção'),
-          content: Text('Usuário ou senha incorreto.'),
+          title: Text(title),
+          content: Text(message),
           actions: <Widget>[
             FlatButton(
               child: Text('Ok'),
@@ -147,7 +160,7 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  void _navigateToHome(){
-
+  void _navigateToHome() {
+    _showErrorDialog('aeee meu fera', 'deu booom!');
   }
 }
