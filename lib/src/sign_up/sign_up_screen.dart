@@ -1,8 +1,13 @@
 import 'package:botiblog/src/shared/validators/email_validator.dart';
 import 'package:botiblog/src/shared/validators/text_validator.dart';
 import 'package:botiblog/src/shared/widgets/boti_raised_button.dart';
+import 'package:botiblog/src/sign_up/sign_up_screen_texts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'sign_up_bloc.dart';
+import 'sign_up_state.dart';
 
 class SignUpScreen extends StatefulWidget {
   static final String routeName = '/signup';
@@ -26,7 +31,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Cadastro de usuário'),
+          title: Text(SignUpScreenTexts.appBarTitle),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -47,7 +52,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   Widget _buildText() {
     return Text(
-      'Informe seus dados para você poder utilizar a rede social do grupo Boticario.',
+      SignUpScreenTexts.formMessage,
       style: TextStyle(fontSize: 16),
     );
   }
@@ -61,13 +66,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
           SizedBox(height: 16),
           _buildEmailInput(),
           SizedBox(height: 16),
-          _buildPasswordInput(
-              _passController, _passwordFocusNode, 'Senha', passwordValidator),
+          _buildPasswordInput(_passController, _passwordFocusNode,
+              SignUpScreenTexts.passwordHint, passwordValidator),
           SizedBox(height: 16),
           _buildPasswordInput(
               _passConfirmationController,
               _passwordConfirmationFocusNode,
-              'Confirme sua Senha',
+              SignUpScreenTexts.passwordConfirmationHint,
               passwordConfirmationValidator,
               textInputAction: TextInputAction.done),
         ],
@@ -91,11 +96,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
         hintStyle: TextStyle(fontSize: 18),
       ),
       validator: (text) {
-        if (text.isEmpty) return 'Informe seu email';
+        if (text.isEmpty)
+          return SignUpScreenTexts.emailErrorMessageEnterYourEmail;
 
         final validEmail = EmailValidator.isValid(text);
 
-        if (!validEmail) return 'Email Invalido';
+        if (!validEmail) return SignUpScreenTexts.emailErrorMessageInvalid;
         return null;
       },
     );
@@ -120,9 +126,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         hintStyle: TextStyle(fontSize: 18),
       ),
       validator: (text) {
-        if (text.length < 3) return 'Informe seu nome';
+        if (text.length < 3)
+          return SignUpScreenTexts.nameErrorMessageEnterYourName;
         if (TextValidator.hasNumber(text))
-          return 'Não é permitido informar número';
+          return SignUpScreenTexts.nameErrorMessageNumberDenied;
 
         return null;
       },
@@ -139,15 +146,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
       focusNode: focusNode,
       maxLines: 1,
       onFieldSubmitted: (text) {
-        if (textInputAction == TextInputAction.done){
+        if (textInputAction == TextInputAction.done) {
           _passwordConfirmationFocusNode.unfocus();
           _onButtonPressed();
-        }
-        else{
+        } else {
           _passwordFocusNode.unfocus();
           FocusScope.of(context).requestFocus(_passwordConfirmationFocusNode);
         }
-
       },
       inputFormatters: [
         LengthLimitingTextInputFormatter(24),
@@ -162,7 +167,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   String passwordValidator(String text) {
-    if (text.length < 6) return 'Informe uma senha com pelo menos 6 caracteres';
+    if (text.length < 6)
+      return SignUpScreenTexts.passwordErrorMessageAtLeastSixCharacters;
     return null;
   }
 
@@ -173,13 +179,66 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   Widget _buildButton() {
-    return BotiRaisedButton(
-      text: 'Continuar',
-      onPressed: _onButtonPressed,
+    BlocConsumer<SignUpBloc, SignUpState>(
+      listener: (context, state) {
+        if (state is SignUpLoadSuccess) {
+          _showDialog(
+              SignUpScreenTexts.successDialogTitle,
+              SignUpScreenTexts.successDialogMessage,
+              SignUpScreenTexts.successDialogButtonText, () {
+            Navigator.of(context)
+                .pushNamedAndRemoveUntil('/home', (route) => false);
+          });
+        } else if (state is SignUpLoadFailure) {
+          _showDialog(SignUpScreenTexts.failureDialogTitle,
+              SignUpScreenTexts.failureDialogMessage, SignUpScreenTexts.ok, () {
+            Navigator.of(context).pop();
+          });
+        } else if (state is SignUpLoadFailureEmailAlreadyRegistered) {
+          _showDialog(
+              SignUpScreenTexts.failureDialogTitle,
+              SignUpScreenTexts.failureDialogMessageEmailAlreadyInUse,
+              SignUpScreenTexts.ok, () {
+            Navigator.of(context).pop();
+//            _emailController.text = '';
+            FocusScope.of(context).requestFocus(_emailFocusNode);
+          });
+        }
+      },
+      builder: (context, state) {
+        if (state is SignUpLoadInProgress) {
+          return CircularProgressIndicator();
+        } else {
+          return BotiRaisedButton(
+            text: SignUpScreenTexts.mainButtonText,
+            onPressed: _onButtonPressed,
+          );
+        }
+      },
     );
   }
 
   void _onButtonPressed() {
     if (_formKey.currentState.validate()) {}
+  }
+
+  void _showDialog(String title, String message, String buttonText,
+      Function onButtonPressed) {
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: <Widget>[
+            FlatButton(
+              child: Text(buttonText),
+              onPressed: onButtonPressed,
+            ),
+          ],
+        );
+      },
+    );
   }
 }
