@@ -117,7 +117,7 @@ class _UserNewsTabState extends State<UserNewsTab> {
                       child: Icon(Icons.close, size: 12, color: Colors.red),
                     ),
                     onTap: () {
-                      context.bloc<UserNewsBloc>().add(UserNewsRemoved(item));
+                      showDeleteConfirmationDialog(item);
                     },
                   ),
                 ),
@@ -142,6 +142,37 @@ class _UserNewsTabState extends State<UserNewsTab> {
           ],
         ),
       ),
+    );
+  }
+
+  void showDeleteConfirmationDialog(UserPostResponseModel item) {
+    showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: Text(UserNewsTabTexts.dialogAttention),
+          content: Text(UserNewsTabTexts.dialogHaveSure),
+          actions: <Widget>[
+            FlatButton(
+              child: Text(UserNewsTabTexts.dialogYesButtonText),
+              onPressed: () {
+                context.bloc<UserNewsBloc>().add(UserNewsRemoved(item));
+                Navigator.of(dialogContext).pop();
+              },
+            ),
+            FlatButton(
+              child: Text(
+                UserNewsTabTexts.dialogNoButtonText,
+                style: TextStyle(color: AppColors.lightOrange),
+              ),
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
