@@ -5,7 +5,7 @@ abstract class UserNewsEvent extends Equatable {
   const UserNewsEvent();
 }
 
-class UserNewsAdded extends Equatable {
+class UserNewsAdded extends UserNewsEvent {
   final String text;
 
   UserNewsAdded(this.text);
@@ -14,7 +14,7 @@ class UserNewsAdded extends Equatable {
   List<Object> get props => [text];
 }
 
-class UserNewsRemoved extends Equatable {
+class UserNewsRemoved extends UserNewsEvent {
   final UserPostModel userPost;
 
   UserNewsRemoved(this.userPost);
@@ -23,7 +23,7 @@ class UserNewsRemoved extends Equatable {
   List<Object> get props => [userPost];
 }
 
-class UserNewsUpdated extends Equatable {
+class UserNewsUpdated extends UserNewsEvent {
   final UserPostModel userPost;
 
   UserNewsUpdated(this.userPost);
@@ -32,7 +32,7 @@ class UserNewsUpdated extends Equatable {
   List<Object> get props => [userPost];
 }
 
-class UserNewsLoaded extends Equatable {
+class UserNewsLoaded extends UserNewsEvent {
   @override
   List<Object> get props => [];
 }
