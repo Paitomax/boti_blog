@@ -1,4 +1,5 @@
 import 'package:botiblog/src/home/user_news/user_news_tab.dart';
+import 'package:botiblog/src/sign_in/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,7 +17,19 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _tabs[_tabIndex],
-      appBar: AppBar(title: Text('Boti Blog'),),
+      appBar: AppBar(
+        title: Text('Boti Blog'),
+        actions: <Widget>[
+          PopupMenuButton(
+            onSelected: _menuPopUpSelected,
+            itemBuilder: (BuildContext context) {
+              return [
+                PopupMenuItem(value: 1, child: Text('Sair')),
+              ];
+            },
+          )
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _tabIndex,
         onTap: _onTabPressed,
@@ -38,5 +51,12 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _tabIndex = index;
     });
+  }
+
+  void _menuPopUpSelected(int index) {
+    if (index == 1) {
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          SignInScreen.routeName, (route) => false);
+    }
   }
 }
