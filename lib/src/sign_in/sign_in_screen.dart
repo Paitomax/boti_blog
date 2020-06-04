@@ -11,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'sign_in_bloc.dart';
 
 class SignInScreen extends StatefulWidget {
-  static final routeName = '/sign_in';
+  static final String routeName = '/sign_in';
 
   @override
   _SignInScreenState createState() => _SignInScreenState();
@@ -24,6 +24,10 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    //TODO remove this lines
+    _emailController.text = 'jose@boticario.com.br';
+    _passController.text = '123456';
     return Scaffold(
       body: SafeArea(
         child: Padding(

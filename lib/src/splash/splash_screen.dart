@@ -3,7 +3,7 @@ import 'package:botiblog/src/sign_in/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
-  static final routeName = '/';
+  static final String routeName = '/';
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
