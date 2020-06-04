@@ -1,3 +1,4 @@
+import 'package:botiblog/src/home/home_screen.dart';
 import 'package:botiblog/src/shared/theme/app_colors.dart';
 import 'package:botiblog/src/shared/validators/email_validator.dart';
 import 'package:botiblog/src/shared/widgets/boti_flat_button.dart';
@@ -170,6 +171,6 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   void _navigateToHome() {
-    _showErrorDialog('aeee meu fera', 'deu booom!');
+    Navigator.pushReplacementNamed(context, HomeScreen.routeName);
   }
 }
