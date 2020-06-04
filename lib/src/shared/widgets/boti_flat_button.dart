@@ -14,6 +14,7 @@ class BotiFlatButton extends StatelessWidget {
     return Container(
       width: double.infinity,
       child: FlatButton(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         textColor: AppColors.blue,
         child: Text(
           text,

@@ -14,6 +14,7 @@ class BotiRaisedButton extends StatelessWidget {
     return Container(
       width: double.infinity,
       child: RaisedButton(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         textColor: AppColors.white,
         color: AppColors.blue,
         child: Text(
