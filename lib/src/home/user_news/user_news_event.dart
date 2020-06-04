@@ -1,4 +1,4 @@
-import 'package:botiblog/src/home/user_news/model/user_post.dart';
+import 'package:botiblog/src/home/user_news/model/user_post_model.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class UserNewsEvent extends Equatable {
@@ -8,12 +8,14 @@ abstract class UserNewsEvent extends Equatable {
 class UserNewsAdded extends Equatable {
   final String text;
 
+  UserNewsAdded(this.text);
+
   @override
   List<Object> get props => [text];
 }
 
 class UserNewsRemoved extends Equatable {
-  final UserPost userPost;
+  final UserPostModel userPost;
 
   UserNewsRemoved(this.userPost);
 
@@ -22,7 +24,7 @@ class UserNewsRemoved extends Equatable {
 }
 
 class UserNewsUpdated extends Equatable {
-  final UserPost userPost;
+  final UserPostModel userPost;
 
   UserNewsUpdated(this.userPost);
 

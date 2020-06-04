@@ -1,6 +1,9 @@
+import 'package:botiblog/src/home/user_news/user_news_bloc.dart';
+import 'package:botiblog/src/home/user_news/user_news_state.dart';
 import 'package:botiblog/src/home/user_news/user_news_tab_texts.dart';
 import 'package:botiblog/src/shared/widgets/boti_flat_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserNewsTab extends StatefulWidget {
   @override
@@ -22,9 +25,11 @@ class _UserNewsTabState extends State<UserNewsTab> {
             ),
             SizedBox(height: 16),
             Form(
-              child: TextFormField(
+              child: TextField(
                 maxLength: 280,
                 decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(32)),
                   hintText: UserNewsTabTexts.publishHint,
                   hintStyle: TextStyle(fontSize: 18),
                 ),
@@ -34,7 +39,26 @@ class _UserNewsTabState extends State<UserNewsTab> {
               text: UserNewsTabTexts.publishButton,
               onPressed: () {},
             ),
+            SizedBox(height: 8),
             Divider(),
+            SizedBox(height: 8),
+            BlocBuilder<UserNewsBloc, UserNewsState>(
+              builder: (context, state) {
+                if (state is UserNewsLoadSuccess) {
+                  return ListView.builder(
+                    itemBuilder: (listViewContext, index) {
+                      return Card(
+                        child: Text('item $index'),
+                      );
+                    },
+                  );
+                } else if (state is UserNewsLoadFailure) {
+                  return Text('');
+                } else {
+                  return CircularProgressIndicator();
+                }
+              },
+            )
           ],
         ),
       ),

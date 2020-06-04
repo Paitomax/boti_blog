@@ -1,4 +1,8 @@
 import 'package:botiblog/src/app/app_routes.dart';
+import 'package:botiblog/src/home/user_news/user_news_bloc.dart';
+import 'package:botiblog/src/home/user_news/user_news_data_provider.dart';
+import 'package:botiblog/src/home/user_news/user_news_repository.dart';
+import 'package:botiblog/src/home/user_news/user_news_repository_interface.dart';
 import 'package:botiblog/src/shared/user/user_repository.dart';
 import 'package:botiblog/src/shared/user/user_repository_interface.dart';
 import 'package:botiblog/src/sign_in/sign_in_bloc.dart';
@@ -32,6 +36,7 @@ class BotiApp extends StatelessWidget {
   MultiRepositoryProvider _providers({Widget child}) {
     final SignInDataProvider signInDataProvider = SignInDataProvider();
     final SignUpDataProvider signUpDataProvider = SignUpDataProvider();
+    final UserNewsDataProvider userNewsDataProvider = UserNewsDataProvider();
 
     return MultiRepositoryProvider(
       providers: [
@@ -43,6 +48,9 @@ class BotiApp extends StatelessWidget {
         ),
         RepositoryProvider<SignUpRepositoryInterface>(
           create: (context) => SignUpRepository(signUpDataProvider),
+        ),
+        RepositoryProvider<UserNewsRepositoryInterface>(
+          create: (context) => UserNewsRepository(userNewsDataProvider),
         ),
       ],
       child: MultiBlocProvider(
@@ -56,6 +64,12 @@ class BotiApp extends StatelessWidget {
           BlocProvider(
             create: (context) => SignUpBloc(
               RepositoryProvider.of<SignUpRepositoryInterface>(context),
+              RepositoryProvider.of<UserRepositoryInterface>(context),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => UserNewsBloc(
+              RepositoryProvider.of<UserNewsRepositoryInterface>(context),
               RepositoryProvider.of<UserRepositoryInterface>(context),
             ),
           ),
