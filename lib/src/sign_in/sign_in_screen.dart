@@ -4,6 +4,7 @@ import 'package:botiblog/src/shared/widgets/boti_flat_button.dart';
 import 'package:botiblog/src/shared/widgets/boti_raised_button.dart';
 import 'package:botiblog/src/sign_in/sign_in_event.dart';
 import 'package:botiblog/src/sign_in/sign_in_state.dart';
+import 'package:botiblog/src/sign_up/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +25,6 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     //TODO remove this lines
     _emailController.text = 'jose@boticario.com.br';
     _passController.text = '123456';
@@ -102,8 +102,7 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   Widget _buildButtons() {
-    return BlocConsumer<SignInBloc, SignInState>(
-        listener: (context, state) {
+    return BlocConsumer<SignInBloc, SignInState>(listener: (context, state) {
       if (state is SignInLoadSuccess) {
         _navigateToHome();
       } else if (state is SignInLoadFailure) {
@@ -140,7 +139,9 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget _buildSignUpButton() {
     return BotiFlatButton(
       text: 'Cadastre-se',
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushNamed(context, SignUpScreen.routeName);
+      },
     );
   }
 
