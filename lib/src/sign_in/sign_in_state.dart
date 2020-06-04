@@ -23,3 +23,8 @@ class SignInLoadFailure extends SignInState {
   @override
   List<Object> get props => [];
 }
+
+class SignInLoadFailureWrongUserOrPass extends SignInState {
+  @override
+  List<Object> get props => [];
+}
