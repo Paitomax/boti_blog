@@ -67,6 +67,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   Widget _buildEmailInput() {
     return TextFormField(
+      autofocus: true,
       controller: _emailController,
       decoration: const InputDecoration(
         hintText: 'Email',
