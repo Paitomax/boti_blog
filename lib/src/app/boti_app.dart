@@ -5,6 +5,10 @@ import 'package:botiblog/src/sign_in/sign_in_bloc.dart';
 import 'package:botiblog/src/sign_in/sign_in_data_provider.dart';
 import 'package:botiblog/src/sign_in/sign_in_repository.dart';
 import 'package:botiblog/src/sign_in/sign_in_repository_interface.dart';
+import 'package:botiblog/src/sign_up/sign_up_bloc.dart';
+import 'package:botiblog/src/sign_up/sign_up_data_provider.dart';
+import 'package:botiblog/src/sign_up/sign_up_repository.dart';
+import 'package:botiblog/src/sign_up/sign_up_repository_interface.dart';
 import 'package:botiblog/src/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -27,6 +31,7 @@ class BotiApp extends StatelessWidget {
 
   MultiRepositoryProvider _providers({Widget child}) {
     final SignInDataProvider signInDataProvider = SignInDataProvider();
+    final SignUpDataProvider signUpDataProvider = SignUpDataProvider();
 
     return MultiRepositoryProvider(
       providers: [
@@ -36,12 +41,21 @@ class BotiApp extends StatelessWidget {
         RepositoryProvider<UserRepositoryInterface>(
           create: (context) => UserRepository(),
         ),
+        RepositoryProvider<SignUpRepositoryInterface>(
+          create: (context) => SignUpRepository(signUpDataProvider),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
             create: (context) => SignInBloc(
               RepositoryProvider.of<SignInRepositoryInterface>(context),
+              RepositoryProvider.of<UserRepositoryInterface>(context),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => SignUpBloc(
+              RepositoryProvider.of<SignUpRepositoryInterface>(context),
               RepositoryProvider.of<UserRepositoryInterface>(context),
             ),
           ),
