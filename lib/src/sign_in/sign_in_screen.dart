@@ -26,10 +26,14 @@ class _SignInScreenState extends State<SignInScreen> {
   final _passController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
-    //TODO remove this lines
+  void initState() {
+    super.initState();
     _emailController.text = 'jose@boticario.com.br';
     _passController.text = '123456';
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Padding(

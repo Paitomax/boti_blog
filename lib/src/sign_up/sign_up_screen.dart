@@ -182,7 +182,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   Widget _buildButton() {
-    BlocConsumer<SignUpBloc, SignUpState>(
+    return BlocConsumer<SignUpBloc, SignUpState>(
       listener: (context, state) {
         if (state is SignUpLoadSuccess) {
           _showDialog(
@@ -202,8 +202,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SignUpScreenTexts.failureDialogTitle,
               SignUpScreenTexts.failureDialogMessageEmailAlreadyInUse,
               SignUpScreenTexts.ok, () {
+            _emailController.text = '';
             Navigator.of(context).pop();
-//            _emailController.text = '';
+            FocusScope.of(context).unfocus();
             FocusScope.of(context).requestFocus(_emailFocusNode);
           });
         }
