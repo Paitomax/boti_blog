@@ -2,8 +2,12 @@ import 'package:botiblog/src/shared/theme/app_colors.dart';
 import 'package:botiblog/src/shared/validators/email_validator.dart';
 import 'package:botiblog/src/shared/widgets/boti_flat_button.dart';
 import 'package:botiblog/src/shared/widgets/boti_raised_button.dart';
+import 'package:botiblog/src/sign_in/sign_in_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'sign_in_bloc.dart';
 
 class SignInScreen extends StatefulWidget {
   static final routeName = '/sign_in';
@@ -86,12 +90,24 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   Widget _buildButtons() {
-    return Column(
-      children: <Widget>[
-        _buildEnterButton(),
-        _buildSignUpButton(),
-      ],
-    );
+    return BlocConsumer<SignInBloc, SignInState>(
+        listener: (BuildContext context, SignInState state) {
+      if (state is SignInLoadFailure) {
+        _showErrorDialog();
+      } else if (state is SignInLoadSuccess) {
+        _navigateToHome();
+      }
+    }, builder: (BuildContext context, state) {
+      if (state is SignInLoadInProgress) {
+        return CircularProgressIndicator();
+      }
+      return Column(
+        children: <Widget>[
+          _buildEnterButton(),
+          _buildSignUpButton(),
+        ],
+      );
+    });
   }
 
   Widget _buildEnterButton() {
@@ -108,5 +124,30 @@ class _SignInScreenState extends State<SignInScreen> {
       text: 'Cadastre-se',
       onPressed: () {},
     );
+  }
+
+  void _showErrorDialog() {
+    showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: Text('Atenção'),
+          content: Text('Usuário ou senha incorreto.'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Ok'),
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _navigateToHome(){
+
   }
 }

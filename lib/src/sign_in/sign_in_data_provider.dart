@@ -1,6 +1,6 @@
 import 'package:botiblog/src/shared/database.dart';
-import 'package:botiblog/src/shared/model/user_model.dart';
 import 'package:botiblog/src/shared/security/encryption.dart';
+import 'package:botiblog/src/shared/user/user_model.dart';
 
 class SignInDataProvider {
   Future<UserModel> requestLogin(String email, String password) async {

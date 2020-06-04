@@ -1,4 +1,4 @@
-import 'package:botiblog/src/shared/model/user_model.dart';
+import 'package:botiblog/src/shared/user/user_model.dart';
 
 class UserAccountModel extends UserModel {
   final String password;

@@ -1,3 +1,5 @@
+import 'package:botiblog/src/shared/user/user_model.dart';
+
 abstract class SignInRepositoryInterface {
-  Future<bool> requestLogin(String user, String password);
+  Future<UserModel> requestLogin(String user, String password);
 }
