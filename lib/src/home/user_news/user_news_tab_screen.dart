@@ -112,13 +112,15 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
   }
 
   Widget _buildCard(UserPostResponseModel item, UserModel user) {
+    final double padding = item.isAuthor(user) ? 0 : 16;
+
     return Card(
-      child: Padding(
-        padding: const EdgeInsets.only(left: 16.0, bottom: 16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(left: 16.0),
+            child: Row(
               children: <Widget>[
                 Expanded(
                   child: Padding(
@@ -145,24 +147,44 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 4),
-            Padding(
-              padding: const EdgeInsets.only(right: 16.0),
-              child: Text(item.post.text,
-                  style: TextStyle(color: AppColors.lightOrange)),
-            ),
-            SizedBox(height: 4),
-            Align(
-                alignment: Alignment.centerRight,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 16.0),
-                  child: Text(
-                    DateFormatter.format(item.post.date),
-                    style: TextStyle(fontSize: 12, color: Color(0xFFBABABA)),
+          ),
+          SizedBox(height: 4),
+          Padding(
+            padding: const EdgeInsets.only(left: 16, right: 16.0),
+            child: Text(item.post.text,
+                style: TextStyle(color: AppColors.lightOrange)),
+          ),
+          SizedBox(height: 4),
+          Padding(
+            padding:
+                EdgeInsets.only(right: 16.0, top: padding, bottom: padding),
+            child: Row(
+              children: <Widget>[
+                Visibility(
+                  visible: item.isAuthor(user),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(32),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child:
+                          Icon(Icons.edit, size: 12, color: AppColors.orange),
+                    ),
+                    onTap: () {},
+                  ),
+                ),
+                Expanded(
+                    child: Text(
+                  DateFormatter.format(item.post.date),
+                  textAlign: TextAlign.end,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Color(0xFFBABABA),
                   ),
                 )),
-          ],
-        ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
