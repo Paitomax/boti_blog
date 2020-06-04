@@ -176,7 +176,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   String passwordConfirmationValidator(String text) {
-    if (_passConfirmationController.text != _passController.text)
+    if (_passConfirmationController.text != text)
       return SignUpScreenTexts.passwordConfirmationErrorMessage;
     return null;
   }
