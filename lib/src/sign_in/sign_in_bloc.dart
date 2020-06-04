@@ -23,6 +23,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   }
 
   Stream<SignInState> _mapSignInRequestedToState(SignInRequested event) async* {
+    yield SignInLoadInProgress();
     try {
       final user =
           await signInRepository.requestLogin(event.email, event.password);
@@ -30,6 +31,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         yield SignInLoadFailureWrongUserOrPass();
       } else {
         await userRepository.save(user);
+        yield SignInLoadSuccess();
       }
     } catch (e) {
       yield SignInLoadFailure();
