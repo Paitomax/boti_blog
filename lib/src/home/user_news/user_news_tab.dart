@@ -1,3 +1,4 @@
+import 'package:botiblog/src/home/user_news/model/user_post_response_model.dart';
 import 'package:botiblog/src/home/user_news/user_news_bloc.dart';
 import 'package:botiblog/src/home/user_news/user_news_event.dart';
 import 'package:botiblog/src/home/user_news/user_news_state.dart';
@@ -44,7 +45,6 @@ class _UserNewsTabState extends State<UserNewsTab> {
                 ),
               ),
             ),
-
             BlocBuilder<UserNewsBloc, UserNewsState>(
               builder: (context, state) {
                 if (state is UserNewsLoadSuccess) {
@@ -57,53 +57,59 @@ class _UserNewsTabState extends State<UserNewsTab> {
                       SizedBox(height: 8),
                       Divider(),
                       SizedBox(height: 16),
-                      ListView.builder(
-                        itemCount: state.posts.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (listViewContext, index) {
-                          final item = state.posts[index];
-                          return Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(item.user.name,
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: AppColors.blue)),
-                                  SizedBox(height: 4),
-                                  Text(item.post.text,
-                                      style:
-                                          TextStyle(color: AppColors.lightOrange)),
-                                  SizedBox(height: 4),
-                                  Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        DateFormatter.format(item.post.getDateTime),
-                                        style: TextStyle(
-                                            fontSize: 12, color: Color(0xFFBABABA)),
-                                      )),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
+                      _buildPostList(state.posts),
                     ],
                   );
                 } else if (state is UserNewsLoadFailure) {
                   return Text('');
                 } else {
                   return Padding(
-                    padding: const EdgeInsets.only(top:32.0),
+                    padding: const EdgeInsets.only(top: 32.0),
                     child: CircularProgressIndicator(),
                   );
                 }
               },
             )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPostList(List<UserPostResponseModel> posts) {
+    return ListView.builder(
+      itemCount: posts.length,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (listViewContext, index) {
+        final item = posts[index];
+        return _buildCard(item);
+      },
+    );
+  }
+
+  Widget _buildCard(UserPostResponseModel item) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(item.user.name,
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.blue)),
+            SizedBox(height: 4),
+            Text(item.post.text,
+                style: TextStyle(color: AppColors.lightOrange)),
+            SizedBox(height: 4),
+            Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  DateFormatter.format(item.post.getDateTime),
+                  style: TextStyle(fontSize: 12, color: Color(0xFFBABABA)),
+                )),
           ],
         ),
       ),
