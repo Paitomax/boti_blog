@@ -21,6 +21,7 @@ void main() {
     });
 
     tearDown(() {
+      bloc.close();
       authBloc.close();
     });
 
