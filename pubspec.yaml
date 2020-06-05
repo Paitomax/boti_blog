@@ -21,6 +21,7 @@ dependencies:
   hash: ^1.0.1
   equatable: ^1.2.0
   intl: ^0.16.1
+  device_preview: ^0.4.5
 
 dev_dependencies:
   flutter_test:
