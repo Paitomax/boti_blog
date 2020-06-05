@@ -37,11 +37,7 @@ class _BotiNewsTabScreenState extends State<BotiNewsTabScreen> {
             BlocBuilder<BotiNewsBloc, BotiNewsState>(
               builder: (context, state) {
                 if (state is BotiNewsLoadSuccess) {
-                  return Column(
-                    children: <Widget>[
-                      _buildPostList(state.news),
-                    ],
-                  );
+                  return _buildPostList(state.news);
                 } else if (state is BotiNewsLoadSuccessEmpty) {
                   return _buildEmptyMessage();
                 } else if (state is BotiNewsLoadFailure) {
@@ -74,33 +70,33 @@ class _BotiNewsTabScreenState extends State<BotiNewsTabScreen> {
 
   Widget _buildCard(BotiNewsModel item) {
     return Card(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Expanded(
-              child: Text(item.user.name,
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.blue)),
-            ),
-          ),
-          SizedBox(height: 4),
-          Text(item.message.content,
-              style: TextStyle(color: AppColors.lightOrange)),
-          SizedBox(height: 4),
-          Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(item.user.name,
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.blue)),
+            SizedBox(height: 4),
+            Text(item.message.content,
+                style: TextStyle(color: AppColors.lightOrange)),
+            SizedBox(height: 4),
+            Align(
+              alignment: Alignment.centerRight,
               child: Text(
-            DateFormatter.format(item.message.createdAt),
-            textAlign: TextAlign.end,
-            style: TextStyle(
-              fontSize: 12,
-              color: Color(0xFFBABABA),
+                DateFormatter.format(item.message.createdAt),
+                textAlign: TextAlign.end,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Color(0xFFBABABA),
+                ),
+              ),
             ),
-          )),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -144,7 +140,8 @@ class _BotiNewsTabScreenState extends State<BotiNewsTabScreen> {
         ),
         SizedBox(height: 8),
         Text(
-          BotiNewsTabTexts.emptyMessage, textAlign: TextAlign.center,
+          BotiNewsTabTexts.emptyMessage,
+          textAlign: TextAlign.center,
           style: TextStyle(color: AppColors.orange, fontSize: 16),
         ),
       ],
