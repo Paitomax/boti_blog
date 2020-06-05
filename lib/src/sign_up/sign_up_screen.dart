@@ -1,5 +1,5 @@
 import 'package:botiblog/src/home/home_screen.dart';
-import 'package:botiblog/src/shared/consts/limits.dart';
+import 'package:botiblog/src/shared/consts/app_limits.dart';
 import 'package:botiblog/src/shared/validators/email_validator.dart';
 import 'package:botiblog/src/shared/validators/text_validator.dart';
 import 'package:botiblog/src/shared/widgets/boti_raised_button.dart';
@@ -100,7 +100,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         hintStyle: TextStyle(fontSize: 18),
       ),
       inputFormatters: [
-        LengthLimitingTextInputFormatter(Limits.emailLimits),
+        LengthLimitingTextInputFormatter(AppLimits.emailLimits),
       ],
       validator: (text) {
         if (text.isEmpty)
@@ -126,7 +126,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       },
       focusNode: _nameFocusNode,
       inputFormatters: [
-        LengthLimitingTextInputFormatter(Limits.nameLimits),
+        LengthLimitingTextInputFormatter(AppLimits.nameLimits),
       ],
       decoration: InputDecoration(
         hintText: SignUpScreenTexts.nameHint,
@@ -162,7 +162,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         }
       },
       inputFormatters: [
-        LengthLimitingTextInputFormatter(Limits.passwordLimits),
+        LengthLimitingTextInputFormatter(AppLimits.passwordLimits),
       ],
       decoration: InputDecoration(
         hintText: hintText,

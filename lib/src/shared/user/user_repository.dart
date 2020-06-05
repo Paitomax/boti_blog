@@ -1,3 +1,4 @@
+import 'package:botiblog/src/shared/consts/app_keys.dart';
 import 'package:botiblog/src/shared/user/user_model.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -25,16 +26,16 @@ class UserRepository extends UserRepositoryInterface {
   @override
   Future<String> getLastUser() async {
     final storage = new FlutterSecureStorage();
-    return await storage.read(key: 'email');
+    return await storage.read(key: AppKeys.sharedStorageUserKey);
   }
 
   @override
   Future<void> rememberUser(String user) async {
     final storage = new FlutterSecureStorage();
     if (user == null) {
-      await storage.delete(key: 'email');
+      await storage.delete(key: AppKeys.sharedStorageUserKey);
     } else {
-      await storage.write(key: 'email', value: user);
+      await storage.write(key: AppKeys.sharedStorageUserKey, value: user);
     }
   }
 }
