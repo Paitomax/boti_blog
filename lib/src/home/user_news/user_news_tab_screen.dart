@@ -18,10 +18,6 @@ class UserNewsTabScreen extends StatefulWidget {
 }
 
 class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
-  final _textController = TextEditingController();
-  final _publishFocusNode = FocusNode();
-  final _formKey = GlobalKey<FormState>();
-
   @override
   void initState() {
     super.initState();
@@ -165,7 +161,6 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
   void _navigateToEditor({Object args}) async {
     Navigator.of(context)
         .pushNamed(PostEditorScreen.routeName, arguments: args);
-    //context.bloc<UserNewsBloc>().add(UserNewsLoaded());
   }
 
   void showDeleteConfirmationDialog(UserPostResponseModel item) {
