@@ -80,7 +80,6 @@ class _SignInScreenState extends State<SignInScreen> {
 
   Widget _buildEmailInput() {
     return TextFormField(
-      autofocus: true,
       controller: _emailController,
       focusNode: _emailFocusNode,
       textInputAction: TextInputAction.next,
