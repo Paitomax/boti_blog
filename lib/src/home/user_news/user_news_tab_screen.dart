@@ -7,7 +7,6 @@ import 'package:botiblog/src/home/user_news/user_news_tab_screen_texts.dart';
 import 'package:botiblog/src/shared/formatters/date_formatter.dart';
 import 'package:botiblog/src/shared/theme/app_colors.dart';
 import 'package:botiblog/src/shared/user/user_model.dart';
-import 'package:botiblog/src/shared/widgets/boti_flat_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -40,37 +39,13 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
               style: TextStyle(fontSize: 16),
             ),
             SizedBox(height: 24),
-            Form(
-              key: _formKey,
-              child: TextFormField(
-                onFieldSubmitted: (text) {
-                  _onPublishButtonPressed();
-                },
-                validator: (text) {
-                  if (text.isEmpty) return 'Escreva algo';
-                  return null;
-                },
-                controller: _textController,
-                focusNode: _publishFocusNode,
-                maxLength: 280,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(32)),
-                  hintText: UserNewsTabTexts.publishHint,
-                  hintStyle: TextStyle(fontSize: 18),
-                ),
-              ),
-            ),
             BlocBuilder<UserNewsBloc, UserNewsState>(
               builder: (context, state) {
                 if (state is UserNewsLoadSuccess) {
                   return Column(
                     children: <Widget>[
-                      BotiFlatButton(
-                        text: UserNewsTabTexts.publishButton,
-                        onPressed: _onPublishButtonPressed,
-                      ),
-                      SizedBox(height: 8),
+                      _buildWhatAreYouThinkingButton(),
+                      SizedBox(height: 16),
                       Divider(),
                       SizedBox(height: 16),
                       _buildPostList(state.posts, state.user),
@@ -90,14 +65,6 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
         ),
       ),
     );
-  }
-
-  void _onPublishButtonPressed() {
-    if (_formKey.currentState.validate()) {
-      _publishFocusNode.unfocus();
-      context.bloc<UserNewsBloc>().add(UserNewsAdded(_textController.text));
-      _textController.text = '';
-    }
   }
 
   Widget _buildPostList(List<UserPostResponseModel> posts, UserModel user) {
@@ -256,6 +223,34 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
           },
         ),
       ],
+    );
+  }
+
+  Widget _buildWhatAreYouThinkingButton() {
+    return Container(
+      width: double.infinity,
+      child: InkWell(
+        customBorder: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(32),
+          side: BorderSide(color: Color(0xFFAAAAAA)),
+        ),
+        hoverColor: Color(0xFFBABABA),
+        child: Container(
+          decoration: BoxDecoration(
+              border: Border.all(color: Color(0xFFAAAAAA)),
+              borderRadius: BorderRadius.circular(32)),
+          padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+          child: Text(
+            UserNewsTabTexts.publishHint,
+            style: TextStyle(
+              color: Color(0xFFBABABA),
+            ),
+          ),
+        ),
+        onTap: () {
+          _navigateToEditor();
+        },
+      ),
     );
   }
 }
