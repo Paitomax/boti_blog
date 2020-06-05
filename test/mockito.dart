@@ -1,4 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:botiblog/src/home/boti_news/boti_news_repository_interface.dart';
 import 'package:botiblog/src/home/post_editor/post_bloc.dart';
 import 'package:botiblog/src/home/post_editor/post_event.dart';
 import 'package:botiblog/src/home/post_editor/post_repository_interface.dart';
@@ -20,3 +21,4 @@ class MockSignInRepository extends Mock implements SignInRepositoryInterface {}
 class MockSignUpRepository extends Mock implements SignUpRepositoryInterface {}
 class MockPostRepository extends Mock implements PostRepositoryInterface {}
 class MockCurrentDateTime extends Mock implements CurrentDateTimeInterface {}
+class MockBotiNewsRepository extends Mock implements BotiNewsRepositoryInterface {}
