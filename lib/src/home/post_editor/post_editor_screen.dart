@@ -1,5 +1,6 @@
 import 'package:botiblog/src/home/home_screen.dart';
 import 'package:botiblog/src/home/post_editor/post_bloc.dart';
+import 'package:botiblog/src/home/post_editor/post_editor_screen_texts.dart';
 import 'package:botiblog/src/home/post_editor/post_event.dart';
 import 'package:botiblog/src/home/post_editor/post_state.dart';
 import 'package:botiblog/src/home/user_news/model/user_post_response_model.dart';
@@ -43,10 +44,10 @@ class _PostEditorScreenState extends State<PostEditorScreen> {
   @override
   Widget build(BuildContext context) {
     String title =
-        screenType == EditorType.Add ? 'Criar publicação' : 'Editar Publicação';
+        screenType == EditorType.Add ? PostEditorScreenTexts.newPost : PostEditorScreenTexts.editPost;
 
     String appBarButtonText =
-        screenType == EditorType.Add ? 'Publicar' : 'Salvar';
+        screenType == EditorType.Add ? PostEditorScreenTexts.publish  : PostEditorScreenTexts.save;
 
     return Scaffold(
       appBar: AppBar(
@@ -75,7 +76,7 @@ class _PostEditorScreenState extends State<PostEditorScreen> {
         child: BlocConsumer<PostBloc, PostState>(
           listener: (context, state) {
             if (state is PostLoadFailure) {
-              _showDialog('Ops :(', 'Algo deu errado.', 'Ok', () {
+              _showDialog(PostEditorScreenTexts.errorTitle, PostEditorScreenTexts.errorMessage , PostEditorScreenTexts.ok , () {
                 Navigator.of(context).pop();
               });
             }
