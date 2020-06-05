@@ -12,5 +12,5 @@ class UserAccountModel extends UserModel {
   }
 
   @override
-  List<Object> get props => [password, super];
+  List<Object> get props => [password, id, name, email];
 }
