@@ -8,8 +8,9 @@ part of 'boti_news_model.dart';
 
 BotiNewsModel _$BotiNewsModelFromJson(Map json) {
   return BotiNewsModel(
-    BotiNewsUserModel.fromJson(json['user'] as Map),
-    BotiNewsMessageModel.fromJson(json['message'] as Map),
+    BotiNewsUserModel.fromJson(Map<String, dynamic>.from(json['user'] as Map)),
+    BotiNewsMessageModel.fromJson(
+        Map<String, dynamic>.from(json['message'] as Map)),
   );
 }
 

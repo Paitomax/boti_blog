@@ -8,7 +8,9 @@ part of 'boti_news_response_model.dart';
 
 BotiNewsResponseModel _$BotiNewsResponseModelFromJson(Map json) {
   return BotiNewsResponseModel(
-    json['news'] as List,
+    (json['news'] as List)
+        .map((e) => BotiNewsModel.fromJson(Map<String, dynamic>.from(e as Map)))
+        .toList(),
   );
 }
 

@@ -1,3 +1,4 @@
+import 'package:botiblog/src/home/boti_news/model/boti_news_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'boti_news_response_model.g.dart';
@@ -5,7 +6,7 @@ part 'boti_news_response_model.g.dart';
 @JsonSerializable(nullable: false, anyMap: true)
 class BotiNewsResponseModel {
   @JsonKey(name: 'news')
-  final List<Object> news;
+  final List<BotiNewsModel> news;
 
   BotiNewsResponseModel(this.news);
 
