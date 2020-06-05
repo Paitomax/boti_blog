@@ -150,7 +150,6 @@ class _BotiAppState extends State<BotiApp> {
               BlocProvider.of<PostBloc>(context),
               RepositoryProvider.of<PostRepositoryInterface>(context),
               RepositoryProvider.of<UserRepositoryInterface>(context),
-              currentDateTime,
             ),
           ),
           BlocProvider(
