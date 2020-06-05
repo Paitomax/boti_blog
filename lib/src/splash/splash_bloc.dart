@@ -1,7 +1,10 @@
 import 'dart:async';
+
 import 'package:bloc/bloc.dart';
+import 'package:botiblog/src/shared/consts/app_limits.dart';
 import 'package:botiblog/src/shared/current_datetime/current_date.dart';
 import 'package:botiblog/src/shared/user/user_repository_interface.dart';
+
 import './bloc.dart';
 
 class SplashBloc extends Bloc<SplashEvent, SplashState> {
@@ -29,8 +32,10 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     final finalTime = currentDateTime.now();
 
     final diff = finalTime.difference(initTime);
-    if (diff.inMilliseconds < 4000) {
-      await Future.delayed(Duration(milliseconds: 4000 - diff.inMilliseconds));
+    if (diff.inMilliseconds < AppLimits.splashTimeLimitInMilliseconds) {
+      await Future.delayed(Duration(
+          milliseconds:
+              AppLimits.splashTimeLimitInMilliseconds - diff.inMilliseconds));
     }
     yield SplashLoadSuccess(user);
   }

@@ -3,4 +3,5 @@ class AppLimits{
   static final int emailLimits = 254;
   static final int passwordLimits = 24;
   static final int postLimits = 280;
+  static final int splashTimeLimitInMilliseconds = 4000;
 }
