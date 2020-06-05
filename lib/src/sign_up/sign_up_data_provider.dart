@@ -26,7 +26,7 @@ class SignUpDataProvider {
       final user = UserModel(id, userAccountModel.name, userAccountModel.email);
       return user;
     } catch (e) {
-      throw Exception('Não foi possível conectar com o servidor.');
+      throw Exception('Cant connect to the server.');
     } finally {
       db.close();
     }

@@ -21,7 +21,7 @@ class SignInDataProvider {
       final user = UserModel(result['id'], result['name'], result['email']);
       return user;
     } catch (e) {
-      throw Exception('Não foi possível conectar com o servidor.');
+      throw Exception('Cant connect to the server.');
     } finally {
       db.close();
     }

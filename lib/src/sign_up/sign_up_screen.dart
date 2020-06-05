@@ -95,8 +95,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         _emailFocusNode.unfocus();
         FocusScope.of(context).requestFocus(_passwordFocusNode);
       },
-      decoration: const InputDecoration(
-        hintText: 'Email',
+      decoration: InputDecoration(
+        hintText: SignUpScreenTexts.emailHint,
         hintStyle: TextStyle(fontSize: 18),
       ),
       inputFormatters: [

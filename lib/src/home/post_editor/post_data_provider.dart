@@ -33,7 +33,7 @@ class PostDataProvider {
       list.sort((b, a) => a.post.date.compareTo(b.post.date));
       return list;
     } catch (e) {
-      throw Exception('Não foi possível conectar com o servidor.');
+      throw Exception('Cant connect to the server.');
     } finally {
       db?.close();
     }
@@ -52,7 +52,7 @@ class PostDataProvider {
 
       await Future.delayed(Duration(seconds: 2));
     } catch (e) {
-      throw Exception('Não foi possível conectar com o servidor.');
+      throw Exception('Cant connect to the server.');
     } finally {
       db?.close();
     }
@@ -74,7 +74,7 @@ class PostDataProvider {
 
       await Future.delayed(Duration(seconds: 2));
     } catch (e) {
-      throw Exception('Não foi possível conectar com o servidor.');
+      throw Exception('Cant connect to the server.');
     } finally {
       db?.close();
     }
@@ -89,7 +89,7 @@ class PostDataProvider {
 
       await Future.delayed(Duration(seconds: 2));
     } catch (e) {
-      throw Exception('Não foi possível conectar com o servidor.');
+      throw Exception('Cant connect to the server.');
     } finally {
       db?.close();
     }
