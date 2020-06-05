@@ -229,8 +229,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   void _onButtonPressed() {
     if (_formKey.currentState.validate()) {
-      final userAccount = UserAccountModel(
-          _nameController.text, _emailController.text, _passController.text);
+      final userAccount = UserAccountModel(_nameController.text.trim(),
+          _emailController.text.trim(), _passController.text);
 
       context.bloc<SignUpBloc>().add(SignUpRequested(userAccount));
     }

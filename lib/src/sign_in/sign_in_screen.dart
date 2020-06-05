@@ -198,7 +198,7 @@ class _SignInScreenState extends State<SignInScreen> {
     _emailFocusNode.unfocus();
     _passFocusNode.unfocus();
     if (_formKey.currentState.validate()) {
-      final email = _emailController.text;
+      final email = _emailController.text.trim();
       final pass = _passController.text;
       context
           .bloc<SignInBloc>()

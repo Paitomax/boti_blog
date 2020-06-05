@@ -64,11 +64,11 @@ class _PostEditorScreenState extends State<PostEditorScreen> {
                     if (screenType == EditorType.Edit) {
                       context
                           .bloc<PostBloc>()
-                          .add(PostUpdated(userPost, _textController.text));
+                          .add(PostUpdated(userPost, _textController.text.trim()));
                     } else {
                       context
                           .bloc<PostBloc>()
-                          .add(PostAdded(_textController.text));
+                          .add(PostAdded(_textController.text.trim()));
                     }
                   }
                 : null,
@@ -132,7 +132,7 @@ class _PostEditorScreenState extends State<PostEditorScreen> {
   }
 
   void _updateSaveAvailable() {
-    saveEnabled = _textController.text.isNotEmpty;
+    saveEnabled = _textController.text.trim().isNotEmpty;
   }
 
   void _showDialog(String title, String message, String buttonText,
