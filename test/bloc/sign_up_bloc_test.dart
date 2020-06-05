@@ -34,7 +34,7 @@ void main() {
             .thenAnswer((realInvocation) => Future.value(Mocks.userModel()));
         bloc.add(SignUpRequested(Mocks.accountUserModel()));
       },
-      expect: [SignUpLoadInProgress(), SignUpLoadSuccess()],
+      expect: [SignUpLoadInProgress(), SignUpLoadSuccess(Mocks.userModel())],
     );
 
     blocTest(
