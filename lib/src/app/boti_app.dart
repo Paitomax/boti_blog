@@ -21,6 +21,7 @@ import 'package:botiblog/src/sign_up/sign_up_data_provider.dart';
 import 'package:botiblog/src/sign_up/sign_up_repository.dart';
 import 'package:botiblog/src/sign_up/sign_up_repository_interface.dart';
 import 'package:botiblog/src/splash/splash_screen.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -31,6 +32,8 @@ class BotiApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final materialApp = MaterialApp(
         title: 'Boti Blog',
+        locale: DevicePreview.of(context).locale,
+        builder: DevicePreview.appBuilder,
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
