@@ -16,6 +16,7 @@ import 'package:botiblog/src/shared/current_datetime/current_date.dart';
 import 'package:botiblog/src/shared/current_datetime/current_date_interface.dart';
 import 'package:botiblog/src/shared/user/user_repository.dart';
 import 'package:botiblog/src/shared/user/user_repository_interface.dart';
+import 'package:botiblog/src/shared/widgets/boti_progress_indicator.dart';
 import 'package:botiblog/src/sign_in/sign_in_bloc.dart';
 import 'package:botiblog/src/sign_in/sign_in_data_provider.dart';
 import 'package:botiblog/src/sign_in/sign_in_repository.dart';
@@ -93,7 +94,7 @@ class _BotiAppState extends State<BotiApp> {
         } else if (state is AuthAuthenticated) {
           return HomeScreen();
         } else {
-          return Center(child: CircularProgressIndicator());
+          return BotiProgressIndicator();
         }
       },
     );
