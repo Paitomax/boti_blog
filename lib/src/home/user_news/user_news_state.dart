@@ -9,6 +9,11 @@ abstract class UserNewsState extends Equatable {
 class UserNewsLoadInProgress extends UserNewsState {
   @override
   List<Object> get props => [];
+
+  @override
+  String toString() {
+    return 'UserNewsLoadInProgress{}';
+  }
 }
 
 class UserNewsLoadSuccess extends UserNewsState {
@@ -19,14 +24,29 @@ class UserNewsLoadSuccess extends UserNewsState {
 
   @override
   List<Object> get props => [posts, user];
+
+  @override
+  String toString() {
+    return 'UserNewsLoadSuccess{posts: $posts, user: $user}';
+  }
 }
 
 class UserNewsLoadSuccessEmpty extends UserNewsState {
   @override
   List<Object> get props => [];
+
+  @override
+  String toString() {
+    return 'UserNewsLoadSuccessEmpty{}';
+  }
 }
 
 class UserNewsLoadFailure extends UserNewsState {
   @override
   List<Object> get props => [];
+
+  @override
+  String toString() {
+    return 'UserNewsLoadFailure{}';
+  }
 }

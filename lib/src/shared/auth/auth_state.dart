@@ -7,11 +7,21 @@ abstract class AuthState extends Equatable {
 class AuthInitial extends AuthState {
   @override
   List<Object> get props => [];
+
+  @override
+  String toString() {
+    return 'AuthInitial{}';
+  }
 }
 
 class AuthAuthenticated extends AuthState {
   @override
   List<Object> get props => [];
+
+  @override
+  String toString() {
+    return 'AuthAuthenticated{}';
+  }
 }
 
 class AuthUnauthenticated extends AuthState {
@@ -21,9 +31,19 @@ class AuthUnauthenticated extends AuthState {
 
   @override
   List<Object> get props => [email];
+
+  @override
+  String toString() {
+    return 'AuthUnauthenticated{email: $email}';
+  }
 }
 
 class AuthLoading extends AuthState {
   @override
   List<Object> get props => [];
+
+  @override
+  String toString() {
+    return 'AuthLoading{}';
+  }
 }

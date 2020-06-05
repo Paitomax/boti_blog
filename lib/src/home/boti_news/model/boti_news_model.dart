@@ -18,4 +18,9 @@ class BotiNewsModel {
       _$BotiNewsModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$BotiNewsModelToJson(this);
+
+  @override
+  String toString() {
+    return 'BotiNewsModel{user: $user, message: $message}';
+  }
 }

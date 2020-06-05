@@ -12,4 +12,9 @@ class SignUpRequested extends SignUpEvent {
 
   @override
   List<Object> get props => [account];
+
+  @override
+  String toString() {
+    return 'SignUpRequested{account: $account}';
+  }
 }

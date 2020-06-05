@@ -15,4 +15,9 @@ class BotiNewsMessageModel {
       _$BotiNewsMessageModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$BotiNewsMessageModelToJson(this);
+
+  @override
+  String toString() {
+    return 'BotiNewsMessageModel{content: $content, createdAt: $createdAt}';
+  }
 }

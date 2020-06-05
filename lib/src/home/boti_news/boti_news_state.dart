@@ -8,11 +8,21 @@ abstract class BotiNewsState extends Equatable {
 class BotiNewsLoadInProgress extends BotiNewsState {
   @override
   List<Object> get props => [];
+
+  @override
+  String toString() {
+    return 'BotiNewsLoadInProgress{}';
+  }
 }
 
 class BotiNewsLoadFailure extends BotiNewsState {
   @override
   List<Object> get props => [];
+
+  @override
+  String toString() {
+    return 'BotiNewsLoadFailure{}';
+  }
 }
 
 class BotiNewsLoadSuccess extends BotiNewsState {
@@ -22,9 +32,19 @@ class BotiNewsLoadSuccess extends BotiNewsState {
 
   @override
   List<Object> get props => [news];
+
+  @override
+  String toString() {
+    return 'BotiNewsLoadSuccess{news: $news}';
+  }
 }
 
 class BotiNewsLoadSuccessEmpty extends BotiNewsState {
   @override
   List<Object> get props => [];
+
+  @override
+  String toString() {
+    return 'BotiNewsLoadSuccessEmpty{}';
+  }
 }

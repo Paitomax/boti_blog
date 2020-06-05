@@ -7,7 +7,8 @@ class BotiRaisedButton extends StatelessWidget {
   final String text;
   final Function onPressed;
 
-  const BotiRaisedButton({Key key, this.text, this.onPressed}) : super(key: key);
+  const BotiRaisedButton({Key key, this.text, this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

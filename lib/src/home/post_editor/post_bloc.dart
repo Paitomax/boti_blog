@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:botiblog/src/home/post_editor/post_event.dart';
+import 'package:botiblog/src/home/post_editor/post_repository_interface.dart';
 import 'package:botiblog/src/home/post_editor/post_state.dart';
 import 'package:botiblog/src/home/user_news/model/user_post_model.dart';
 import 'package:botiblog/src/home/user_news/model/user_post_response_model.dart';
-import 'package:botiblog/src/home/post_editor/post_repository_interface.dart';
 import 'package:botiblog/src/shared/current_datetime/current_date_interface.dart';
 import 'package:botiblog/src/shared/user/user_repository_interface.dart';
 
@@ -14,8 +14,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
   final UserRepositoryInterface userRepository;
   final CurrentDateTimeInterface currentDateTime;
 
-  PostBloc(
-      this.userNewsRepository, this.userRepository, this.currentDateTime);
+  PostBloc(this.userNewsRepository, this.userRepository, this.currentDateTime);
 
   @override
   PostState get initialState => PostInitial();
@@ -33,8 +32,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     }
   }
 
-  Stream<PostState> _mapPostEditorAddedToState(
-      PostAdded event) async* {
+  Stream<PostState> _mapPostEditorAddedToState(PostAdded event) async* {
     try {
       yield PostLoadInProgress();
       final user = await userRepository.get();
@@ -51,8 +49,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     }
   }
 
-  Stream<PostState> _mapPostEditorRemovedToState(
-      PostRemoved event) async* {
+  Stream<PostState> _mapPostEditorRemovedToState(PostRemoved event) async* {
     try {
       yield PostLoadInProgress();
       await userNewsRepository.remove(event.userPost.post);
@@ -62,8 +59,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     }
   }
 
-  Stream<PostState> _mapPostEditorUpdatedToState(
-      PostUpdated event) async* {
+  Stream<PostState> _mapPostEditorUpdatedToState(PostUpdated event) async* {
     try {
       yield PostLoadInProgress();
 

@@ -11,7 +11,8 @@ class BotiNewsDataProvider {
     final result = await dio.get(path);
     if (result.statusCode >= 200 && result.statusCode < 300) {
       final news = BotiNewsResponseModel.fromJson(result.data);
-      news.news.sort((b,a) => a.message.createdAt.compareTo(b.message.createdAt));
+      news.news
+          .sort((b, a) => a.message.createdAt.compareTo(b.message.createdAt));
       return news;
     } else {
       throw Exception('Cant fetch BotiNews');

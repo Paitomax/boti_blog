@@ -15,4 +15,9 @@ class BotiNewsUserModel {
       _$BotiNewsUserModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$BotiNewsUserModelToJson(this);
+
+  @override
+  String toString() {
+    return 'BotiNewsUserModel{name: $name, profilePictureUrl: $profilePictureUrl}';
+  }
 }

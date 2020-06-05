@@ -5,4 +5,9 @@ class UserAccountModel extends UserModel {
 
   UserAccountModel(String name, String email, this.password)
       : super(0, name, email);
+
+  @override
+  String toString() {
+    return 'UserAccountModel{password: $password}';
+  }
 }

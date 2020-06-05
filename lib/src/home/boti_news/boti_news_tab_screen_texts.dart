@@ -1,5 +1,3 @@
-
-
 class BotiNewsTabTexts {
   static final String introduceMessage =
       'Fique ligado nas novidades do grupo O Boticario ;D';

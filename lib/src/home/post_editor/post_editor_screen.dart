@@ -44,11 +44,13 @@ class _PostEditorScreenState extends State<PostEditorScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String title =
-        screenType == EditorType.Add ? PostEditorScreenTexts.newPost : PostEditorScreenTexts.editPost;
+    String title = screenType == EditorType.Add
+        ? PostEditorScreenTexts.newPost
+        : PostEditorScreenTexts.editPost;
 
-    String appBarButtonText =
-        screenType == EditorType.Add ? PostEditorScreenTexts.publish  : PostEditorScreenTexts.save;
+    String appBarButtonText = screenType == EditorType.Add
+        ? PostEditorScreenTexts.publish
+        : PostEditorScreenTexts.save;
 
     return Scaffold(
       appBar: AppBar(
@@ -60,8 +62,9 @@ class _PostEditorScreenState extends State<PostEditorScreen> {
             onPressed: saveEnabled
                 ? () {
                     if (screenType == EditorType.Edit) {
-                      context.bloc<PostBloc>().add(
-                          PostUpdated(userPost, _textController.text));
+                      context
+                          .bloc<PostBloc>()
+                          .add(PostUpdated(userPost, _textController.text));
                     } else {
                       context
                           .bloc<PostBloc>()
@@ -77,7 +80,10 @@ class _PostEditorScreenState extends State<PostEditorScreen> {
         child: BlocConsumer<PostBloc, PostState>(
           listener: (context, state) {
             if (state is PostLoadFailure) {
-              _showDialog(PostEditorScreenTexts.errorTitle, PostEditorScreenTexts.errorMessage , PostEditorScreenTexts.ok , () {
+              _showDialog(
+                  PostEditorScreenTexts.errorTitle,
+                  PostEditorScreenTexts.errorMessage,
+                  PostEditorScreenTexts.ok, () {
                 Navigator.of(context).pop();
               });
             }

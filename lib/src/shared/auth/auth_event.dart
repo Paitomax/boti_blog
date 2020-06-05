@@ -13,14 +13,29 @@ class AuthLoggedIn extends AuthEvent {
 
   @override
   List<Object> get props => [user];
+
+  @override
+  String toString() {
+    return 'AuthLoggedIn{user: $user, rememberUser: $rememberUser}';
+  }
 }
 
 class AuthLoggedOut extends AuthEvent {
   @override
   List<Object> get props => [];
+
+  @override
+  String toString() {
+    return 'AuthLoggedOut{}';
+  }
 }
 
 class AuthAppInitiated extends AuthEvent {
   @override
   List<Object> get props => [];
+
+  @override
+  String toString() {
+    return 'AuthAppInitiated{}';
+  }
 }

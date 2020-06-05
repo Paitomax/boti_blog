@@ -1,13 +1,3 @@
-import 'package:botiblog/src/shared/validators/email_validator.dart';
-import 'package:botiblog/src/shared/validators/text_validator.dart';
-import 'package:botiblog/src/shared/widgets/boti_raised_button.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'sign_up_bloc.dart';
-import 'sign_up_state.dart';
-
 class SignUpScreenTexts {
   static final String appBarTitle = 'Cadastro de usuário';
   static final String formMessage =
@@ -17,7 +7,7 @@ class SignUpScreenTexts {
   static final String passwordConfirmationHint = 'Confirme sua Senha';
   static final String passwordErrorMessageAtLeastSixCharacters =
       'Informe uma senha com pelo menos 6 caracteres';
-static final String passwordConfirmationErrorMessage = 'As senhas não batem';
+  static final String passwordConfirmationErrorMessage = 'As senhas não batem';
   static final String emailHint = 'Email';
   static final String emailErrorMessageEnterYourEmail = 'Informe seu email';
   static final String emailErrorMessageInvalid = 'Email invalido';

@@ -7,4 +7,9 @@ abstract class BotiNewsEvent extends Equatable {
 class BotiNewsLoaded extends BotiNewsEvent {
   @override
   List<Object> get props => [];
+
+  @override
+  String toString() {
+    return 'BotiNewsLoaded{}';
+  }
 }

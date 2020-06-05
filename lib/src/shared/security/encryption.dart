@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:hash/hash.dart';
 
 class Encryption {

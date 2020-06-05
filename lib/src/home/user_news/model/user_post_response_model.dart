@@ -8,4 +8,9 @@ class UserPostResponseModel {
   UserPostResponseModel(this.post, this.user);
 
   bool isAuthor(UserModel user) => this.user.id == user.id;
+
+  @override
+  String toString() {
+    return 'UserPostResponseModel{post: $post, user: $user}';
+  }
 }

@@ -12,6 +12,11 @@ class PostAdded extends PostEvent {
 
   @override
   List<Object> get props => [text];
+
+  @override
+  String toString() {
+    return 'PostAdded{text: $text}';
+  }
 }
 
 class PostRemoved extends PostEvent {
@@ -21,6 +26,11 @@ class PostRemoved extends PostEvent {
 
   @override
   List<Object> get props => [userPost];
+
+  @override
+  String toString() {
+    return 'PostRemoved{userPost: $userPost}';
+  }
 }
 
 class PostUpdated extends PostEvent {
@@ -31,4 +41,9 @@ class PostUpdated extends PostEvent {
 
   @override
   List<Object> get props => [userPost, newText];
+
+  @override
+  String toString() {
+    return 'PostUpdated{userPost: $userPost, newText: $newText}';
+  }
 }
