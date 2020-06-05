@@ -4,6 +4,7 @@ import 'package:botiblog/src/shared/validators/email_validator.dart';
 import 'package:botiblog/src/shared/widgets/boti_flat_button.dart';
 import 'package:botiblog/src/shared/widgets/boti_raised_button.dart';
 import 'package:botiblog/src/sign_in/sign_in_event.dart';
+import 'package:botiblog/src/sign_in/sign_in_screen_texts.dart';
 import 'package:botiblog/src/sign_in/sign_in_state.dart';
 import 'package:botiblog/src/sign_up/sign_up_screen.dart';
 import 'package:flutter/material.dart';
@@ -83,8 +84,8 @@ class _SignInScreenState extends State<SignInScreen> {
       controller: _emailController,
       focusNode: _emailFocusNode,
       textInputAction: TextInputAction.next,
-      decoration: const InputDecoration(
-        hintText: 'Email',
+      decoration: InputDecoration(
+        hintText: SignInScreenTexts.emailHint,
         hintStyle: TextStyle(fontSize: 18),
       ),
       onFieldSubmitted: (text) {
@@ -92,11 +93,12 @@ class _SignInScreenState extends State<SignInScreen> {
         FocusScope.of(context).requestFocus(_passFocusNode);
       },
       validator: (text) {
-        if (text.isEmpty) return 'Informe seu email';
+        if (text.isEmpty)
+          return SignInScreenTexts.emailErrorMessageEnterYourEmail;
 
         final validEmail = EmailValidator.isValid(text);
 
-        if (!validEmail) return 'Email Invalido';
+        if (!validEmail) return SignInScreenTexts.emailErrorMessageInvalid;
         return null;
       },
     );
@@ -115,8 +117,8 @@ class _SignInScreenState extends State<SignInScreen> {
       inputFormatters: [
         LengthLimitingTextInputFormatter(24),
       ],
-      decoration: const InputDecoration(
-        hintText: 'Senha',
+      decoration: InputDecoration(
+        hintText: SignInScreenTexts.passwordHint,
         hintStyle: TextStyle(fontSize: 18),
       ),
       obscureText: true,
@@ -128,9 +130,11 @@ class _SignInScreenState extends State<SignInScreen> {
       if (state is SignInLoadSuccess) {
         _navigateToHome();
       } else if (state is SignInLoadFailure) {
-        _showErrorDialog('Ops :(', 'Algo deu errado.');
+        _showErrorDialog(SignInScreenTexts.failureDialogTitle,
+            SignInScreenTexts.failureDialogMessage);
       } else if (state is SignInLoadFailureWrongUserOrPass) {
-        _showErrorDialog('Atenção', 'Usuário ou senha incorreto.');
+        _showErrorDialog(
+            SignInScreenTexts.attention, SignInScreenTexts.wrongUserOrPass);
       }
     }, builder: (BuildContext context, state) {
       if (state is SignInLoadInProgress) {
@@ -147,7 +151,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   Widget _buildEnterButton() {
     return BotiRaisedButton(
-      text: 'Entrar',
+      text: SignInScreenTexts.loginButtonText,
       onPressed: _onEnterButtonPressed,
     );
   }
@@ -164,7 +168,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   Widget _buildSignUpButton() {
     return BotiFlatButton(
-      text: 'Cadastre-se',
+      text: SignInScreenTexts.signUp,
       onPressed: () {
         Navigator.pushNamed(context, SignUpScreen.routeName);
       },
@@ -181,7 +185,7 @@ class _SignInScreenState extends State<SignInScreen> {
           content: Text(message),
           actions: <Widget>[
             FlatButton(
-              child: Text('Ok'),
+              child: Text(SignInScreenTexts.ok),
               onPressed: () {
                 Navigator.of(dialogContext).pop();
               },
