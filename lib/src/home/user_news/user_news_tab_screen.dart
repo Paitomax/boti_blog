@@ -171,9 +171,8 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
                           Icon(Icons.edit, size: 12, color: AppColors.orange),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamed(
-                          PostEditorScreen.routeName,
-                          arguments: {PostEditorScreen.paramName: item});
+                      _navigateToEditor(
+                          args: {PostEditorScreen.paramName: item});
                     },
                   ),
                 ),
@@ -192,6 +191,12 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
         ],
       ),
     );
+  }
+
+  void _navigateToEditor({Object args}) async {
+    await Navigator.of(context)
+        .pushNamed(PostEditorScreen.routeName, arguments: args);
+    context.bloc<UserNewsBloc>().add(UserNewsLoaded());
   }
 
   void showDeleteConfirmationDialog(UserPostResponseModel item) {
