@@ -34,16 +34,11 @@ class _SignInScreenState extends State<SignInScreen> {
   bool _saveUser = false;
 
   @override
-  void didChangeDependencies() {
+  void initState() {
     if (widget.savedUser != null) {
       _saveUser = true;
       _emailController.text = widget.savedUser;
     }
-    super.didChangeDependencies();
-  }
-
-  @override
-  void initState() {
     super.initState();
   }
 
