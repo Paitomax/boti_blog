@@ -10,12 +10,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('Should render child', (WidgetTester tester) async {
-    final child = MaterialApp(home: Text('Oi'));
+  group('BotiAppGlobalProvider', () {
+    testWidgets('Should render child', (WidgetTester tester) async {
+      final child = MaterialApp(home: Text('Oi'));
 
-    await tester.pumpWidget(BotiAppGlobalProvider(child: child));
+      await tester.pumpWidget(BotiAppGlobalProvider(child: child));
 
-    expect(find.byWidget(child), findsOneWidget);
-    expect(find.text('Oi'), findsOneWidget);
+      expect(find.byWidget(child), findsOneWidget);
+      expect(find.text('Oi'), findsOneWidget);
+    });
   });
 }
