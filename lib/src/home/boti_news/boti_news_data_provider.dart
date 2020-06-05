@@ -7,6 +7,6 @@ class BotiNewsDataProvider {
   BotiNewsDataProvider(this.dio);
 
   Future<BotiNewsResponseModel> fetch() async {
-    return BotiNewsResponseModel(null);
+    return BotiNewsResponseModel([]);
   }
 }

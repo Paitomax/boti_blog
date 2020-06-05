@@ -144,8 +144,8 @@ class _BotiNewsTabScreenState extends State<BotiNewsTabScreen> {
         ),
         SizedBox(height: 8),
         Text(
-          BotiNewsTabTexts.errorMessage,
-          style: TextStyle(color: AppColors.lightOrange, fontSize: 16),
+          BotiNewsTabTexts.emptyMessage, textAlign: TextAlign.center,
+          style: TextStyle(color: AppColors.orange, fontSize: 16),
         ),
       ],
     );

@@ -1,3 +1,4 @@
+import 'package:botiblog/src/home/boti_news/boti_news_tab_screen.dart';
 import 'package:botiblog/src/home/user_news/user_news_tab_screen.dart';
 import 'package:botiblog/src/sign_in/sign_in_screen.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _tabIndex = 0;
-  List<Widget> _tabs = [UserNewsTabScreen(), UserNewsTabScreen()];
+  List<Widget> _tabs = [UserNewsTabScreen(), BotiNewsTabScreen()];
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +56,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _menuPopUpSelected(int index) {
     if (index == 1) {
-      Navigator.of(context).pushNamedAndRemoveUntil(
-          SignInScreen.routeName, (route) => false);
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil(SignInScreen.routeName, (route) => false);
     }
   }
 }
