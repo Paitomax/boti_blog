@@ -4,9 +4,9 @@ import 'package:botiblog/src/shared/formatters/date_formatter.dart';
 import 'package:botiblog/src/shared/user/user_model.dart';
 import 'package:sqflite/sqflite.dart';
 
-import 'model/user_post_response_model.dart';
+import '../user_news/model/user_post_response_model.dart';
 
-class UserNewsDataProvider {
+class PostDataProvider {
   Future<List<UserPostResponseModel>> fetch(UserModel userModel) async {
     Database db;
     try {

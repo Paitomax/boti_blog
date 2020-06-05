@@ -1,8 +1,9 @@
 import 'package:botiblog/src/app/app_routes.dart';
+import 'package:botiblog/src/home/post_editor/post_bloc.dart';
+import 'package:botiblog/src/home/post_editor/post_data_provider.dart';
+import 'package:botiblog/src/home/post_editor/post_repository.dart';
+import 'package:botiblog/src/home/post_editor/post_repository_interface.dart';
 import 'package:botiblog/src/home/user_news/user_news_bloc.dart';
-import 'package:botiblog/src/home/user_news/user_news_data_provider.dart';
-import 'package:botiblog/src/home/user_news/user_news_repository.dart';
-import 'package:botiblog/src/home/user_news/user_news_repository_interface.dart';
 import 'package:botiblog/src/shared/current_datetime/current_date.dart';
 import 'package:botiblog/src/shared/current_datetime/current_date_interface.dart';
 import 'package:botiblog/src/shared/user/user_repository.dart';
@@ -38,7 +39,7 @@ class BotiApp extends StatelessWidget {
   MultiRepositoryProvider _providers({Widget child}) {
     final SignInDataProvider signInDataProvider = SignInDataProvider();
     final SignUpDataProvider signUpDataProvider = SignUpDataProvider();
-    final UserNewsDataProvider userNewsDataProvider = UserNewsDataProvider();
+    final PostDataProvider userNewsDataProvider = PostDataProvider();
     final CurrentDateTimeInterface currentDateTime = CurrentDateTime();
     return MultiRepositoryProvider(
       providers: [
@@ -51,8 +52,8 @@ class BotiApp extends StatelessWidget {
         RepositoryProvider<SignUpRepositoryInterface>(
           create: (context) => SignUpRepository(signUpDataProvider),
         ),
-        RepositoryProvider<UserNewsRepositoryInterface>(
-          create: (context) => UserNewsRepository(userNewsDataProvider),
+        RepositoryProvider<PostRepositoryInterface>(
+          create: (context) => PostRepository(userNewsDataProvider),
         ),
       ],
       child: MultiBlocProvider(
@@ -70,8 +71,16 @@ class BotiApp extends StatelessWidget {
             ),
           ),
           BlocProvider(
+            create: (context) => PostBloc(
+              RepositoryProvider.of<PostRepositoryInterface>(context),
+              RepositoryProvider.of<UserRepositoryInterface>(context),
+              currentDateTime,
+            ),
+          ),
+          BlocProvider(
             create: (context) => UserNewsBloc(
-              RepositoryProvider.of<UserNewsRepositoryInterface>(context),
+              BlocProvider.of<PostBloc>(context),
+              RepositoryProvider.of<PostRepositoryInterface>(context),
               RepositoryProvider.of<UserRepositoryInterface>(context),
               currentDateTime,
             ),

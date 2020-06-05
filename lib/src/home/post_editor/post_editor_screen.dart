@@ -1,8 +1,8 @@
 import 'package:botiblog/src/home/home_screen.dart';
+import 'package:botiblog/src/home/post_editor/post_bloc.dart';
+import 'package:botiblog/src/home/post_editor/post_event.dart';
+import 'package:botiblog/src/home/post_editor/post_state.dart';
 import 'package:botiblog/src/home/user_news/model/user_post_response_model.dart';
-import 'package:botiblog/src/home/user_news/user_news_bloc.dart';
-import 'package:botiblog/src/home/user_news/user_news_event.dart';
-import 'package:botiblog/src/home/user_news/user_news_state.dart';
 import 'package:botiblog/src/home/user_news/user_news_tab_screen_texts.dart';
 import 'package:botiblog/src/shared/theme/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -58,13 +58,12 @@ class _PostEditorScreenState extends State<PostEditorScreen> {
             onPressed: saveEnabled
                 ? () {
                     if (screenType == EditorType.Edit) {
-                      context
-                          .bloc<UserNewsBloc>()
-                          .add(UserNewsUpdated(userPost, _textController.text));
+                      context.bloc<PostBloc>().add(
+                          PostUpdated(userPost, _textController.text));
                     } else {
                       context
-                          .bloc<UserNewsBloc>()
-                          .add(UserNewsAdded(_textController.text));
+                          .bloc<PostBloc>()
+                          .add(PostAdded(_textController.text));
                     }
                   }
                 : null,
@@ -73,19 +72,19 @@ class _PostEditorScreenState extends State<PostEditorScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: BlocConsumer<UserNewsBloc, UserNewsState>(
+        child: BlocConsumer<PostBloc, PostState>(
           listener: (context, state) {
-            if (state is UserNewsLoadFailure) {
+            if (state is PostLoadFailure) {
               _showDialog('Ops :(', 'Algo deu errado.', 'Ok', () {
                 Navigator.of(context).pop();
               });
             }
-            if (state is UserNewsLoadSuccess) {
+            if (state is PostLoadSuccess) {
               Navigator.of(context).pop();
             }
           },
           builder: (context, state) {
-            if (state is UserNewsLoadInProgress) {
+            if (state is PostLoadInProgress) {
               return Center(
                 child: CircularProgressIndicator(),
               );

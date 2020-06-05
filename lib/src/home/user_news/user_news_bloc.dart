@@ -1,21 +1,33 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:botiblog/src/home/user_news/model/user_post_response_model.dart';
-import 'package:botiblog/src/home/user_news/user_news_repository_interface.dart';
+import 'package:botiblog/src/home/post_editor/post_bloc.dart';
+import 'package:botiblog/src/home/post_editor/post_repository_interface.dart';
+import 'package:botiblog/src/home/post_editor/post_state.dart';
 import 'package:botiblog/src/shared/current_datetime/current_date_interface.dart';
 import 'package:botiblog/src/shared/user/user_repository_interface.dart';
 
 import './bloc.dart';
-import 'model/user_post_model.dart';
 
 class UserNewsBloc extends Bloc<UserNewsEvent, UserNewsState> {
-  final UserNewsRepositoryInterface userNewsRepository;
+  final PostRepositoryInterface userNewsRepository;
   final UserRepositoryInterface userRepository;
   final CurrentDateTimeInterface currentDateTime;
+  final PostBloc postBloc;
+  StreamSubscription _streamSubscription;
 
-  UserNewsBloc(
-      this.userNewsRepository, this.userRepository, this.currentDateTime);
+  UserNewsBloc(this.postBloc, this.userNewsRepository, this.userRepository,
+      this.currentDateTime) {
+    _streamSubscription = postBloc.listen((state) {
+      if (state is PostLoadSuccess) add(UserNewsLoaded());
+    });
+  }
+
+  @override
+  Future<Function> close() {
+    _streamSubscription?.cancel();
+    return super.close();
+  }
 
   @override
   UserNewsState get initialState => UserNewsLoadInProgress();
@@ -24,64 +36,8 @@ class UserNewsBloc extends Bloc<UserNewsEvent, UserNewsState> {
   Stream<UserNewsState> mapEventToState(
     UserNewsEvent event,
   ) async* {
-    if (event is UserNewsAdded) {
-      yield* _mapUserNewsAddedToState(event);
-    } else if (event is UserNewsRemoved) {
-      yield* _mapUserNewsRemovedToState(event);
-    } else if (event is UserNewsUpdated) {
-      yield* _mapUserNewsUpdatedToState(event);
-    } else if (event is UserNewsLoaded) {
+    if (event is UserNewsLoaded) {
       yield* _mapUserNewsLoadedToState(event);
-    }
-  }
-
-  Stream<UserNewsState> _mapUserNewsAddedToState(UserNewsAdded event) async* {
-    try {
-      yield UserNewsLoadInProgress();
-      final user = await userRepository.get();
-
-      final post =
-          UserPostModel(event.text, currentDateTime.now(), id: user.id);
-      final userPost = UserPostResponseModel(post, user);
-      await userNewsRepository.add(userPost);
-
-      final posts = await userNewsRepository.fetch(user);
-      yield UserNewsLoadSuccess(posts, user);
-    } catch (e) {
-      yield UserNewsLoadFailure();
-    }
-  }
-
-  Stream<UserNewsState> _mapUserNewsRemovedToState(
-      UserNewsRemoved event) async* {
-    try {
-      yield UserNewsLoadInProgress();
-      await userNewsRepository.remove(event.userPost.post);
-
-      final user = await userRepository.get();
-      final posts = await userNewsRepository.fetch(user);
-      yield UserNewsLoadSuccess(posts, user);
-    } catch (e) {
-      yield UserNewsLoadFailure();
-    }
-  }
-
-  Stream<UserNewsState> _mapUserNewsUpdatedToState(
-      UserNewsUpdated event) async* {
-    try {
-      yield UserNewsLoadInProgress();
-
-      final oldPost = event.userPost.post;
-      final newPost =
-          UserPostModel(event.newText, currentDateTime.now(), id: oldPost.id);
-
-      await userNewsRepository.update(newPost);
-
-      final user = await userRepository.get();
-      final posts = await userNewsRepository.fetch(user);
-      yield UserNewsLoadSuccess(posts, user);
-    } catch (e) {
-      yield UserNewsLoadFailure();
     }
   }
 

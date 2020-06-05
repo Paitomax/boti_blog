@@ -1,4 +1,6 @@
+import 'package:botiblog/src/home/post_editor/post_bloc.dart';
 import 'package:botiblog/src/home/post_editor/post_editor_screen.dart';
+import 'package:botiblog/src/home/post_editor/post_event.dart';
 import 'package:botiblog/src/home/user_news/model/user_post_response_model.dart';
 import 'package:botiblog/src/home/user_news/user_news_bloc.dart';
 import 'package:botiblog/src/home/user_news/user_news_event.dart';
@@ -161,9 +163,9 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
   }
 
   void _navigateToEditor({Object args}) async {
-    await Navigator.of(context)
+    Navigator.of(context)
         .pushNamed(PostEditorScreen.routeName, arguments: args);
-    context.bloc<UserNewsBloc>().add(UserNewsLoaded());
+    //context.bloc<UserNewsBloc>().add(UserNewsLoaded());
   }
 
   void showDeleteConfirmationDialog(UserPostResponseModel item) {
@@ -178,7 +180,7 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
             FlatButton(
               child: Text(UserNewsTabTexts.dialogYesButtonText),
               onPressed: () {
-                context.bloc<UserNewsBloc>().add(UserNewsRemoved(item));
+                context.bloc<PostBloc>().add(PostRemoved(item));
                 Navigator.of(dialogContext).pop();
               },
             ),
