@@ -1,4 +1,5 @@
 import 'package:botiblog/src/home/home_screen.dart';
+import 'package:botiblog/src/shared/consts/limits.dart';
 import 'package:botiblog/src/shared/validators/email_validator.dart';
 import 'package:botiblog/src/shared/validators/text_validator.dart';
 import 'package:botiblog/src/shared/widgets/boti_raised_button.dart';
@@ -98,6 +99,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
         hintText: 'Email',
         hintStyle: TextStyle(fontSize: 18),
       ),
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(Limits.emailLimits),
+      ],
       validator: (text) {
         if (text.isEmpty)
           return SignUpScreenTexts.emailErrorMessageEnterYourEmail;
@@ -122,7 +126,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       },
       focusNode: _nameFocusNode,
       inputFormatters: [
-        LengthLimitingTextInputFormatter(100),
+        LengthLimitingTextInputFormatter(Limits.nameLimits),
       ],
       decoration: InputDecoration(
         hintText: SignUpScreenTexts.nameHint,
@@ -158,7 +162,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         }
       },
       inputFormatters: [
-        LengthLimitingTextInputFormatter(24),
+        LengthLimitingTextInputFormatter(Limits.passwordLimits),
       ],
       decoration: InputDecoration(
         hintText: hintText,
@@ -195,8 +199,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         } else if (state is SignUpLoadFailure) {
           _showDialog(SignUpScreenTexts.failureDialogTitle,
               SignUpScreenTexts.failureDialogMessage, SignUpScreenTexts.ok, () {
-                Navigator.of(context).pop();
-              });
+            Navigator.of(context).pop();
+          });
         } else if (state is SignUpLoadFailureEmailAlreadyRegistered) {
           _showDialog(
               SignUpScreenTexts.failureDialogTitle,

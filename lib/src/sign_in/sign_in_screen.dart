@@ -1,4 +1,5 @@
 import 'package:botiblog/src/home/home_screen.dart';
+import 'package:botiblog/src/shared/consts/limits.dart';
 import 'package:botiblog/src/shared/theme/app_colors.dart';
 import 'package:botiblog/src/shared/validators/email_validator.dart';
 import 'package:botiblog/src/shared/widgets/boti_flat_button.dart';
@@ -87,6 +88,9 @@ class _SignInScreenState extends State<SignInScreen> {
         hintText: SignInScreenTexts.emailHint,
         hintStyle: TextStyle(fontSize: 18),
       ),
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(Limits.emailLimits),
+      ],
       onFieldSubmitted: (text) {
         _emailFocusNode.unfocus();
         FocusScope.of(context).requestFocus(_passFocusNode);
@@ -114,7 +118,7 @@ class _SignInScreenState extends State<SignInScreen> {
       },
       maxLines: 1,
       inputFormatters: [
-        LengthLimitingTextInputFormatter(24),
+        LengthLimitingTextInputFormatter(Limits.passwordLimits),
       ],
       decoration: InputDecoration(
         hintText: SignInScreenTexts.passwordHint,
