@@ -26,7 +26,11 @@ class BotiNewsBloc extends Bloc<BotiNewsEvent, BotiNewsState> {
     try {
       yield BotiNewsLoadInProgress();
       final response = await botiNewsRepository.fetch();
-      yield BotiNewsLoadSuccess(response.news);
+      if (response.news.isEmpty) {
+        yield BotiNewsLoadSuccessEmpty();
+      } else {
+        yield BotiNewsLoadSuccess(response.news);
+      }
     } catch (e) {
       yield BotiNewsLoadFailure();
     }
