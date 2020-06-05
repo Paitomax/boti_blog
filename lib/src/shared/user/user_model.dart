@@ -1,4 +1,6 @@
-class UserModel {
+import 'package:equatable/equatable.dart';
+
+class UserModel extends Equatable {
   final int id;
   final String name;
   final String email;
@@ -9,4 +11,7 @@ class UserModel {
   String toString() {
     return 'UserModel{id: $id, name: $name, email: $email}';
   }
+
+  @override
+  List<Object> get props => [id, name, email];
 }
