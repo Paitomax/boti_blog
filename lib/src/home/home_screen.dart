@@ -1,4 +1,5 @@
 import 'package:botiblog/src/home/boti_news/boti_news_tab_screen.dart';
+import 'package:botiblog/src/home/home_screen_texts.dart';
 import 'package:botiblog/src/home/user_news/user_news_tab_screen.dart';
 import 'package:botiblog/src/sign_in/sign_in_screen.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  static const int _MENU_LOGOUT_VALUE = 1;
+
   int _tabIndex = 0;
   List<Widget> _tabs = [UserNewsTabScreen(), BotiNewsTabScreen()];
 
@@ -19,13 +22,15 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: _tabs[_tabIndex],
       appBar: AppBar(
-        title: Text('Boti Blog'),
+        title: Text(HomeScreenTexts.title),
         actions: <Widget>[
           PopupMenuButton(
             onSelected: _menuPopUpSelected,
             itemBuilder: (BuildContext context) {
               return [
-                PopupMenuItem(value: 1, child: Text('Sair')),
+                PopupMenuItem(
+                    value: _MENU_LOGOUT_VALUE,
+                    child: Text(HomeScreenTexts.logout)),
               ];
             },
           )
@@ -37,11 +42,11 @@ class _HomeScreenState extends State<HomeScreen> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            title: Text('Home'),
+            title: Text(HomeScreenTexts.home),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.star),
-            title: Text('Boti News'),
+            title: Text(HomeScreenTexts.botiNews),
           ),
         ],
       ),
@@ -55,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _menuPopUpSelected(int index) {
-    if (index == 1) {
+    if (index == _MENU_LOGOUT_VALUE) {
       Navigator.of(context)
           .pushNamedAndRemoveUntil(SignInScreen.routeName, (route) => false);
     }
