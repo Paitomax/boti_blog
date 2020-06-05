@@ -1,3 +1,4 @@
+import 'package:botiblog/src/home/post_editor/post_editor_screen.dart';
 import 'package:botiblog/src/home/user_news/model/user_post_response_model.dart';
 import 'package:botiblog/src/home/user_news/user_news_bloc.dart';
 import 'package:botiblog/src/home/user_news/user_news_event.dart';
@@ -169,7 +170,11 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
                       child:
                           Icon(Icons.edit, size: 12, color: AppColors.orange),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).pushNamed(
+                          PostEditorScreen.routeName,
+                          arguments: {PostEditorScreen.paramName: item});
+                    },
                   ),
                 ),
                 Expanded(
