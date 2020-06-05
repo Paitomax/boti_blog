@@ -28,6 +28,17 @@ class _SignInScreenState extends State<SignInScreen> {
   final _passController = TextEditingController();
   final _emailFocusNode = FocusNode();
   final _passFocusNode = FocusNode();
+  bool _saveUser = false;
+
+  @override
+  void didChangeDependencies() {
+    final args = ModalRoute.of(context).settings.arguments;
+    if (args != null) {
+      _saveUser = true;
+      _emailController.text = args as String;
+    }
+    super.didChangeDependencies();
+  }
 
   @override
   void initState() {
@@ -72,6 +83,27 @@ class _SignInScreenState extends State<SignInScreen> {
           _buildEmailInput(),
           SizedBox(height: 8),
           _buildPasswordInput(),
+          SizedBox(height: 8),
+          _buildCheckbox(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCheckbox() {
+    return Align(
+      alignment: Alignment.bottomLeft,
+      child: Row(
+        children: <Widget>[
+          Switch(
+            value: _saveUser,
+            onChanged: (bool value) {
+              setState(() {
+                _saveUser = value;
+              });
+            },
+          ),
+          Text('Lembrar usuário'),
         ],
       ),
     );
@@ -163,7 +195,9 @@ class _SignInScreenState extends State<SignInScreen> {
     if (_formKey.currentState.validate()) {
       final email = _emailController.text;
       final pass = _passController.text;
-      context.bloc<SignInBloc>().add(SignInRequested(email, pass));
+      context
+          .bloc<SignInBloc>()
+          .add(SignInRequested(email, pass, remember: _saveUser));
     }
   }
 

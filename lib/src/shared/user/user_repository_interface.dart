@@ -6,4 +6,8 @@ abstract class UserRepositoryInterface {
   Future<UserModel> get();
 
   Future<bool> logout();
+
+  Future<void> rememberUser(String user);
+
+  Future<String> getLastUser();
 }

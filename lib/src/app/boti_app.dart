@@ -20,6 +20,7 @@ import 'package:botiblog/src/sign_up/sign_up_bloc.dart';
 import 'package:botiblog/src/sign_up/sign_up_data_provider.dart';
 import 'package:botiblog/src/sign_up/sign_up_repository.dart';
 import 'package:botiblog/src/sign_up/sign_up_repository_interface.dart';
+import 'package:botiblog/src/splash/splash_bloc.dart';
 import 'package:botiblog/src/splash/splash_screen.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:dio/dio.dart';
@@ -73,6 +74,12 @@ class BotiApp extends StatelessWidget {
       ],
       child: MultiBlocProvider(
         providers: [
+          BlocProvider(
+            create: (context) => SplashBloc(
+              RepositoryProvider.of<UserRepositoryInterface>(context),
+              currentDateTime,
+            ),
+          ),
           BlocProvider(
             create: (context) => SignInBloc(
               RepositoryProvider.of<SignInRepositoryInterface>(context),

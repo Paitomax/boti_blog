@@ -1,7 +1,9 @@
 import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:botiblog/src/shared/user/user_repository_interface.dart';
 import 'package:botiblog/src/sign_in/sign_in_repository_interface.dart';
+
 import './bloc.dart';
 
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
@@ -31,6 +33,8 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         yield SignInLoadFailureWrongUserOrPass();
       } else {
         await userRepository.save(user);
+        await userRepository.rememberUser(event.remember ? user.email : null);
+
         yield SignInLoadSuccess();
       }
     } catch (e) {
