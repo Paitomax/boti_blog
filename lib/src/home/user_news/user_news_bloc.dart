@@ -10,13 +10,13 @@ import 'package:botiblog/src/shared/user/user_repository_interface.dart';
 import './bloc.dart';
 
 class UserNewsBloc extends Bloc<UserNewsEvent, UserNewsState> {
-  final PostRepositoryInterface userNewsRepository;
+  final PostRepositoryInterface postRepository;
   final UserRepositoryInterface userRepository;
   final CurrentDateTimeInterface currentDateTime;
   final PostBloc postBloc;
   StreamSubscription _streamSubscription;
 
-  UserNewsBloc(this.postBloc, this.userNewsRepository, this.userRepository,
+  UserNewsBloc(this.postBloc, this.postRepository, this.userRepository,
       this.currentDateTime) {
     _streamSubscription = postBloc.listen((state) {
       if (state is PostLoadSuccess) add(UserNewsLoaded());
@@ -45,8 +45,12 @@ class UserNewsBloc extends Bloc<UserNewsEvent, UserNewsState> {
     try {
       yield UserNewsLoadInProgress();
       final user = await userRepository.get();
-      final posts = await userNewsRepository.fetch(user);
-      yield UserNewsLoadSuccess(posts, user);
+      final posts = await postRepository.fetch(user);
+      if (posts.isEmpty) {
+        yield UserNewsLoadSuccessEmpty();
+      } else {
+        yield UserNewsLoadSuccess(posts, user);
+      }
     } catch (e) {
       yield UserNewsLoadFailure();
     }

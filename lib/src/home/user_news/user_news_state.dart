@@ -21,6 +21,11 @@ class UserNewsLoadSuccess extends UserNewsState {
   List<Object> get props => [posts, user];
 }
 
+class UserNewsLoadSuccessEmpty extends UserNewsState {
+  @override
+  List<Object> get props => [];
+}
+
 class UserNewsLoadFailure extends UserNewsState {
   @override
   List<Object> get props => [];

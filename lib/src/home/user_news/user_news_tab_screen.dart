@@ -49,6 +49,8 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
                       _buildPostList(state.posts, state.user),
                     ],
                   );
+                } else if (state is UserNewsLoadSuccessEmpty) {
+                  return _buildEmptyMessage();
                 } else if (state is UserNewsLoadFailure) {
                   return _buildErrorMessage();
                 } else {
@@ -247,6 +249,27 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
         onTap: () {
           _navigateToEditor();
         },
+      ),
+    );
+  }
+
+  Widget _buildEmptyMessage() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: <Widget>[
+          Icon(
+            Icons.layers_clear,
+            color: AppColors.blue,
+            size: 32,
+          ),
+          SizedBox(height: 8),
+          Text(
+            UserNewsTabTexts.emptyMessage,
+            textAlign: TextAlign.center,
+            style: TextStyle(color: AppColors.orange, fontSize: 16),
+          ),
+        ],
       ),
     );
   }
