@@ -10,4 +10,7 @@ class UserAccountModel extends UserModel {
   String toString() {
     return 'UserAccountModel{password: $password}';
   }
+
+  @override
+  List<Object> get props => [password, super];
 }
