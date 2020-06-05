@@ -50,17 +50,22 @@ class _SignInScreenState extends State<SignInScreen> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              _buildTitle(),
-              SizedBox(height: 32),
-              _buildInputs(),
-              SizedBox(height: 16),
-              _buildButtons(),
-            ],
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(height: 16),
+                  _buildTitle(),
+                  SizedBox(height: 40),
+                  _buildInputs(),
+                  SizedBox(height: 24),
+                  _buildButtons(),
+                  SizedBox(height: 8),
+                ],
+              ),
+            ),
           ),
         ),
       ),
