@@ -21,7 +21,6 @@ class PostEditorScreen extends StatefulWidget {
 class _PostEditorScreenState extends State<PostEditorScreen> {
   final _textController = TextEditingController();
   final _publishFocusNode = FocusNode();
-  final _formKey = GlobalKey<FormState>();
 
   EditorType screenType;
   UserPostResponseModel userPost;
@@ -108,6 +107,7 @@ class _PostEditorScreenState extends State<PostEditorScreen> {
       },
       controller: _textController,
       focusNode: _publishFocusNode,
+      autofocus: true,
       maxLines: null,
       maxLength: 280,
       cursorColor: Colors.black,
