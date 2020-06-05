@@ -1,4 +1,5 @@
-import 'package:botiblog/src/home/home_screen.dart';
+import 'package:botiblog/src/shared/auth/auth_bloc.dart';
+import 'package:botiblog/src/shared/auth/auth_event.dart';
 import 'package:botiblog/src/shared/consts/app_limits.dart';
 import 'package:botiblog/src/shared/validators/email_validator.dart';
 import 'package:botiblog/src/shared/validators/text_validator.dart';
@@ -193,8 +194,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SignUpScreenTexts.successDialogTitle,
               SignUpScreenTexts.successDialogMessage,
               SignUpScreenTexts.successDialogButtonText, () {
-            Navigator.of(context).pushNamedAndRemoveUntil(
-                HomeScreen.routeName, (route) => false);
+            context.bloc<AuthBloc>().add(AuthLoggedIn(state.user, true));
+            Navigator.of(context).popUntil((route) => route.isFirst);
           });
         } else if (state is SignUpLoadFailure) {
           _showDialog(SignUpScreenTexts.failureDialogTitle,

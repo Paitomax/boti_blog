@@ -32,7 +32,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         yield SignUpLoadFailureEmailAlreadyRegistered();
       } else {
         await userRepository.save(user);
-        yield SignUpLoadSuccess();
+        yield SignUpLoadSuccess(user);
       }
     } catch (error) {
       yield SignUpLoadFailure();

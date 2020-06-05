@@ -1,3 +1,4 @@
+import 'package:botiblog/src/shared/user/user_model.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class SignUpState extends Equatable {
@@ -15,8 +16,12 @@ class SignUpLoadInProgress extends SignUpState {
 }
 
 class SignUpLoadSuccess extends SignUpState {
+  final UserModel user;
+
+  SignUpLoadSuccess(this.user);
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [user];
 }
 
 class SignUpLoadFailure extends SignUpState {
@@ -28,4 +33,3 @@ class SignUpLoadFailureEmailAlreadyRegistered extends SignUpState {
   @override
   List<Object> get props => [];
 }
-
