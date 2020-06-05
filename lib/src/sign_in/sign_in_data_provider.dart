@@ -12,6 +12,7 @@ class SignInDataProvider {
           where: 'email = ? AND password = ?',
           whereArgs: [email, cryptedPass]);
 
+      // simulates network connection
       await Future.delayed(Duration(seconds: 2));
 
       if (response.isEmpty) return null;

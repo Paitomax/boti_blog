@@ -17,6 +17,7 @@ class PostDataProvider {
 
       final result = await db.rawQuery(sql);
 
+      // simulates network connection
       await Future.delayed(Duration(seconds: 2));
 
       List<UserPostResponseModel> list = [];
@@ -50,6 +51,7 @@ class PostDataProvider {
         'userId': post.user.id
       });
 
+      // simulates network connection
       await Future.delayed(Duration(seconds: 2));
     } catch (e) {
       throw Exception('Cant connect to the server.');
@@ -72,6 +74,7 @@ class PostDataProvider {
           where: 'id = ?',
           whereArgs: [post.id]);
 
+      // simulates network connection
       await Future.delayed(Duration(seconds: 2));
     } catch (e) {
       throw Exception('Cant connect to the server.');
@@ -87,6 +90,7 @@ class PostDataProvider {
 
       await db.delete('UserPost', where: 'id = ?', whereArgs: [post.id]);
 
+      // simulates network connection
       await Future.delayed(Duration(seconds: 2));
     } catch (e) {
       throw Exception('Cant connect to the server.');

@@ -21,6 +21,7 @@ class SignUpDataProvider {
         'password': cryptedPass
       });
 
+      // simulates network connection
       await Future.delayed(Duration(seconds: 2));
 
       final user = UserModel(id, userAccountModel.name, userAccountModel.email);
