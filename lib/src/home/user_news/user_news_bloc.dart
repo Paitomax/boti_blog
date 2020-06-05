@@ -73,7 +73,7 @@ class UserNewsBloc extends Bloc<UserNewsEvent, UserNewsState> {
 
       final oldPost = event.userPost.post;
       final newPost =
-          UserPostModel(oldPost.text, currentDateTime.now(), id: oldPost.id);
+          UserPostModel(event.newText, currentDateTime.now(), id: oldPost.id);
 
       await userNewsRepository.update(newPost);
 
