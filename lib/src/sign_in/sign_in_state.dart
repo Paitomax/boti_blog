@@ -14,11 +14,6 @@ class SignInLoadInProgress extends SignInState {
   List<Object> get props => [];
 }
 
-class SignInLoadSuccess extends SignInState {
-  @override
-  List<Object> get props => [];
-}
-
 class SignInLoadFailure extends SignInState {
   @override
   List<Object> get props => [];

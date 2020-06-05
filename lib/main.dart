@@ -8,7 +8,11 @@ void main() async {
   runApp(
     DevicePreview(
       enabled: !releaseMode,
-      builder: (context) => BotiApp(),
+      builder: (context) {
+        return BotiAppGlobalProvider(
+          child: BotiApp(),
+        );
+      },
     ),
   );
 }

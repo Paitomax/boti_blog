@@ -16,7 +16,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'sign_in_bloc.dart';
 
 class SignInScreen extends StatefulWidget {
+  final String savedUser;
+
   static final String routeName = '/sign_in';
+
+  const SignInScreen({Key key, this.savedUser}) : super(key: key);
 
   @override
   _SignInScreenState createState() => _SignInScreenState();
@@ -32,10 +36,9 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   void didChangeDependencies() {
-    final args = ModalRoute.of(context).settings.arguments;
-    if (args != null) {
+    if (widget.savedUser != null) {
       _saveUser = true;
-      _emailController.text = args as String;
+      _emailController.text = widget.savedUser;
     }
     super.didChangeDependencies();
   }
@@ -165,9 +168,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   Widget _buildButtons() {
     return BlocConsumer<SignInBloc, SignInState>(listener: (context, state) {
-      if (state is SignInLoadSuccess) {
-        _navigateToHome();
-      } else if (state is SignInLoadFailure) {
+      if (state is SignInLoadFailure) {
         _showErrorDialog(SignInScreenTexts.failureDialogTitle,
             SignInScreenTexts.failureDialogMessage);
       } else if (state is SignInLoadFailureWrongUserOrPass) {
@@ -234,9 +235,5 @@ class _SignInScreenState extends State<SignInScreen> {
         );
       },
     );
-  }
-
-  void _navigateToHome() {
-    Navigator.pushReplacementNamed(context, HomeScreen.routeName);
   }
 }

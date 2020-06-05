@@ -1,16 +1,17 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:botiblog/src/shared/user/user_repository_interface.dart';
+import 'package:botiblog/src/shared/auth/auth_bloc.dart';
+import 'package:botiblog/src/shared/auth/auth_event.dart';
 import 'package:botiblog/src/sign_in/sign_in_repository_interface.dart';
 
 import './bloc.dart';
 
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
   final SignInRepositoryInterface signInRepository;
-  final UserRepositoryInterface userRepository;
+  final AuthBloc authBloc;
 
-  SignInBloc(this.signInRepository, this.userRepository);
+  SignInBloc(this.signInRepository, this.authBloc);
 
   @override
   SignInState get initialState => SignInInitial();
@@ -32,10 +33,8 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       if (user == null) {
         yield SignInLoadFailureWrongUserOrPass();
       } else {
-        await userRepository.save(user);
-        await userRepository.rememberUser(event.remember ? user.email : null);
-
-        yield SignInLoadSuccess();
+        authBloc.add(AuthLoggedIn(user, event.remember));
+        yield SignInInitial();
       }
     } catch (e) {
       yield SignInLoadFailure();
