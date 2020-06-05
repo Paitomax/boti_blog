@@ -1,5 +1,6 @@
 import 'package:botiblog/src/shared/theme/app_colors.dart';
 import 'package:botiblog/src/sign_in/sign_in_screen.dart';
+import 'package:botiblog/src/splash/splash_screen_texts.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -40,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Widget _buildName() {
     return Text(
-      'Guilherme Nascimento',
+      SplashScreenTexts.name,
       style: TextStyle(
           fontSize: 24, color: AppColors.orange, fontWeight: FontWeight.bold),
     );
@@ -48,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Widget _buildEmail() {
     return Text(
-      'gafnasc@gmail.com',
+      SplashScreenTexts.email,
       style: TextStyle(
           fontSize: 16, color: AppColors.blue, fontWeight: FontWeight.bold),
     );
