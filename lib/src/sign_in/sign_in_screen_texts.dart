@@ -10,4 +10,5 @@ class SignInScreenTexts {
   static final String attention = 'Atenção';
   static final String wrongUserOrPass = 'Usuário ou senha incorreto.';
   static final String signUp = 'Cadastre-se';
+  static final String rememberUser = 'Lembrar usuário';
 }

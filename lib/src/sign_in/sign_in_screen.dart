@@ -105,7 +105,7 @@ class _SignInScreenState extends State<SignInScreen> {
               });
             },
           ),
-          Text('Lembrar usuário'),
+          Text(SignInScreenTexts.rememberUser),
         ],
       ),
     );
