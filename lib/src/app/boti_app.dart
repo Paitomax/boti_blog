@@ -1,4 +1,8 @@
 import 'package:botiblog/src/app/app_routes.dart';
+import 'package:botiblog/src/home/boti_news/boti_news_bloc.dart';
+import 'package:botiblog/src/home/boti_news/boti_news_data_provider.dart';
+import 'package:botiblog/src/home/boti_news/boti_news_repository_interface.dart';
+import 'package:botiblog/src/home/boti_news/boti_repository.dart';
 import 'package:botiblog/src/home/post_editor/post_bloc.dart';
 import 'package:botiblog/src/home/post_editor/post_data_provider.dart';
 import 'package:botiblog/src/home/post_editor/post_repository.dart';
@@ -17,6 +21,7 @@ import 'package:botiblog/src/sign_up/sign_up_data_provider.dart';
 import 'package:botiblog/src/sign_up/sign_up_repository.dart';
 import 'package:botiblog/src/sign_up/sign_up_repository_interface.dart';
 import 'package:botiblog/src/splash/splash_screen.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,10 +42,14 @@ class BotiApp extends StatelessWidget {
   }
 
   MultiRepositoryProvider _providers({Widget child}) {
+    final Dio dio = Dio();
+
     final SignInDataProvider signInDataProvider = SignInDataProvider();
     final SignUpDataProvider signUpDataProvider = SignUpDataProvider();
     final PostDataProvider userNewsDataProvider = PostDataProvider();
     final CurrentDateTimeInterface currentDateTime = CurrentDateTime();
+    final BotiNewsDataProvider botiNewsDataProvider = BotiNewsDataProvider(dio);
+
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<SignInRepositoryInterface>(
@@ -54,6 +63,9 @@ class BotiApp extends StatelessWidget {
         ),
         RepositoryProvider<PostRepositoryInterface>(
           create: (context) => PostRepository(userNewsDataProvider),
+        ),
+        RepositoryProvider<BotiNewsRepositoryInterface>(
+          create: (context) => BotiNewsRepository(botiNewsDataProvider),
         ),
       ],
       child: MultiBlocProvider(
@@ -83,6 +95,11 @@ class BotiApp extends StatelessWidget {
               RepositoryProvider.of<PostRepositoryInterface>(context),
               RepositoryProvider.of<UserRepositoryInterface>(context),
               currentDateTime,
+            ),
+          ),
+          BlocProvider(
+            create: (context) => BotiNewsBloc(
+              RepositoryProvider.of<BotiNewsRepositoryInterface>(context),
             ),
           ),
         ],
