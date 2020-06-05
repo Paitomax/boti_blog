@@ -70,7 +70,6 @@ class _BotiAppState extends State<BotiApp> {
   Widget build(BuildContext context) {
     final materialApp = MaterialApp(
         title: 'Boti Blog',
-        locale: DevicePreview.of(context).locale,
         builder: DevicePreview.appBuilder,
         theme: ThemeData(
           primarySwatch: Colors.blue,

@@ -24,7 +24,7 @@ class UserNewsBloc extends Bloc<UserNewsEvent, UserNewsState> {
   }
 
   @override
-  Future<Function> close() {
+  Future<void> close() {
     _streamSubscription?.cancel();
     return super.close();
   }
