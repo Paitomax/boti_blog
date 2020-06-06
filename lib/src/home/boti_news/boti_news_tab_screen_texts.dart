@@ -7,4 +7,5 @@ class BotiNewsTabTexts {
       'Poxa :(\nPor enquanto não temos nenhuma novidade\ndo Boticario';
   static final String emptyMessageKey = 'emptyMessageKey';
   static final String errorMessageKey = 'errorMessageKey';
+  static final String postListViewKey = 'botiNewsTabpostListViewKey';
 }

@@ -1,6 +1,5 @@
 import 'package:botiblog/src/home/boti_news/boti_news_tab_screen_texts.dart';
 import 'package:botiblog/src/home/user_news/model/post_model.dart';
-import 'package:botiblog/src/home/user_news/user_news_tab_screen_texts.dart';
 import 'package:botiblog/src/home/widget/post_list_view.dart';
 import 'package:botiblog/src/shared/widgets/boti_empty_message.dart';
 import 'package:botiblog/src/shared/widgets/boti_error_message.dart';
@@ -65,7 +64,7 @@ class _BotiNewsTabScreenState extends State<BotiNewsTabScreen> {
 
   Widget _buildPostList(List<PostModel> posts) {
     return PostListView(
-      key: Key(UserNewsTabTexts.postListViewKey),
+      key: Key(BotiNewsTabTexts.postListViewKey),
       posts: posts,
     );
   }
