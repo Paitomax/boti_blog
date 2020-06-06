@@ -78,6 +78,17 @@ void main() {
         },
         expect: [UserNewsLoadSuccessEmpty()],
       );
+      blocTest(
+        'emits [] when PostLoadSuccess is added',
+        build: () async {
+          whenListen(postBloc,
+              Stream.fromIterable([PostLoadSuccess(hadChanges: false)]));
+          when(postRepository.fetch(any))
+              .thenAnswer((realInvocation) => Future.value([]));
+          return UserNewsBloc(postBloc, postRepository, userRepository);
+        },
+        expect: [],
+      );
     },
   );
 }
