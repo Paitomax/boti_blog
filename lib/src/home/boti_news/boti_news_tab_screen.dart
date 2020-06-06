@@ -28,32 +28,37 @@ class _BotiNewsTabScreenState extends State<BotiNewsTabScreen> {
         child: Column(
           children: <Widget>[
             SizedBox(height: 16),
-            Text(
-              BotiNewsTabTexts.introduceMessage,
-              style: TextStyle(fontSize: 16),
-            ),
+            _buildIntroduceMessage(),
             SizedBox(height: 24),
             Divider(),
             SizedBox(height: 16),
-            BlocBuilder<BotiNewsBloc, BotiNewsState>(
-              builder: (context, state) {
-                if (state is BotiNewsLoadSuccess) {
-                  return _buildPostList(state.news);
-                } else if (state is BotiNewsLoadSuccessEmpty) {
-                  return _buildEmptyMessage();
-                } else if (state is BotiNewsLoadFailure) {
-                  return _buildErrorMessage();
-                } else {
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 32.0),
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              },
-            )
+            _buildContent(),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildIntroduceMessage() {
+    return Text(
+      BotiNewsTabTexts.introduceMessage,
+      style: TextStyle(fontSize: 16),
+    );
+  }
+
+  Widget _buildContent() {
+    return BlocBuilder<BotiNewsBloc, BotiNewsState>(
+      builder: (context, state) {
+        if (state is BotiNewsLoadSuccess) {
+          return _buildPostList(state.news);
+        } else if (state is BotiNewsLoadSuccessEmpty) {
+          return _buildEmptyMessage();
+        } else if (state is BotiNewsLoadFailure) {
+          return _buildErrorMessage();
+        } else {
+          return _buildProgressIndicator();
+        }
+      },
     );
   }
 
@@ -84,6 +89,13 @@ class _BotiNewsTabScreenState extends State<BotiNewsTabScreen> {
     return BotiEmptyMessage(
       key: Key(BotiNewsTabTexts.emptyMessageKey),
       message: BotiNewsTabTexts.emptyMessage,
+    );
+  }
+
+  Widget _buildProgressIndicator() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 32.0),
+      child: CircularProgressIndicator(),
     );
   }
 }
