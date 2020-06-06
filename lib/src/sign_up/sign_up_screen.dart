@@ -4,6 +4,7 @@ import 'package:botiblog/src/shared/consts/app_limits.dart';
 import 'package:botiblog/src/shared/validators/email_validator.dart';
 import 'package:botiblog/src/shared/validators/text_validator.dart';
 import 'package:botiblog/src/shared/widgets/boti_raised_button.dart';
+import 'package:botiblog/src/shared/widgets/dialog/boti_alert_dialog.dart';
 import 'package:botiblog/src/sign_up/model/user_account_model.dart';
 import 'package:botiblog/src/sign_up/sign_up_event.dart';
 import 'package:botiblog/src/sign_up/sign_up_screen_texts.dart';
@@ -198,7 +199,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return BlocConsumer<SignUpBloc, SignUpState>(
       listener: (context, state) {
         if (state is SignUpLoadSuccess) {
-          _showDialog(
+          _showAlertDialog(
               SignUpScreenTexts.successDialogTitle,
               SignUpScreenTexts.successDialogMessage,
               SignUpScreenTexts.successDialogButtonText, () {
@@ -206,12 +207,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
             Navigator.of(context).popUntil((route) => route.isFirst);
           });
         } else if (state is SignUpLoadFailure) {
-          _showDialog(SignUpScreenTexts.failureDialogTitle,
+          _showAlertDialog(SignUpScreenTexts.failureDialogTitle,
               SignUpScreenTexts.failureDialogMessage, SignUpScreenTexts.ok, () {
             Navigator.of(context).pop();
           });
         } else if (state is SignUpLoadFailureEmailAlreadyRegistered) {
-          _showDialog(
+          _showAlertDialog(
               SignUpScreenTexts.failureDialogTitle,
               SignUpScreenTexts.failureDialogMessageEmailAlreadyInUse,
               SignUpScreenTexts.ok, () {
@@ -245,24 +246,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
   }
 
-  void _showDialog(String title, String message, String buttonText,
+  void _showAlertDialog(String title, String message, String buttonText,
       Function onButtonPressed) {
-    showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext dialogContext) {
-        return AlertDialog(
-          key: Key(SignUpScreenTexts.alertDialogKey),
-          title: Text(title),
-          content: Text(message),
-          actions: <Widget>[
-            FlatButton(
-              child: Text(buttonText),
-              onPressed: onButtonPressed,
-            ),
-          ],
-        );
-      },
-    );
+    BotiAlertDialog(
+      key: Key(SignUpScreenTexts.alertDialogKey),
+      parentContext: context,
+      title: title,
+      message: message,
+      buttonText: buttonText,
+      onButtonPressed: onButtonPressed,
+    ).show(dismissible: false);
   }
 }

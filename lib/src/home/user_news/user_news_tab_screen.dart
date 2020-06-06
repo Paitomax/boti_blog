@@ -9,6 +9,7 @@ import 'package:botiblog/src/home/user_news/user_news_tab_screen_texts.dart';
 import 'package:botiblog/src/shared/formatters/date_formatter.dart';
 import 'package:botiblog/src/shared/theme/app_colors.dart';
 import 'package:botiblog/src/shared/user/user_model.dart';
+import 'package:botiblog/src/shared/widgets/dialog/boti_confirm_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -166,34 +167,21 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
   }
 
   void showDeleteConfirmationDialog(UserPostResponseModel item) {
-    showDialog<void>(
-      context: context,
-      barrierDismissible: true,
-      builder: (BuildContext dialogContext) {
-        return AlertDialog(
-          title: Text(UserNewsTabTexts.dialogAttention),
-          content: Text(UserNewsTabTexts.dialogHaveSure),
-          actions: <Widget>[
-            FlatButton(
-              child: Text(UserNewsTabTexts.dialogYesButtonText),
-              onPressed: () {
-                context.bloc<PostBloc>().add(PostRemoved(item));
-                Navigator.of(dialogContext).pop();
-              },
-            ),
-            FlatButton(
-              child: Text(
-                UserNewsTabTexts.dialogNoButtonText,
-                style: TextStyle(color: AppColors.lightOrange),
-              ),
-              onPressed: () {
-                Navigator.of(dialogContext).pop();
-              },
-            ),
-          ],
-        );
+    BotiConfirmAlertDialog(
+      key: Key('BotiConfirmAlertDialogKey'),
+      parentContext: context,
+      title: UserNewsTabTexts.dialogAttention,
+      message: UserNewsTabTexts.dialogHaveSure,
+      primaryButtonText: UserNewsTabTexts.dialogYesButtonText,
+      secondaryButtonText: UserNewsTabTexts.dialogNoButtonText,
+      onPrimaryButtonPressed: () {
+        context.bloc<PostBloc>().add(PostRemoved(item));
+        Navigator.of(context).pop();
       },
-    );
+      onSecondaryButtonPressed: () {
+        Navigator.of(context).pop();
+      },
+    ).show();
   }
 
   Widget _buildErrorMessage() {
