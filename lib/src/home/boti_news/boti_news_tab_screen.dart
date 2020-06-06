@@ -1,6 +1,6 @@
 import 'package:botiblog/src/home/boti_news/boti_news_tab_screen_texts.dart';
-import 'package:botiblog/src/home/boti_news/widget/boti_news_card.dart';
 import 'package:botiblog/src/home/user_news/model/post_model.dart';
+import 'package:botiblog/src/home/user_news/widget/boti_user_post_card.dart';
 import 'package:botiblog/src/shared/widgets/boti_empty_message.dart';
 import 'package:botiblog/src/shared/widgets/boti_error_message.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +69,7 @@ class _BotiNewsTabScreenState extends State<BotiNewsTabScreen> {
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (listViewContext, index) {
         final item = news[index];
-        return BotiNewsCard(botiNews: item);
+        return BotiUserPostCard(post: item);
       },
     );
   }

@@ -54,7 +54,7 @@ class BotiUserPostCard extends StatelessWidget {
   }
 
   Widget _buildFooter() {
-    final double padding = post.isAuthor(currentUser) ? 0 : 16;
+    final double padding = _isAuthor() ? 0 : 16;
 
     return Padding(
       padding: EdgeInsets.only(right: 16.0, top: padding, bottom: padding),
@@ -82,7 +82,7 @@ class BotiUserPostCard extends StatelessWidget {
 
   Widget _buildIconButton() {
     return Visibility(
-      visible: post.isAuthor(currentUser),
+      visible: _isAuthor(),
       child: InkWell(
         borderRadius: BorderRadius.circular(32),
         child: Padding(
@@ -105,7 +105,7 @@ class BotiUserPostCard extends StatelessWidget {
 
   Widget _buildEditButton() {
     return Visibility(
-      visible: post.isAuthor(currentUser),
+      visible: _isAuthor(),
       child: InkWell(
         borderRadius: BorderRadius.circular(32),
         child: Padding(
@@ -128,5 +128,10 @@ class BotiUserPostCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  bool _isAuthor() {
+    if (currentUser == null) return false;
+    return post.isAuthor(currentUser);
   }
 }
