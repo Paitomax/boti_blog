@@ -6,7 +6,7 @@ import 'package:botiblog/src/home/user_news/user_news_bloc.dart';
 import 'package:botiblog/src/home/user_news/user_news_event.dart';
 import 'package:botiblog/src/home/user_news/user_news_state.dart';
 import 'package:botiblog/src/home/user_news/user_news_tab_screen_texts.dart';
-import 'package:botiblog/src/shared/formatters/date_formatter.dart';
+import 'package:botiblog/src/home/user_news/widget/boti_user_post_card.dart';
 import 'package:botiblog/src/shared/theme/app_colors.dart';
 import 'package:botiblog/src/shared/user/user_model.dart';
 import 'package:botiblog/src/shared/widgets/dialog/boti_confirm_dialog.dart';
@@ -81,83 +81,15 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
   }
 
   Widget _buildCard(UserPostResponseModel item, UserModel user) {
-    final double padding = item.isAuthor(user) ? 0 : 16;
-
-    return Card(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 16.0),
-                    child: Text(item.user.name,
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.blue)),
-                  ),
-                ),
-                Visibility(
-                  visible: item.isAuthor(user),
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(32),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Icon(Icons.close, size: 12, color: Colors.red),
-                    ),
-                    onTap: () {
-                      showDeleteConfirmationDialog(item);
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 4),
-          Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16.0),
-            child: Text(item.post.text,
-                style: TextStyle(color: AppColors.lightOrange)),
-          ),
-          SizedBox(height: 4),
-          Padding(
-            padding:
-                EdgeInsets.only(right: 16.0, top: padding, bottom: padding),
-            child: Row(
-              children: <Widget>[
-                Visibility(
-                  visible: item.isAuthor(user),
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(32),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child:
-                          Icon(Icons.edit, size: 12, color: AppColors.orange),
-                    ),
-                    onTap: () {
-                      _navigateToEditor(
-                          args: {PostEditorScreen.paramName: item});
-                    },
-                  ),
-                ),
-                Expanded(
-                    child: Text(
-                  DateFormatter.format(item.post.date),
-                  textAlign: TextAlign.end,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Color(0xFFBABABA),
-                  ),
-                )),
-              ],
-            ),
-          ),
-        ],
-      ),
+    return BotiUserPostCard(
+      post: item,
+      currentUser: user,
+      onEditPressed: (UserPostResponseModel item) {
+        _navigateToEditor(args: {PostEditorScreen.paramName: item});
+      },
+      onDeletePressed: (UserPostResponseModel item) {
+        showDeleteConfirmationDialog(item);
+      },
     );
   }
 
