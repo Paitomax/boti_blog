@@ -71,10 +71,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
           SizedBox(height: 16),
           _buildEmailInput(),
           SizedBox(height: 16),
-          _buildPasswordInput(_passController, _passwordFocusNode,
-              SignUpScreenTexts.passwordHint, passwordValidator),
+          _buildPasswordInput(
+              Key(SignUpScreenTexts.passwordTextFormFieldKey),
+              _passController,
+              _passwordFocusNode,
+              SignUpScreenTexts.passwordHint,
+              passwordValidator),
           SizedBox(height: 16),
           _buildPasswordInput(
+              Key(SignUpScreenTexts.passwordConfirmationTextFormFieldKey),
               _passConfirmationController,
               _passwordConfirmationFocusNode,
               SignUpScreenTexts.passwordConfirmationHint,
@@ -87,6 +92,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   Widget _buildEmailInput() {
     return TextFormField(
+      key: Key(SignUpScreenTexts.emailTextFormFieldKey),
       autofocus: true,
       controller: _emailController,
       keyboardType: TextInputType.emailAddress,
@@ -117,6 +123,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   Widget _buildNameInput() {
     return TextFormField(
+      key: Key(SignUpScreenTexts.nameTextFormFieldKey),
       autofocus: true,
       controller: _nameController,
       keyboardType: TextInputType.text,
@@ -144,10 +151,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  Widget _buildPasswordInput(TextEditingController controller,
+  Widget _buildPasswordInput(Key key, TextEditingController controller,
       FocusNode focusNode, String hintText, Function(String) passwordValidator,
       {TextInputAction textInputAction = TextInputAction.next}) {
     return TextFormField(
+      key: key,
       textInputAction: textInputAction,
       controller: controller,
       keyboardType: TextInputType.text,
@@ -181,7 +189,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   String passwordConfirmationValidator(String text) {
-    if (_passConfirmationController.text != text)
+    if (_passController.text != text)
       return SignUpScreenTexts.passwordConfirmationErrorMessage;
     return null;
   }
@@ -219,6 +227,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           return CircularProgressIndicator();
         } else {
           return BotiRaisedButton(
+            key: Key(SignUpScreenTexts.signUpButtonKey),
             text: SignUpScreenTexts.mainButtonText,
             onPressed: _onButtonPressed,
           );
@@ -243,6 +252,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       barrierDismissible: false,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
+          key: Key(SignUpScreenTexts.alertDialogKey),
           title: Text(title),
           content: Text(message),
           actions: <Widget>[

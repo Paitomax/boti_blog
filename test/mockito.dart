@@ -11,12 +11,14 @@ import 'package:botiblog/src/shared/current_datetime/current_date_interface.dart
 import 'package:botiblog/src/shared/user/user_repository_interface.dart';
 import 'package:botiblog/src/sign_in/bloc.dart';
 import 'package:botiblog/src/sign_in/sign_in_repository_interface.dart';
+import 'package:botiblog/src/sign_up/bloc.dart';
 import 'package:botiblog/src/sign_up/sign_up_repository_interface.dart';
 import 'package:mockito/mockito.dart';
 
 class MockAuthBloc extends MockBloc<AuthEvent, AuthState> implements AuthBloc {}
 class MockPostBloc extends MockBloc<PostEvent, PostState> implements PostBloc {}
 class MockSignInBloc extends MockBloc<SignInEvent, SignInState> implements SignInBloc {}
+class MockSignUpBloc extends MockBloc<SignUpEvent, SignUpState> implements SignUpBloc {}
 
 class MockUserRepository extends Mock implements UserRepositoryInterface {}
 class MockSignInRepository extends Mock implements SignInRepositoryInterface {}

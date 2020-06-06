@@ -30,4 +30,12 @@ class SignUpScreenTexts {
   static final String successDialogButtonText = 'Ir para a Home';
 
   static final String mainButtonText = 'Continuar';
+
+  static final String nameTextFormFieldKey = 'nameTextFormField';
+  static final String emailTextFormFieldKey = 'emailTextFormField';
+  static final String passwordTextFormFieldKey = 'passwordTextFormField';
+  static final String passwordConfirmationTextFormFieldKey =
+      'passwordConfirmationTextFormField';
+  static final String signUpButtonKey = 'signUpButton';
+  static final String alertDialogKey = 'alertDialog';
 }
