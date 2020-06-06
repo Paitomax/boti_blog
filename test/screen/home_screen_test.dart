@@ -1,8 +1,10 @@
 import 'package:botiblog/src/home/boti_news/bloc.dart';
+import 'package:botiblog/src/home/boti_news/boti_news_tab_screen.dart';
 import 'package:botiblog/src/home/home_screen.dart';
 import 'package:botiblog/src/home/home_screen_texts.dart';
 import 'package:botiblog/src/home/post_editor/post_bloc.dart';
 import 'package:botiblog/src/home/user_news/bloc.dart';
+import 'package:botiblog/src/home/user_news/user_news_tab_screen.dart';
 import 'package:botiblog/src/shared/auth/auth_bloc.dart';
 import 'package:botiblog/src/shared/auth/auth_event.dart';
 import 'package:flutter/material.dart';
@@ -80,6 +82,20 @@ void main() {
         await tester.pumpAndSettle();
 
         verify(authBloc.add(AuthLoggedOut())).called(1);
+      });
+
+      testWidgets('Should change screen when tab pressed',
+          (WidgetTester tester) async {
+        await tester.pumpWidget(_buildMainApp());
+
+        expect(find.byType(UserNewsTabScreen), findsOneWidget);
+        expect(find.byType(BotiNewsTabScreen), findsNothing);
+
+        await tester.tap(find.byIcon(Icons.star));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(UserNewsTabScreen), findsNothing);
+        expect(find.byType(BotiNewsTabScreen), findsOneWidget);
       });
     });
   });
