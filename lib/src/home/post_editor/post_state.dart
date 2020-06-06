@@ -25,6 +25,10 @@ class PostLoadInProgress extends PostState {
 }
 
 class PostLoadSuccess extends PostState {
+  final bool hadChanges;
+
+  PostLoadSuccess({this.hadChanges = true});
+
   @override
   List<Object> get props => [];
 

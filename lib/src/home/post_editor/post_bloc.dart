@@ -62,14 +62,17 @@ class PostBloc extends Bloc<PostEvent, PostState> {
   Stream<PostState> _mapPostEditorUpdatedToState(PostUpdated event) async* {
     try {
       yield PostLoadInProgress();
+      bool hadChanges = true;
+      if (event.userPost.post.text == event.newText) {
+        hadChanges = false;
+      } else {
+        final oldPost = event.userPost.post;
+        final newPost = PostMessageModel(event.newText, currentDateTime.now(),
+            id: oldPost.id);
 
-      final oldPost = event.userPost.post;
-      final newPost =
-          PostMessageModel(event.newText, currentDateTime.now(), id: oldPost.id);
-
-      await userNewsRepository.update(newPost);
-
-      yield PostLoadSuccess();
+        await userNewsRepository.update(newPost);
+      }
+      yield PostLoadSuccess(hadChanges: hadChanges);
     } catch (e) {
       yield PostLoadFailure();
     }
