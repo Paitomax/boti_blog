@@ -20,7 +20,7 @@ class SignInDataProvider {
       final result = response.first;
 
       final user =
-          UserModel(result['name'], id: result['id'], email: result['email']);
+          UserModel(result['name'], id: result['id'], email: result['email'].toString().toLowerCase());
       return user;
     } catch (e) {
       throw Exception('Cant connect to the server.');
