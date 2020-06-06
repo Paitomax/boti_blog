@@ -1,3 +1,4 @@
+import 'package:botiblog/src/shared/theme/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,7 @@ class BotiRoundedOutlinedButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(32),
           side: BorderSide(color: Color(0xFFAAAAAA)),
         ),
-        hoverColor: Color(0xFFBABABA),
+        hoverColor: AppColors.gray,
         child: Container(
           decoration: BoxDecoration(
               border: Border.all(color: Color(0xFFAAAAAA)),
@@ -29,7 +30,7 @@ class BotiRoundedOutlinedButton extends StatelessWidget {
           child: Text(
             text,
             style: TextStyle(
-              color: Color(0xFFBABABA),
+              color: AppColors.gray,
             ),
           ),
         ),
