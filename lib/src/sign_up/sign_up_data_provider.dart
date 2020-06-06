@@ -11,13 +11,13 @@ class SignUpDataProvider {
       final response = await db.query('User',
           columns: ['id', 'name', 'email', 'password'],
           where: 'email = ?',
-          whereArgs: [userAccountModel.email]);
+          whereArgs: [userAccountModel.email.toLowerCase()]);
 
       if (response.isNotEmpty) return null;
 
       final id = await db.insert("User", {
         'name': userAccountModel.name,
-        'email': userAccountModel.email,
+        'email': userAccountModel.email.toLowerCase(),
         'password': cryptedPass
       });
 
@@ -25,7 +25,7 @@ class SignUpDataProvider {
       await Future.delayed(Duration(seconds: 2));
 
       final user = UserModel(userAccountModel.name,
-          id: id, email: userAccountModel.email);
+          id: id, email: userAccountModel.email.toLowerCase());
       return user;
     } catch (e) {
       throw Exception('Cant connect to the server.');

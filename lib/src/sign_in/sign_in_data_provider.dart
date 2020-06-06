@@ -10,7 +10,7 @@ class SignInDataProvider {
       final response = await db.query('User',
           columns: ['id', 'name', 'email', 'password'],
           where: 'email = ? AND password = ?',
-          whereArgs: [email, cryptedPass]);
+          whereArgs: [email.toLowerCase(), cryptedPass]);
 
       // simulates network connection
       await Future.delayed(Duration(seconds: 2));
