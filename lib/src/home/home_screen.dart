@@ -27,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text(HomeScreenTexts.title),
         actions: <Widget>[
           PopupMenuButton(
+            key: Key(HomeScreenTexts.popupMenuButtonKey),
             onSelected: _menuPopUpSelected,
             itemBuilder: (BuildContext context) {
               return [
