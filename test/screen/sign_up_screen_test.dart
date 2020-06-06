@@ -4,6 +4,7 @@ import 'package:botiblog/src/shared/validators/email_validator.dart';
 import 'package:botiblog/src/shared/validators/name_validator.dart';
 import 'package:botiblog/src/shared/validators/password_validator.dart';
 import 'package:botiblog/src/sign_up/bloc.dart';
+import 'package:botiblog/src/sign_up/model/user_account_model.dart';
 import 'package:botiblog/src/sign_up/sign_up_screen.dart';
 import 'package:botiblog/src/sign_up/sign_up_screen_texts.dart';
 import 'package:flutter/material.dart';
@@ -290,6 +291,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byKey(Key(SignUpScreenTexts.alertDialogKey)), findsNothing);
+      verify(authBloc.add(AuthLoggedIn(Mocks.userModel(), true))).called(1);
     });
 
     testWidgets('Should not show dialog when tap button',
@@ -299,21 +301,24 @@ void main() {
       final app = _buildMainApp();
       await tester.pumpWidget(app);
 
-      String name = 'José';
-      String email = 'Jose@gmail.com';
-      String pass = '123456';
-
-      await tester.enterText(find.byKey(nameTextFormFieldKey), name);
-
-      await tester.enterText(find.byKey(emailTextFormFieldKey), email);
-
-      await tester.enterText(find.byKey(passwordTextFormFieldKey), pass);
+      final userAccount = UserAccountModel('José', 'Jose@gmail.com', '123456');
 
       await tester.enterText(
-          find.byKey(passwordConfirmationTextFormFieldKey), pass);
+          find.byKey(nameTextFormFieldKey), userAccount.name);
+
+      await tester.enterText(
+          find.byKey(emailTextFormFieldKey), userAccount.email);
+
+      await tester.enterText(
+          find.byKey(passwordTextFormFieldKey), userAccount.password);
+
+      await tester.enterText(find.byKey(passwordConfirmationTextFormFieldKey),
+          userAccount.password);
 
       await tester.tap(find.byKey(signUpButtonKey));
       await tester.pumpAndSettle();
+
+      verify(signUpBloc.add(SignUpRequested(userAccount))).called(1);
       expect(find.byKey(Key(SignUpScreenTexts.alertDialogKey)), findsNothing);
     });
 
