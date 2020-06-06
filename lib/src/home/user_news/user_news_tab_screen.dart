@@ -7,8 +7,8 @@ import 'package:botiblog/src/home/user_news/user_news_event.dart';
 import 'package:botiblog/src/home/user_news/user_news_state.dart';
 import 'package:botiblog/src/home/user_news/user_news_tab_screen_texts.dart';
 import 'package:botiblog/src/home/user_news/widget/boti_user_post_card.dart';
-import 'package:botiblog/src/shared/theme/app_colors.dart';
 import 'package:botiblog/src/shared/user/user_model.dart';
+import 'package:botiblog/src/shared/widgets/boti_empty_message.dart';
 import 'package:botiblog/src/shared/widgets/boti_error_message.dart';
 import 'package:botiblog/src/shared/widgets/buttons/boti_rounded_outlined_button.dart';
 import 'package:botiblog/src/shared/widgets/dialog/boti_confirm_dialog.dart';
@@ -148,21 +148,7 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
   Widget _buildEmptyMessage() {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Column(
-        children: <Widget>[
-          Icon(
-            Icons.layers_clear,
-            color: AppColors.blue,
-            size: 32,
-          ),
-          SizedBox(height: 8),
-          Text(
-            UserNewsTabTexts.emptyMessage,
-            textAlign: TextAlign.center,
-            style: TextStyle(color: AppColors.orange, fontSize: 16),
-          ),
-        ],
-      ),
+      child: BotiEmptyMessage(message: UserNewsTabTexts.emptyMessage),
     );
   }
 }
