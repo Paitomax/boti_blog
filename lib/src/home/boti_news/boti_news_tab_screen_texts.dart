@@ -5,4 +5,6 @@ class BotiNewsTabTexts {
   static final String loadScreen = 'Recarregar a tela';
   static final String emptyMessage =
       'Poxa :(\nPor enquanto não temos nenhuma novidade\ndo Boticario';
+  static final String emptyMessageKey = 'emptyMessageKey';
+  static final String errorMessageKey = 'errorMessageKey';
 }

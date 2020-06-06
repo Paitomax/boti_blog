@@ -2,6 +2,8 @@ import 'package:botiblog/src/home/boti_news/boti_news_tab_screen_texts.dart';
 import 'package:botiblog/src/home/boti_news/model/boti_news_model.dart';
 import 'package:botiblog/src/shared/formatters/date_formatter.dart';
 import 'package:botiblog/src/shared/theme/app_colors.dart';
+import 'package:botiblog/src/shared/widgets/boti_empty_message.dart';
+import 'package:botiblog/src/shared/widgets/boti_error_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -102,49 +104,20 @@ class _BotiNewsTabScreenState extends State<BotiNewsTabScreen> {
   }
 
   Widget _buildErrorMessage() {
-    return Column(
-      children: <Widget>[
-        Icon(
-          Icons.error,
-          color: AppColors.lightOrange,
-          size: 32,
-        ),
-        SizedBox(height: 8),
-        Text(
-          BotiNewsTabTexts.errorMessage,
-          style: TextStyle(color: Colors.red, fontSize: 16),
-        ),
-        FlatButton(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-          textColor: AppColors.blue,
-          child: Text(
-            BotiNewsTabTexts.loadScreen,
-            style: TextStyle(color: AppColors.blue),
-          ),
-          onPressed: () {
-            context.bloc<BotiNewsBloc>().add(BotiNewsLoaded());
-          },
-        ),
-      ],
+    return BotiErrorMessage(
+      key: Key(BotiNewsTabTexts.errorMessageKey),
+      errorMessage: BotiNewsTabTexts.errorMessage,
+      actionText: BotiNewsTabTexts.loadScreen,
+      onPressed: () {
+        context.bloc<BotiNewsBloc>().add(BotiNewsLoaded());
+      },
     );
   }
 
   Widget _buildEmptyMessage() {
-    return Column(
-      children: <Widget>[
-        Icon(
-          Icons.layers_clear,
-          color: AppColors.blue,
-          size: 32,
-        ),
-        SizedBox(height: 8),
-        Text(
-          BotiNewsTabTexts.emptyMessage,
-          textAlign: TextAlign.center,
-          style: TextStyle(color: AppColors.orange, fontSize: 16),
-        ),
-      ],
+    return BotiEmptyMessage(
+      key: Key(BotiNewsTabTexts.emptyMessageKey),
+      message: BotiNewsTabTexts.emptyMessage,
     );
   }
 }
