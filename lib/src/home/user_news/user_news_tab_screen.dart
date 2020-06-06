@@ -69,10 +69,7 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
         } else if (state is UserNewsLoadFailure) {
           return _buildErrorMessage();
         } else {
-          return Padding(
-            padding: const EdgeInsets.only(top: 32.0),
-            child: CircularProgressIndicator(),
-          );
+          return _buildProgressIndicator();
         }
       },
     );
@@ -149,6 +146,13 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: BotiEmptyMessage(message: UserNewsTabTexts.emptyMessage),
+    );
+  }
+
+  Widget _buildProgressIndicator() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 32.0),
+      child: CircularProgressIndicator(),
     );
   }
 }
