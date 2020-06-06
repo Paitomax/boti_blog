@@ -1,8 +1,8 @@
 import 'package:botiblog/src/shared/auth/auth_bloc.dart';
 import 'package:botiblog/src/shared/auth/auth_event.dart';
 import 'package:botiblog/src/shared/consts/app_limits.dart';
-import 'package:botiblog/src/shared/validators/email_validator.dart';
 import 'package:botiblog/src/shared/validators/text_validator.dart';
+import 'package:botiblog/src/shared/widgets/boti_email_input.dart';
 import 'package:botiblog/src/shared/widgets/boti_raised_button.dart';
 import 'package:botiblog/src/shared/widgets/dialog/boti_alert_dialog.dart';
 import 'package:botiblog/src/sign_up/model/user_account_model.dart';
@@ -45,7 +45,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: Column(
               children: <Widget>[
                 SizedBox(height: 16),
-                _buildText(),
+                _buildFormMessage(),
                 SizedBox(height: 16),
                 _buildForm(),
                 SizedBox(height: 24),
@@ -56,7 +56,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ));
   }
 
-  Widget _buildText() {
+  Widget _buildFormMessage() {
     return Text(
       SignUpScreenTexts.formMessage,
       style: TextStyle(fontSize: 16),
@@ -92,32 +92,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   Widget _buildEmailInput() {
-    return TextFormField(
+    return BotiEmailInput(
       key: Key(SignUpScreenTexts.emailTextFormFieldKey),
       autofocus: true,
       controller: _emailController,
-      keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
       focusNode: _emailFocusNode,
       onFieldSubmitted: (text) {
         _emailFocusNode.unfocus();
         FocusScope.of(context).requestFocus(_passwordFocusNode);
-      },
-      decoration: InputDecoration(
-        hintText: SignUpScreenTexts.emailHint,
-        hintStyle: TextStyle(fontSize: 18),
-      ),
-      inputFormatters: [
-        LengthLimitingTextInputFormatter(AppLimits.emailLimits),
-      ],
-      validator: (text) {
-        if (text.isEmpty)
-          return SignUpScreenTexts.emailErrorMessageEnterYourEmail;
-
-        final validEmail = EmailValidator.isValid(text);
-
-        if (!validEmail) return SignUpScreenTexts.emailErrorMessageInvalid;
-        return null;
       },
     );
   }

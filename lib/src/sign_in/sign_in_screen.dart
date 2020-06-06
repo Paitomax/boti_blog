@@ -1,6 +1,6 @@
 import 'package:botiblog/src/shared/consts/app_limits.dart';
 import 'package:botiblog/src/shared/theme/app_colors.dart';
-import 'package:botiblog/src/shared/validators/email_validator.dart';
+import 'package:botiblog/src/shared/widgets/boti_email_input.dart';
 import 'package:botiblog/src/shared/widgets/boti_flat_button.dart';
 import 'package:botiblog/src/shared/widgets/boti_raised_button.dart';
 import 'package:botiblog/src/sign_in/sign_in_event.dart';
@@ -113,30 +113,14 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   Widget _buildEmailInput() {
-    return TextFormField(
+    return BotiEmailInput(
       key: Key(SignInScreenTexts.emailTextFormFieldKey),
       controller: _emailController,
       focusNode: _emailFocusNode,
       textInputAction: TextInputAction.next,
-      decoration: InputDecoration(
-        hintText: SignInScreenTexts.emailHint,
-        hintStyle: TextStyle(fontSize: 18),
-      ),
-      inputFormatters: [
-        LengthLimitingTextInputFormatter(AppLimits.emailLimits),
-      ],
       onFieldSubmitted: (text) {
         _emailFocusNode.unfocus();
         FocusScope.of(context).requestFocus(_passFocusNode);
-      },
-      validator: (text) {
-        if (text.isEmpty)
-          return SignInScreenTexts.emailErrorMessageEnterYourEmail;
-
-        final validEmail = EmailValidator.isValid(text);
-
-        if (!validEmail) return SignInScreenTexts.emailErrorMessageInvalid;
-        return null;
       },
     );
   }
