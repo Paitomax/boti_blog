@@ -24,7 +24,6 @@ class BotiEmailInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-        key: key,
         autofocus: autofocus,
         controller: controller,
         keyboardType: TextInputType.emailAddress,

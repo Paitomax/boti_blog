@@ -30,7 +30,6 @@ class BotiPasswordInput extends StatelessWidget {
         controllerCompare == null ? passwordHint : passwordConfirmationHint;
 
     return TextFormField(
-      key: key,
       textInputAction: textInputAction,
       controller: controller,
       keyboardType: TextInputType.text,
