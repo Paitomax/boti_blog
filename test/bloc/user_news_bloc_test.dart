@@ -40,12 +40,12 @@ void main() {
         build: () async => bloc,
         act: (bloc) async {
           when(postRepository.fetch(any)).thenAnswer((realInvocation) =>
-              Future.value(Mocks.listUserPostResponseModel()));
+              Future.value(Mocks.listPostModel()));
           bloc.add(UserNewsLoaded());
         },
         expect: [
           UserNewsLoadSuccess(
-              Mocks.listUserPostResponseModel(), Mocks.userModel())
+              Mocks.listPostModel(), Mocks.userModel())
         ],
       );
       blocTest(

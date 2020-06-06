@@ -12,4 +12,7 @@ class UserNewsTabTexts {
   static final String loadScreen = 'Recarregar a tela';
   static final String emptyMessage =
       'Seus colegas ainda não postaram nada, corre e seja o primeiro!';
+  static final String postListViewKey = 'userNewsTabpostListViewKey';
+
+  static final String botiConfirmAlertDialogKey = 'BotiConfirmAlertDialogKey';
 }

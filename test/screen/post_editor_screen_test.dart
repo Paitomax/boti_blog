@@ -64,7 +64,7 @@ void main() {
       when(postBloc.state).thenAnswer((_) => PostInitial());
 
       await tester.pumpWidget(_buildMainApp(tester,
-          args: {PostEditorScreen.paramName: Mocks.userPostResponseModel()}));
+          args: {PostEditorScreen.paramName: Mocks.postModel()}));
 
       await tester.tap(find.byType(FlatButton));
       await tester.pumpAndSettle();
@@ -72,7 +72,7 @@ void main() {
       expect(find.text(PostEditorScreenTexts.editPost), findsOneWidget);
       expect(find.text(PostEditorScreenTexts.save), findsOneWidget);
       expect(
-          find.text(Mocks.userPostResponseModel().post.text), findsOneWidget);
+          find.text(Mocks.postModel().post.text), findsOneWidget);
     });
 
     testWidgets('Should publish button be enabled',
@@ -80,7 +80,7 @@ void main() {
       when(postBloc.state).thenAnswer((_) => PostInitial());
 
       await tester.pumpWidget(_buildMainApp(tester,
-          args: {PostEditorScreen.paramName: Mocks.userPostResponseModel()}));
+          args: {PostEditorScreen.paramName: Mocks.postModel()}));
 
       await tester.tap(find.byType(FlatButton));
       await tester.pumpAndSettle();
@@ -134,7 +134,7 @@ void main() {
       when(postBloc.state).thenAnswer((_) => PostInitial());
 
       await tester.pumpWidget(_buildMainApp(tester,
-          args: {PostEditorScreen.paramName: Mocks.userPostResponseModel()}));
+          args: {PostEditorScreen.paramName: Mocks.postModel()}));
 
       await tester.tap(find.byType(FlatButton));
       await tester.pumpAndSettle();
@@ -148,7 +148,7 @@ void main() {
       when(postBloc.state).thenAnswer((_) => PostLoadInProgress());
 
       await tester.pumpWidget(_buildMainApp(tester,
-          args: {PostEditorScreen.paramName: Mocks.userPostResponseModel()}));
+          args: {PostEditorScreen.paramName: Mocks.postModel()}));
 
       await tester.tap(find.byType(FlatButton));
       await tester.pump();
@@ -162,7 +162,7 @@ void main() {
           postBloc, Stream.fromIterable([PostInitial(), PostLoadFailure()]));
 
       await tester.pumpWidget(_buildMainApp(tester,
-          args: {PostEditorScreen.paramName: Mocks.userPostResponseModel()}));
+          args: {PostEditorScreen.paramName: Mocks.postModel()}));
 
       await tester.tap(find.byType(FlatButton));
       await tester.pumpAndSettle();
@@ -186,7 +186,7 @@ void main() {
           postBloc, Stream.fromIterable([PostInitial(), PostLoadSuccess()]));
 
       await tester.pumpWidget(_buildMainApp(tester,
-          args: {PostEditorScreen.paramName: Mocks.userPostResponseModel()}));
+          args: {PostEditorScreen.paramName: Mocks.postModel()}));
 
       await tester.tap(find.byType(FlatButton));
       await tester.pumpAndSettle();

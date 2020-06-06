@@ -6,10 +6,10 @@ import 'package:botiblog/src/home/user_news/user_news_bloc.dart';
 import 'package:botiblog/src/home/user_news/user_news_event.dart';
 import 'package:botiblog/src/home/user_news/user_news_state.dart';
 import 'package:botiblog/src/home/user_news/user_news_tab_screen_texts.dart';
-import 'package:botiblog/src/shared/widgets/boti_post_card.dart';
 import 'package:botiblog/src/shared/user/user_model.dart';
 import 'package:botiblog/src/shared/widgets/boti_empty_message.dart';
 import 'package:botiblog/src/shared/widgets/boti_error_message.dart';
+import 'package:botiblog/src/shared/widgets/boti_post_card.dart';
 import 'package:botiblog/src/shared/widgets/buttons/boti_rounded_outlined_button.dart';
 import 'package:botiblog/src/shared/widgets/dialog/boti_confirm_dialog.dart';
 import 'package:flutter/material.dart';
@@ -77,18 +77,20 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
 
   Widget _buildPostList(List<PostModel> posts, UserModel user) {
     return ListView.builder(
+      key: Key(UserNewsTabTexts.postListViewKey),
       itemCount: posts.length,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (listViewContext, index) {
         final item = posts[index];
-        return _buildCard(item, user);
+        return _buildCard(item, user, index);
       },
     );
   }
 
-  Widget _buildCard(PostModel item, UserModel user) {
+  Widget _buildCard(PostModel item, UserModel user, int index) {
     return BotiPostCard(
+      key: Key('BotiPostCardKeyIndex$index'),
       post: item,
       currentUser: user,
       onEditPressed: (PostModel item) {
@@ -107,7 +109,7 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
 
   void showDeleteConfirmationDialog(PostModel item) {
     BotiConfirmAlertDialog(
-      key: Key('BotiConfirmAlertDialogKey'),
+      key: Key(UserNewsTabTexts.botiConfirmAlertDialogKey),
       parentContext: context,
       title: UserNewsTabTexts.dialogAttention,
       message: UserNewsTabTexts.dialogHaveSure,

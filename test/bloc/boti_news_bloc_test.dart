@@ -47,7 +47,7 @@ void main() {
           build: () async => bloc,
           act: (bloc) async {
             when(botiNewsRepository.fetch()).thenAnswer((realInvocation) =>
-                Future.value(Mocks.botiNewsResponseModelEmpty()));
+                Future.value(Mocks.postResponseModelEmpty()));
             bloc.add(BotiNewsLoaded());
           },
           skip: 0,

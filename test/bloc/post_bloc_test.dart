@@ -43,7 +43,7 @@ void main() {
           'emits [PostLoadInProgress, PostLoadSuccess] when PostAdded is added',
           build: () async => bloc,
           act: (bloc) async {
-            bloc.add(PostAdded(Mocks.userPost().text));
+            bloc.add(PostAdded(Mocks.postMessageModel().text));
           },
           expect: [PostLoadInProgress(), PostLoadSuccess()],
         );
@@ -54,7 +54,7 @@ void main() {
           act: (bloc) async {
             when(postRepository.add(any))
                 .thenAnswer((realInvocation) => throw Exception());
-            bloc.add(PostAdded(Mocks.userPost().text));
+            bloc.add(PostAdded(Mocks.postMessageModel().text));
           },
           expect: [PostLoadInProgress(), PostLoadFailure()],
         );
@@ -65,7 +65,7 @@ void main() {
           'emits [PostLoadInProgress, PostLoadSuccess] when PostRemoved is added',
           build: () async => bloc,
           act: (bloc) async {
-            bloc.add(PostRemoved(Mocks.userPostResponseModel()));
+            bloc.add(PostRemoved(Mocks.postModel()));
           },
           expect: [PostLoadInProgress(), PostLoadSuccess()],
         );
@@ -76,7 +76,7 @@ void main() {
           act: (bloc) async {
             when(postRepository.remove(any))
                 .thenAnswer((realInvocation) => throw Exception());
-            bloc.add(PostRemoved(Mocks.userPostResponseModel()));
+            bloc.add(PostRemoved(Mocks.postModel()));
           },
           expect: [PostLoadInProgress(), PostLoadFailure()],
         );
@@ -87,7 +87,7 @@ void main() {
           'emits [PostLoadInProgress, PostLoadSuccess] when PostUpdated is added',
           build: () async => bloc,
           act: (bloc) async {
-            bloc.add(PostUpdated(Mocks.userPostResponseModel(),'updated'));
+            bloc.add(PostUpdated(Mocks.postModel(),'updated'));
           },
           expect: [PostLoadInProgress(), PostLoadSuccess()],
         );
@@ -98,7 +98,7 @@ void main() {
           act: (bloc) async {
             when(postRepository.update(any))
                 .thenAnswer((realInvocation) => throw Exception());
-            bloc.add(PostUpdated(Mocks.userPostResponseModel(),'updated'));
+            bloc.add(PostUpdated(Mocks.postModel(),'updated'));
           },
           expect: [PostLoadInProgress(), PostLoadFailure()],
         );
