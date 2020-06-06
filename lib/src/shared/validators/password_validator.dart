@@ -1,3 +1,4 @@
+import 'package:botiblog/src/shared/consts/app_limits.dart';
 import 'package:flutter/cupertino.dart';
 
 class PasswordValidator {
@@ -6,7 +7,8 @@ class PasswordValidator {
   static final String passwordConfirmationErrorMessage = 'As senhas não batem';
 
   static String passwordValidator(String password) {
-    if (password.length < 6) return passwordErrorMessageAtLeastSixCharacters;
+    if (password.length < AppLimits.passwordMinimum)
+      return passwordErrorMessageAtLeastSixCharacters;
     return null;
   }
 
