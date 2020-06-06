@@ -11,4 +11,11 @@ class SignInScreenTexts {
   static final String wrongUserOrPass = 'Usuário ou senha incorreto.';
   static final String signUp = 'Cadastre-se';
   static final String rememberUser = 'Lembrar usuário';
+
+  static final String saveUserSwitchKey = 'saveUserSwitch';
+  static final String emailTextFormFieldKey = 'emailTextFormField';
+  static final String passwordTextFormFieldKey = 'passwordTextFormField';
+  static final String loginButtonKey = 'loginButton';
+  static final String signUpButtonKey = 'signUpButton';
+  static final String errorAlertDialog = 'errorAlertDialog';
 }

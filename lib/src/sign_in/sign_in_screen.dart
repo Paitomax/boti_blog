@@ -98,6 +98,7 @@ class _SignInScreenState extends State<SignInScreen> {
       child: Row(
         children: <Widget>[
           Switch(
+            key: Key(SignInScreenTexts.saveUserSwitchKey),
             value: _saveUser,
             onChanged: (bool value) {
               setState(() {
@@ -113,6 +114,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   Widget _buildEmailInput() {
     return TextFormField(
+      key: Key(SignInScreenTexts.emailTextFormFieldKey),
       controller: _emailController,
       focusNode: _emailFocusNode,
       textInputAction: TextInputAction.next,
@@ -141,6 +143,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   Widget _buildPasswordInput() {
     return TextFormField(
+      key: Key(SignInScreenTexts.passwordTextFormFieldKey),
       controller: _passController,
       focusNode: _passFocusNode,
       textInputAction: TextInputAction.done,
@@ -184,6 +187,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   Widget _buildEnterButton() {
     return BotiRaisedButton(
+      key: Key(SignInScreenTexts.loginButtonKey),
       text: SignInScreenTexts.loginButtonText,
       onPressed: _onEnterButtonPressed,
     );
@@ -203,6 +207,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   Widget _buildSignUpButton() {
     return BotiFlatButton(
+      key: Key(SignInScreenTexts.signUpButtonKey),
       text: SignInScreenTexts.signUp,
       onPressed: () {
         Navigator.pushNamed(context, SignUpScreen.routeName);
@@ -216,6 +221,7 @@ class _SignInScreenState extends State<SignInScreen> {
       barrierDismissible: true,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
+          key: Key(SignInScreenTexts.errorAlertDialog),
           title: Text(title),
           content: Text(message),
           actions: <Widget>[
