@@ -6,4 +6,7 @@ class PostEditorScreenTexts {
   static final String errorTitle = 'Ops :(';
   static final String errorMessage = 'Algo deu errado.';
   static final String ok = 'Ok';
+  static final String textFieldKey = 'textFieldKey';
+  static final String publishEditButtonKey = 'publishEditButtonKey';
+  static final String alertDialogKey = 'alertDialogKey';
 }

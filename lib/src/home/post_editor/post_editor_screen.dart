@@ -35,7 +35,7 @@ class _PostEditorScreenState extends State<PostEditorScreen> {
       screenType = EditorType.Edit;
       userPost = args[PostEditorScreen.paramName];
       _textController.text = userPost.post.text;
-      _updateSaveAvailable();
+      _updateSaveAvailable(userPost.post.text);
     } else {
       screenType = EditorType.Add;
     }
@@ -57,6 +57,7 @@ class _PostEditorScreenState extends State<PostEditorScreen> {
         title: Text(title),
         actions: <Widget>[
           FlatButton(
+            key: Key(PostEditorScreenTexts.publishEditButtonKey),
             textColor: AppColors.white,
             child: Text(appBarButtonText),
             onPressed: saveEnabled
@@ -107,9 +108,10 @@ class _PostEditorScreenState extends State<PostEditorScreen> {
 
   Widget _buildTextField() {
     return TextField(
+      key: Key(PostEditorScreenTexts.textFieldKey),
       onChanged: (text) {
         setState(() {
-          _updateSaveAvailable();
+          _updateSaveAvailable(text);
         });
       },
       controller: _textController,
@@ -131,8 +133,8 @@ class _PostEditorScreenState extends State<PostEditorScreen> {
     );
   }
 
-  void _updateSaveAvailable() {
-    saveEnabled = _textController.text.trim().isNotEmpty;
+  void _updateSaveAvailable(String text) {
+    saveEnabled = text.trim().isNotEmpty;
   }
 
   void _showDialog(String title, String message, String buttonText,
@@ -142,6 +144,7 @@ class _PostEditorScreenState extends State<PostEditorScreen> {
       barrierDismissible: false,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
+          key: Key(PostEditorScreenTexts.alertDialogKey),
           title: Text(title),
           content: Text(message),
           actions: <Widget>[
