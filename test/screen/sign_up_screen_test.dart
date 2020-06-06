@@ -1,5 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:botiblog/src/shared/auth/bloc.dart';
+import 'package:botiblog/src/shared/validators/email_validator.dart';
+import 'package:botiblog/src/shared/validators/password_validator.dart';
 import 'package:botiblog/src/sign_up/bloc.dart';
 import 'package:botiblog/src/sign_up/sign_up_screen.dart';
 import 'package:botiblog/src/sign_up/sign_up_screen_texts.dart';
@@ -72,7 +74,7 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      expect(find.text(SignUpScreenTexts.emailErrorMessageEnterYourEmail),
+      expect(find.text(EmailValidator.emailErrorMessageEnterYourEmail),
           findsOneWidget);
     });
 
@@ -89,8 +91,8 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      expect(find.text(SignUpScreenTexts.emailErrorMessageInvalid),
-          findsOneWidget);
+      expect(
+          find.text(EmailValidator.emailErrorMessageInvalid), findsOneWidget);
     });
 
     testWidgets('Should not show invalid email message error when tap button',
@@ -107,8 +109,7 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      expect(
-          find.text(SignUpScreenTexts.emailErrorMessageInvalid), findsNothing);
+      expect(find.text(EmailValidator.emailErrorMessageInvalid), findsNothing);
     });
 
     testWidgets('Should show enter your name message error when tap button',
@@ -156,7 +157,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(
-          find.text(SignUpScreenTexts.passwordErrorMessageAtLeastSixCharacters),
+          find.text(PasswordValidator.passwordErrorMessageAtLeastSixCharacters),
           findsOneWidget);
     });
 
@@ -175,7 +176,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(
-          find.text(SignUpScreenTexts.passwordErrorMessageAtLeastSixCharacters),
+          find.text(PasswordValidator.passwordErrorMessageAtLeastSixCharacters),
           findsNothing);
     });
 
@@ -196,7 +197,7 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      expect(find.text(SignUpScreenTexts.passwordConfirmationErrorMessage),
+      expect(find.text(PasswordValidator.passwordConfirmationErrorMessage),
           findsOneWidget);
     });
 
@@ -217,7 +218,7 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      expect(find.text(SignUpScreenTexts.passwordConfirmationErrorMessage),
+      expect(find.text(PasswordValidator.passwordConfirmationErrorMessage),
           findsNothing);
     });
 

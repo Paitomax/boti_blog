@@ -3,13 +3,6 @@ class SignUpScreenTexts {
   static final String formMessage =
       'Informe seus dados para você poder utilizar a rede social do grupo Boticario.';
 
-  static final String passwordErrorMessageAtLeastSixCharacters =
-      'Informe uma senha com pelo menos 6 caracteres';
-  static final String passwordConfirmationErrorMessage = 'As senhas não batem';
-
-  static final String emailErrorMessageEnterYourEmail = 'Informe seu email';
-  static final String emailErrorMessageInvalid = 'Email invalido';
-
   static final String nameHint = 'Nome';
   static final String nameErrorMessageEnterYourName = 'Informe seu nome';
   static final String nameErrorMessageNumberDenied =
