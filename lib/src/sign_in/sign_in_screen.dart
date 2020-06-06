@@ -1,8 +1,8 @@
 import 'package:botiblog/src/shared/theme/app_colors.dart';
-import 'package:botiblog/src/shared/widgets/boti_email_input.dart';
-import 'package:botiblog/src/shared/widgets/boti_flat_button.dart';
-import 'package:botiblog/src/shared/widgets/boti_password_input.dart';
-import 'package:botiblog/src/shared/widgets/boti_raised_button.dart';
+import 'package:botiblog/src/shared/widgets/inputs/boti_email_input.dart';
+import 'package:botiblog/src/shared/widgets/buttons/boti_flat_button.dart';
+import 'package:botiblog/src/shared/widgets/inputs/boti_password_input.dart';
+import 'package:botiblog/src/shared/widgets/buttons/boti_raised_button.dart';
 import 'package:botiblog/src/sign_in/sign_in_event.dart';
 import 'package:botiblog/src/sign_in/sign_in_screen_texts.dart';
 import 'package:botiblog/src/sign_in/sign_in_state.dart';
