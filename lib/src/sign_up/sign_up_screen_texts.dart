@@ -3,8 +3,6 @@ class SignUpScreenTexts {
   static final String formMessage =
       'Informe seus dados para você poder utilizar a rede social do grupo Boticario.';
 
-  static final String passwordHint = 'Senha';
-  static final String passwordConfirmationHint = 'Confirme sua Senha';
   static final String passwordErrorMessageAtLeastSixCharacters =
       'Informe uma senha com pelo menos 6 caracteres';
   static final String passwordConfirmationErrorMessage = 'As senhas não batem';

@@ -1,7 +1,7 @@
-import 'package:botiblog/src/shared/consts/app_limits.dart';
 import 'package:botiblog/src/shared/theme/app_colors.dart';
 import 'package:botiblog/src/shared/widgets/boti_email_input.dart';
 import 'package:botiblog/src/shared/widgets/boti_flat_button.dart';
+import 'package:botiblog/src/shared/widgets/boti_password_input.dart';
 import 'package:botiblog/src/shared/widgets/boti_raised_button.dart';
 import 'package:botiblog/src/sign_in/sign_in_event.dart';
 import 'package:botiblog/src/sign_in/sign_in_screen_texts.dart';
@@ -126,7 +126,7 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   Widget _buildPasswordInput() {
-    return TextFormField(
+    return BotiPasswordInput(
       key: Key(SignInScreenTexts.passwordTextFormFieldKey),
       controller: _passController,
       focusNode: _passFocusNode,
@@ -135,15 +135,6 @@ class _SignInScreenState extends State<SignInScreen> {
         _passFocusNode.unfocus();
         _onEnterButtonPressed();
       },
-      maxLines: 1,
-      inputFormatters: [
-        LengthLimitingTextInputFormatter(AppLimits.passwordLimits),
-      ],
-      decoration: InputDecoration(
-        hintText: SignInScreenTexts.passwordHint,
-        hintStyle: TextStyle(fontSize: 18),
-      ),
-      obscureText: true,
     );
   }
 

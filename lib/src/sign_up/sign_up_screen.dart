@@ -3,6 +3,7 @@ import 'package:botiblog/src/shared/auth/auth_event.dart';
 import 'package:botiblog/src/shared/consts/app_limits.dart';
 import 'package:botiblog/src/shared/validators/text_validator.dart';
 import 'package:botiblog/src/shared/widgets/boti_email_input.dart';
+import 'package:botiblog/src/shared/widgets/boti_password_input.dart';
 import 'package:botiblog/src/shared/widgets/boti_raised_button.dart';
 import 'package:botiblog/src/shared/widgets/dialog/boti_alert_dialog.dart';
 import 'package:botiblog/src/sign_up/model/user_account_model.dart';
@@ -72,20 +73,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
           SizedBox(height: 16),
           _buildEmailInput(),
           SizedBox(height: 16),
-          _buildPasswordInput(
-              Key(SignUpScreenTexts.passwordTextFormFieldKey),
-              _passController,
-              _passwordFocusNode,
-              SignUpScreenTexts.passwordHint,
-              passwordValidator),
+          BotiPasswordInput(
+            key: Key(SignUpScreenTexts.passwordTextFormFieldKey),
+            controller: _passController,
+            focusNode: _passwordFocusNode,
+            onFieldSubmitted: (text) {
+              _passwordFocusNode.unfocus();
+              FocusScope.of(context)
+                  .requestFocus(_passwordConfirmationFocusNode);
+            },
+          ),
           SizedBox(height: 16),
-          _buildPasswordInput(
-              Key(SignUpScreenTexts.passwordConfirmationTextFormFieldKey),
-              _passConfirmationController,
-              _passwordConfirmationFocusNode,
-              SignUpScreenTexts.passwordConfirmationHint,
-              passwordConfirmationValidator,
-              textInputAction: TextInputAction.done),
+          BotiPasswordInput(
+            key: Key(SignUpScreenTexts.passwordConfirmationTextFormFieldKey),
+            controller: _passConfirmationController,
+            controllerCompare: _passController,
+            focusNode: _passwordConfirmationFocusNode,
+            onFieldSubmitted: (text) {
+              _passwordConfirmationFocusNode.unfocus();
+              _onButtonPressed();
+            },
+            textInputAction: TextInputAction.done,
+          ),
         ],
       ),
     );
@@ -133,49 +142,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
         return null;
       },
     );
-  }
-
-  Widget _buildPasswordInput(Key key, TextEditingController controller,
-      FocusNode focusNode, String hintText, Function(String) passwordValidator,
-      {TextInputAction textInputAction = TextInputAction.next}) {
-    return TextFormField(
-      key: key,
-      textInputAction: textInputAction,
-      controller: controller,
-      keyboardType: TextInputType.text,
-      focusNode: focusNode,
-      maxLines: 1,
-      onFieldSubmitted: (text) {
-        if (textInputAction == TextInputAction.done) {
-          _passwordConfirmationFocusNode.unfocus();
-          _onButtonPressed();
-        } else {
-          _passwordFocusNode.unfocus();
-          FocusScope.of(context).requestFocus(_passwordConfirmationFocusNode);
-        }
-      },
-      inputFormatters: [
-        LengthLimitingTextInputFormatter(AppLimits.passwordLimits),
-      ],
-      decoration: InputDecoration(
-        hintText: hintText,
-        hintStyle: TextStyle(fontSize: 18),
-      ),
-      obscureText: true,
-      validator: passwordValidator,
-    );
-  }
-
-  String passwordValidator(String text) {
-    if (text.length < 6)
-      return SignUpScreenTexts.passwordErrorMessageAtLeastSixCharacters;
-    return null;
-  }
-
-  String passwordConfirmationValidator(String text) {
-    if (_passController.text != text)
-      return SignUpScreenTexts.passwordConfirmationErrorMessage;
-    return null;
   }
 
   Widget _buildButton() {

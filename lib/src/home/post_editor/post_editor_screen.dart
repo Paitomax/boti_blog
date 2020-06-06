@@ -63,9 +63,8 @@ class _PostEditorScreenState extends State<PostEditorScreen> {
             onPressed: saveEnabled
                 ? () {
                     if (screenType == EditorType.Edit) {
-                      context
-                          .bloc<PostBloc>()
-                          .add(PostUpdated(userPost, _textController.text.trim()));
+                      context.bloc<PostBloc>().add(
+                          PostUpdated(userPost, _textController.text.trim()));
                     } else {
                       context
                           .bloc<PostBloc>()
