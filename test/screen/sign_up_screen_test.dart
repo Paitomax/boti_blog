@@ -1,6 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:botiblog/src/shared/auth/bloc.dart';
 import 'package:botiblog/src/shared/validators/email_validator.dart';
+import 'package:botiblog/src/shared/validators/name_validator.dart';
 import 'package:botiblog/src/shared/validators/password_validator.dart';
 import 'package:botiblog/src/sign_up/bloc.dart';
 import 'package:botiblog/src/sign_up/sign_up_screen.dart';
@@ -123,7 +124,7 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      expect(find.text(SignUpScreenTexts.nameErrorMessageEnterYourName),
+      expect(find.text(NameValidator.nameErrorMessageEnterYourName),
           findsOneWidget);
     });
 
@@ -140,8 +141,8 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      expect(find.text(SignUpScreenTexts.nameErrorMessageEnterYourName),
-          findsNothing);
+      expect(
+          find.text(NameValidator.nameErrorMessageEnterYourName), findsNothing);
     });
 
     testWidgets(

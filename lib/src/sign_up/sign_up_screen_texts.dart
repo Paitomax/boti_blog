@@ -4,9 +4,7 @@ class SignUpScreenTexts {
       'Informe seus dados para você poder utilizar a rede social do grupo Boticario.';
 
   static final String nameHint = 'Nome';
-  static final String nameErrorMessageEnterYourName = 'Informe seu nome';
-  static final String nameErrorMessageNumberDenied =
-      'Não é permitido informar número';
+
 
   static final String ok = 'Ok';
   static final String failureDialogTitle = 'Ops';

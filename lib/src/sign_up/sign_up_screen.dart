@@ -1,8 +1,7 @@
 import 'package:botiblog/src/shared/auth/auth_bloc.dart';
 import 'package:botiblog/src/shared/auth/auth_event.dart';
-import 'package:botiblog/src/shared/consts/app_limits.dart';
-import 'package:botiblog/src/shared/validators/text_validator.dart';
 import 'package:botiblog/src/shared/widgets/boti_email_input.dart';
+import 'package:botiblog/src/shared/widgets/boti_name_input.dart';
 import 'package:botiblog/src/shared/widgets/boti_password_input.dart';
 import 'package:botiblog/src/shared/widgets/boti_raised_button.dart';
 import 'package:botiblog/src/shared/widgets/dialog/boti_alert_dialog.dart';
@@ -115,31 +114,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   Widget _buildNameInput() {
-    return TextFormField(
+    return BotiNameInput(
       key: Key(SignUpScreenTexts.nameTextFormFieldKey),
       autofocus: true,
+      focusNode: _nameFocusNode,
       controller: _nameController,
-      keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
+      hintText: SignUpScreenTexts.nameHint,
       onFieldSubmitted: (text) {
         _nameFocusNode.unfocus();
         FocusScope.of(context).requestFocus(_emailFocusNode);
-      },
-      focusNode: _nameFocusNode,
-      inputFormatters: [
-        LengthLimitingTextInputFormatter(AppLimits.nameLimits),
-      ],
-      decoration: InputDecoration(
-        hintText: SignUpScreenTexts.nameHint,
-        hintStyle: TextStyle(fontSize: 18),
-      ),
-      validator: (text) {
-        if (text.length < 3)
-          return SignUpScreenTexts.nameErrorMessageEnterYourName;
-        if (TextValidator.hasNumber(text))
-          return SignUpScreenTexts.nameErrorMessageNumberDenied;
-
-        return null;
       },
     );
   }
