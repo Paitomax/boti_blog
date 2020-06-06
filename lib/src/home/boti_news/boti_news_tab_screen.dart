@@ -1,7 +1,6 @@
 import 'package:botiblog/src/home/boti_news/boti_news_tab_screen_texts.dart';
 import 'package:botiblog/src/home/boti_news/model/boti_news_model.dart';
-import 'package:botiblog/src/shared/formatters/date_formatter.dart';
-import 'package:botiblog/src/shared/theme/app_colors.dart';
+import 'package:botiblog/src/home/boti_news/widget/boti_news_card.dart';
 import 'package:botiblog/src/shared/widgets/boti_empty_message.dart';
 import 'package:botiblog/src/shared/widgets/boti_error_message.dart';
 import 'package:flutter/material.dart';
@@ -65,41 +64,8 @@ class _BotiNewsTabScreenState extends State<BotiNewsTabScreen> {
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (listViewContext, index) {
         final item = news[index];
-        return _buildCard(item);
+        return BotiNewsCard(botiNews: item);
       },
-    );
-  }
-
-  Widget _buildCard(BotiNewsModel item) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(item.user.name,
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.blue)),
-            SizedBox(height: 4),
-            Text(item.message.content,
-                style: TextStyle(color: AppColors.lightOrange)),
-            SizedBox(height: 4),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Text(
-                DateFormatter.format(item.message.createdAt),
-                textAlign: TextAlign.end,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Color(0xFFBABABA),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 
