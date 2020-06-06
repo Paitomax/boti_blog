@@ -4,13 +4,13 @@ import 'package:botiblog/src/shared/theme/app_colors.dart';
 import 'package:botiblog/src/shared/user/user_model.dart';
 import 'package:flutter/material.dart';
 
-class BotiUserPostCard extends StatelessWidget {
+class BotiPostCard extends StatelessWidget {
   final PostModel post;
   final UserModel currentUser;
   final Function(PostModel) onEditPressed;
   final Function(PostModel) onDeletePressed;
 
-  const BotiUserPostCard({
+  const BotiPostCard({
     Key key,
     this.post,
     this.currentUser,
