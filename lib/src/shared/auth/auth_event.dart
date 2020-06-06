@@ -23,19 +23,9 @@ class AuthLoggedIn extends AuthEvent {
 class AuthLoggedOut extends AuthEvent {
   @override
   List<Object> get props => [];
-
-  @override
-  String toString() {
-    return 'AuthLoggedOut{}';
-  }
 }
 
 class AuthAppInitiated extends AuthEvent {
   @override
   List<Object> get props => [];
-
-  @override
-  String toString() {
-    return 'AuthAppInitiated{}';
-  }
 }

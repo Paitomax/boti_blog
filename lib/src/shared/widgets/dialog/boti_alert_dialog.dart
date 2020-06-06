@@ -18,9 +18,6 @@ class BotiAlertDialog extends StatelessWidget with BotiAlertDialogShow {
       : super(key: key);
 
   @override
-  BuildContext get context => context;
-
-  @override
   Widget get widget => this;
 
   @override

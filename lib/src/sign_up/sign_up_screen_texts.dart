@@ -5,7 +5,6 @@ class SignUpScreenTexts {
 
   static final String nameHint = 'Nome';
 
-
   static final String ok = 'Ok';
   static final String failureDialogTitle = 'Ops';
   static final String failureDialogMessage =

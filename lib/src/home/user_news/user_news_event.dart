@@ -1,15 +1,3 @@
-import 'package:equatable/equatable.dart';
+abstract class UserNewsEvent {}
 
-abstract class UserNewsEvent extends Equatable {
-  const UserNewsEvent();
-}
-
-class UserNewsLoaded extends UserNewsEvent {
-  @override
-  List<Object> get props => [];
-
-  @override
-  String toString() {
-    return 'UserNewsLoaded{}';
-  }
-}
+class UserNewsLoaded extends UserNewsEvent {}

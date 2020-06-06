@@ -8,21 +8,11 @@ abstract class SignUpState extends Equatable {
 class SignUpInitial extends SignUpState {
   @override
   List<Object> get props => [];
-
-  @override
-  String toString() {
-    return 'SignUpInitial{}';
-  }
 }
 
 class SignUpLoadInProgress extends SignUpState {
   @override
   List<Object> get props => [];
-
-  @override
-  String toString() {
-    return 'SignUpLoadInProgress{}';
-  }
 }
 
 class SignUpLoadSuccess extends SignUpState {
@@ -42,19 +32,9 @@ class SignUpLoadSuccess extends SignUpState {
 class SignUpLoadFailure extends SignUpState {
   @override
   List<Object> get props => [];
-
-  @override
-  String toString() {
-    return 'SignUpLoadFailure{}';
-  }
 }
 
 class SignUpLoadFailureEmailAlreadyRegistered extends SignUpState {
   @override
   List<Object> get props => [];
-
-  @override
-  String toString() {
-    return 'SignUpLoadFailureEmailAlreadyRegistered{}';
-  }
 }

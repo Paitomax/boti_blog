@@ -7,7 +7,8 @@ class NameValidator {
       'Não é permitido informar número';
 
   static String nameValidator(String text) {
-    if (text.length < AppLimits.nameMinimum) return nameErrorMessageEnterYourName;
+    if (text.length < AppLimits.nameMinimum)
+      return nameErrorMessageEnterYourName;
     if (TextValidator.hasNumber(text)) return nameErrorMessageNumberDenied;
 
     return null;
