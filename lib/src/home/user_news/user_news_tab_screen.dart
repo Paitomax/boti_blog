@@ -6,7 +6,7 @@ import 'package:botiblog/src/home/user_news/user_news_bloc.dart';
 import 'package:botiblog/src/home/user_news/user_news_event.dart';
 import 'package:botiblog/src/home/user_news/user_news_state.dart';
 import 'package:botiblog/src/home/user_news/user_news_tab_screen_texts.dart';
-import 'package:botiblog/src/home/user_news/widget/boti_post_card.dart';
+import 'package:botiblog/src/shared/widgets/boti_post_card.dart';
 import 'package:botiblog/src/shared/user/user_model.dart';
 import 'package:botiblog/src/shared/widgets/boti_empty_message.dart';
 import 'package:botiblog/src/shared/widgets/boti_error_message.dart';
