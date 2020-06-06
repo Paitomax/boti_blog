@@ -1,4 +1,4 @@
-import 'package:botiblog/src/home/user_news/model/user_post_response_model.dart';
+import 'package:botiblog/src/home/user_news/model/post_model.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class PostEvent extends Equatable {
@@ -20,7 +20,7 @@ class PostAdded extends PostEvent {
 }
 
 class PostRemoved extends PostEvent {
-  final UserPostResponseModel userPost;
+  final PostModel userPost;
 
   PostRemoved(this.userPost);
 
@@ -34,7 +34,7 @@ class PostRemoved extends PostEvent {
 }
 
 class PostUpdated extends PostEvent {
-  final UserPostResponseModel userPost;
+  final PostModel userPost;
   final String newText;
 
   PostUpdated(this.userPost, this.newText);

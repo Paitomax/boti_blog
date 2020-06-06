@@ -3,7 +3,7 @@ import 'package:botiblog/src/home/post_editor/post_bloc.dart';
 import 'package:botiblog/src/home/post_editor/post_editor_screen_texts.dart';
 import 'package:botiblog/src/home/post_editor/post_event.dart';
 import 'package:botiblog/src/home/post_editor/post_state.dart';
-import 'package:botiblog/src/home/user_news/model/user_post_response_model.dart';
+import 'package:botiblog/src/home/user_news/model/post_model.dart';
 import 'package:botiblog/src/home/user_news/user_news_tab_screen_texts.dart';
 import 'package:botiblog/src/shared/consts/app_limits.dart';
 import 'package:botiblog/src/shared/theme/app_colors.dart';
@@ -25,7 +25,7 @@ class _PostEditorScreenState extends State<PostEditorScreen> {
   final _publishFocusNode = FocusNode();
 
   EditorType screenType;
-  UserPostResponseModel userPost;
+  PostModel userPost;
   bool saveEnabled = false;
 
   @override

@@ -1,13 +1,13 @@
-import 'package:botiblog/src/home/user_news/model/user_post_model.dart';
+import 'package:botiblog/src/home/user_news/model/post_message_model.dart';
 import 'package:botiblog/src/shared/database.dart';
 import 'package:botiblog/src/shared/formatters/date_formatter.dart';
 import 'package:botiblog/src/shared/user/user_model.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../user_news/model/user_post_response_model.dart';
+import '../user_news/model/post_model.dart';
 
 class PostDataProvider {
-  Future<List<UserPostResponseModel>> fetch(UserModel userModel) async {
+  Future<List<PostModel>> fetch(UserModel userModel) async {
     Database db;
     try {
       db = await LocalDatabase.openLocalDatabase();
@@ -20,15 +20,16 @@ class PostDataProvider {
       // simulates network connection
       await Future.delayed(Duration(seconds: 2));
 
-      List<UserPostResponseModel> list = [];
+      List<PostModel> list = [];
 
       for (var line in result) {
-        final userPost = UserPostModel(
+        final userPost = PostMessageModel(
             line['text'], DateFormatter.parse(line['date']),
             id: line['id']);
-        final user = UserModel(line['userId'], line['name'], line['email']);
+        final user =
+            UserModel(line['name'], id: line['userId'], email: line['email']);
 
-        UserPostResponseModel item = UserPostResponseModel(userPost, user);
+        PostModel item = PostModel(userPost, user);
         list.add(item);
       }
       list.sort((b, a) => a.post.date.compareTo(b.post.date));
@@ -40,7 +41,7 @@ class PostDataProvider {
     }
   }
 
-  Future<void> add(UserPostResponseModel post) async {
+  Future<void> add(PostModel post) async {
     Database db;
     try {
       db = await LocalDatabase.openLocalDatabase();
@@ -60,7 +61,7 @@ class PostDataProvider {
     }
   }
 
-  Future<void> update(UserPostModel post) async {
+  Future<void> update(PostMessageModel post) async {
     Database db;
     try {
       db = await LocalDatabase.openLocalDatabase();
@@ -83,7 +84,7 @@ class PostDataProvider {
     }
   }
 
-  Future<void> remove(UserPostModel post) async {
+  Future<void> remove(PostMessageModel post) async {
     Database db;
     try {
       db = await LocalDatabase.openLocalDatabase();

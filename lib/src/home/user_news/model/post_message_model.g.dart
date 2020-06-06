@@ -1,21 +1,20 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'boti_news_message_model.dart';
+part of 'post_message_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-BotiNewsMessageModel _$BotiNewsMessageModelFromJson(Map json) {
-  return BotiNewsMessageModel(
+PostMessageModel _$PostMessageModelFromJson(Map json) {
+  return PostMessageModel(
     json['content'] as String,
     DateTime.parse(json['created_at'] as String),
   );
 }
 
-Map<String, dynamic> _$BotiNewsMessageModelToJson(
-        BotiNewsMessageModel instance) =>
+Map<String, dynamic> _$PostMessageModelToJson(PostMessageModel instance) =>
     <String, dynamic>{
-      'content': instance.content,
-      'created_at': instance.createdAt.toIso8601String(),
+      'created_at': instance.date.toIso8601String(),
+      'content': instance.text,
     };

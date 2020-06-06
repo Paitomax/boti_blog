@@ -31,14 +31,14 @@ void main() {
           'emits [BotiNewsLoadInProgress, BotiNewsLoadSuccess] when BotiNewsLoaded is added',
           build: () async => bloc,
           act: (bloc) async {
-            when(botiNewsRepository.fetch()).thenAnswer((realInvocation) =>
-                Future.value(Mocks.botiNewsResponseModel()));
+            when(botiNewsRepository.fetch()).thenAnswer(
+                (realInvocation) => Future.value(Mocks.postResponseModel()));
             bloc.add(BotiNewsLoaded());
           },
           skip: 0,
           expect: [
             BotiNewsLoadInProgress(),
-            BotiNewsLoadSuccess(Mocks.botiNewsResponseModel().news),
+            BotiNewsLoadSuccess(Mocks.postResponseModel().news),
           ],
         );
 

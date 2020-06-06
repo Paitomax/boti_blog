@@ -19,7 +19,8 @@ class SignInDataProvider {
 
       final result = response.first;
 
-      final user = UserModel(result['id'], result['name'], result['email']);
+      final user =
+          UserModel(result['name'], id: result['id'], email: result['email']);
       return user;
     } catch (e) {
       throw Exception('Cant connect to the server.');

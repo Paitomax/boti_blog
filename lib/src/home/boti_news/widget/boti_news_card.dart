@@ -1,10 +1,10 @@
-import 'package:botiblog/src/home/boti_news/model/boti_news_model.dart';
+import 'package:botiblog/src/home/user_news/model/post_model.dart';
 import 'package:botiblog/src/shared/formatters/date_formatter.dart';
 import 'package:botiblog/src/shared/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class BotiNewsCard extends StatelessWidget {
-  final BotiNewsModel botiNews;
+  final PostModel botiNews;
 
   const BotiNewsCard({
     Key key,
@@ -21,9 +21,9 @@ class BotiNewsCard extends StatelessWidget {
           children: <Widget>[
             _buildName(botiNews.user.name),
             SizedBox(height: 4),
-            _buildMessage(botiNews.message.content),
+            _buildMessage(botiNews.post.text),
             SizedBox(height: 4),
-            _buildDate(botiNews.message.createdAt),
+            _buildDate(botiNews.post.date),
           ],
         ),
       ),
@@ -31,7 +31,7 @@ class BotiNewsCard extends StatelessWidget {
   }
 
   Widget _buildName(String name) {
-    return Text(botiNews.user.name,
+    return Text(name,
         style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.bold,
@@ -41,7 +41,7 @@ class BotiNewsCard extends StatelessWidget {
 
   Widget _buildMessage(String message) {
     return Text(
-      botiNews.message.content,
+      message,
       style: TextStyle(
         color: AppColors.lightOrange,
       ),

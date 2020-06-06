@@ -1,4 +1,4 @@
-import 'package:botiblog/src/home/boti_news/model/boti_news_response_model.dart';
+import 'package:botiblog/src/home/user_news/model/post_response_model.dart';
 import 'package:dio/dio.dart';
 
 class BotiNewsDataProvider {
@@ -7,12 +7,11 @@ class BotiNewsDataProvider {
 
   BotiNewsDataProvider(this.dio);
 
-  Future<BotiNewsResponseModel> fetch() async {
+  Future<PostResponseModel> fetch() async {
     final result = await dio.get(path);
     if (result.statusCode >= 200 && result.statusCode < 300) {
-      final news = BotiNewsResponseModel.fromJson(result.data);
-      news.news
-          .sort((b, a) => a.message.createdAt.compareTo(b.message.createdAt));
+      final news = PostResponseModel.fromJson(result.data);
+      news.news.sort((b, a) => a.post.date.compareTo(b.post.date));
       return news;
     } else {
       throw Exception('Cant fetch BotiNews');

@@ -1,21 +1,20 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'boti_news_response_model.dart';
+part of 'post_response_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-BotiNewsResponseModel _$BotiNewsResponseModelFromJson(Map json) {
-  return BotiNewsResponseModel(
+PostResponseModel _$PostResponseModelFromJson(Map json) {
+  return PostResponseModel(
     (json['news'] as List)
-        .map((e) => BotiNewsModel.fromJson(Map<String, dynamic>.from(e as Map)))
+        .map((e) => PostModel.fromJson(Map<String, dynamic>.from(e as Map)))
         .toList(),
   );
 }
 
-Map<String, dynamic> _$BotiNewsResponseModelToJson(
-        BotiNewsResponseModel instance) =>
+Map<String, dynamic> _$PostResponseModelToJson(PostResponseModel instance) =>
     <String, dynamic>{
       'news': instance.news,
     };

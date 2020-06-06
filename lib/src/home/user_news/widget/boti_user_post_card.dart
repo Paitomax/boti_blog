@@ -1,14 +1,14 @@
-import 'package:botiblog/src/home/user_news/model/user_post_response_model.dart';
+import 'package:botiblog/src/home/user_news/model/post_model.dart';
 import 'package:botiblog/src/shared/formatters/date_formatter.dart';
 import 'package:botiblog/src/shared/theme/app_colors.dart';
 import 'package:botiblog/src/shared/user/user_model.dart';
 import 'package:flutter/material.dart';
 
 class BotiUserPostCard extends StatelessWidget {
-  final UserPostResponseModel post;
+  final PostModel post;
   final UserModel currentUser;
-  final Function(UserPostResponseModel) onEditPressed;
-  final Function(UserPostResponseModel) onDeletePressed;
+  final Function(PostModel) onEditPressed;
+  final Function(PostModel) onDeletePressed;
 
   const BotiUserPostCard({
     Key key,

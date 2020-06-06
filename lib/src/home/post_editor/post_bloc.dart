@@ -4,8 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:botiblog/src/home/post_editor/post_event.dart';
 import 'package:botiblog/src/home/post_editor/post_repository_interface.dart';
 import 'package:botiblog/src/home/post_editor/post_state.dart';
-import 'package:botiblog/src/home/user_news/model/user_post_model.dart';
-import 'package:botiblog/src/home/user_news/model/user_post_response_model.dart';
+import 'package:botiblog/src/home/user_news/model/post_message_model.dart';
+import 'package:botiblog/src/home/user_news/model/post_model.dart';
 import 'package:botiblog/src/shared/current_datetime/current_date_interface.dart';
 import 'package:botiblog/src/shared/user/user_repository_interface.dart';
 
@@ -38,8 +38,8 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       final user = await userRepository.get();
 
       final post =
-          UserPostModel(event.text, currentDateTime.now(), id: user.id);
-      final userPost = UserPostResponseModel(post, user);
+          PostMessageModel(event.text, currentDateTime.now(), id: user.id);
+      final userPost = PostModel(post, user);
 
       await userNewsRepository.add(userPost);
 
@@ -65,7 +65,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
 
       final oldPost = event.userPost.post;
       final newPost =
-          UserPostModel(event.newText, currentDateTime.now(), id: oldPost.id);
+          PostMessageModel(event.newText, currentDateTime.now(), id: oldPost.id);
 
       await userNewsRepository.update(newPost);
 

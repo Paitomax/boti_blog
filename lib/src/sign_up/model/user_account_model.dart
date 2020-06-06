@@ -4,13 +4,13 @@ class UserAccountModel extends UserModel {
   final String password;
 
   UserAccountModel(String name, String email, this.password)
-      : super(0, name, email);
+      : super(name, id: 0, email: email);
 
   @override
   String toString() {
-    return 'UserAccountModel{password: $password}';
+    return 'UserAccountModel{name: $name, email: $email, password: $password}';
   }
 
   @override
-  List<Object> get props => [password, id, name, email];
+  List<Object> get props => [password, id, name, email, profilePictureUrl];
 }

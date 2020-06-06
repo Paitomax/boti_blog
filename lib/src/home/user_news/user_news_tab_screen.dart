@@ -1,7 +1,7 @@
 import 'package:botiblog/src/home/post_editor/post_bloc.dart';
 import 'package:botiblog/src/home/post_editor/post_editor_screen.dart';
 import 'package:botiblog/src/home/post_editor/post_event.dart';
-import 'package:botiblog/src/home/user_news/model/user_post_response_model.dart';
+import 'package:botiblog/src/home/user_news/model/post_model.dart';
 import 'package:botiblog/src/home/user_news/user_news_bloc.dart';
 import 'package:botiblog/src/home/user_news/user_news_event.dart';
 import 'package:botiblog/src/home/user_news/user_news_state.dart';
@@ -75,7 +75,7 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
     );
   }
 
-  Widget _buildPostList(List<UserPostResponseModel> posts, UserModel user) {
+  Widget _buildPostList(List<PostModel> posts, UserModel user) {
     return ListView.builder(
       itemCount: posts.length,
       shrinkWrap: true,
@@ -87,14 +87,14 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
     );
   }
 
-  Widget _buildCard(UserPostResponseModel item, UserModel user) {
+  Widget _buildCard(PostModel item, UserModel user) {
     return BotiUserPostCard(
       post: item,
       currentUser: user,
-      onEditPressed: (UserPostResponseModel item) {
+      onEditPressed: (PostModel item) {
         _navigateToEditor(args: {PostEditorScreen.paramName: item});
       },
-      onDeletePressed: (UserPostResponseModel item) {
+      onDeletePressed: (PostModel item) {
         showDeleteConfirmationDialog(item);
       },
     );
@@ -105,7 +105,7 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
         .pushNamed(PostEditorScreen.routeName, arguments: args);
   }
 
-  void showDeleteConfirmationDialog(UserPostResponseModel item) {
+  void showDeleteConfirmationDialog(PostModel item) {
     BotiConfirmAlertDialog(
       key: Key('BotiConfirmAlertDialogKey'),
       parentContext: context,

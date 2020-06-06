@@ -1,4 +1,4 @@
-import 'package:botiblog/src/home/user_news/model/user_post_response_model.dart';
+import 'package:botiblog/src/home/user_news/model/post_model.dart';
 import 'package:botiblog/src/shared/user/user_model.dart';
 import 'package:equatable/equatable.dart';
 
@@ -17,7 +17,7 @@ class UserNewsLoadInProgress extends UserNewsState {
 }
 
 class UserNewsLoadSuccess extends UserNewsState {
-  final List<UserPostResponseModel> posts;
+  final List<PostModel> posts;
   final UserModel user;
 
   UserNewsLoadSuccess(this.posts, this.user);

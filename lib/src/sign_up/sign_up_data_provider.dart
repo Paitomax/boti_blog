@@ -24,7 +24,8 @@ class SignUpDataProvider {
       // simulates network connection
       await Future.delayed(Duration(seconds: 2));
 
-      final user = UserModel(id, userAccountModel.name, userAccountModel.email);
+      final user = UserModel(userAccountModel.name,
+          id: id, email: userAccountModel.email);
       return user;
     } catch (e) {
       throw Exception('Cant connect to the server.');

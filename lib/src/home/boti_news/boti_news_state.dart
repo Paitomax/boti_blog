@@ -1,4 +1,4 @@
-import 'package:botiblog/src/home/boti_news/model/boti_news_model.dart';
+import 'package:botiblog/src/home/user_news/model/post_model.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class BotiNewsState extends Equatable {
@@ -26,7 +26,7 @@ class BotiNewsLoadFailure extends BotiNewsState {
 }
 
 class BotiNewsLoadSuccess extends BotiNewsState {
-  final List<BotiNewsModel> news;
+  final List<PostModel> news;
 
   BotiNewsLoadSuccess(this.news);
 
