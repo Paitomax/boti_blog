@@ -40,7 +40,7 @@ class BotiPostCard extends StatelessWidget {
       child: Row(
         children: <Widget>[
           _buildName(),
-          _buildIconButton(),
+          _buildDeleteButton(),
         ],
       ),
     );
@@ -80,10 +80,11 @@ class BotiPostCard extends StatelessWidget {
     );
   }
 
-  Widget _buildIconButton() {
+  Widget _buildDeleteButton() {
     return Visibility(
       visible: _isAuthor(),
       child: InkWell(
+        key: Key("${key.toString()}Delete"),
         borderRadius: BorderRadius.circular(32),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -107,6 +108,7 @@ class BotiPostCard extends StatelessWidget {
     return Visibility(
       visible: _isAuthor(),
       child: InkWell(
+        key: Key("${key.toString()}Edit"),
         borderRadius: BorderRadius.circular(32),
         child: Padding(
           padding: const EdgeInsets.all(16.0),

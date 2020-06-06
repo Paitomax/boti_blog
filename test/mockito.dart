@@ -4,6 +4,7 @@ import 'package:botiblog/src/home/post_editor/post_bloc.dart';
 import 'package:botiblog/src/home/post_editor/post_event.dart';
 import 'package:botiblog/src/home/post_editor/post_repository_interface.dart';
 import 'package:botiblog/src/home/post_editor/post_state.dart';
+import 'package:botiblog/src/home/user_news/bloc.dart';
 import 'package:botiblog/src/shared/auth/auth_bloc.dart';
 import 'package:botiblog/src/shared/auth/auth_event.dart';
 import 'package:botiblog/src/shared/auth/auth_state.dart';
@@ -19,6 +20,7 @@ class MockAuthBloc extends MockBloc<AuthEvent, AuthState> implements AuthBloc {}
 class MockPostBloc extends MockBloc<PostEvent, PostState> implements PostBloc {}
 class MockSignInBloc extends MockBloc<SignInEvent, SignInState> implements SignInBloc {}
 class MockSignUpBloc extends MockBloc<SignUpEvent, SignUpState> implements SignUpBloc {}
+class MockUserNewsBloc extends MockBloc<UserNewsEvent, UserNewsState> implements UserNewsBloc {}
 
 class MockUserRepository extends Mock implements UserRepositoryInterface {}
 class MockSignInRepository extends Mock implements SignInRepositoryInterface {}

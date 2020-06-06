@@ -65,7 +65,13 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
             ],
           );
         } else if (state is UserNewsLoadSuccessEmpty) {
-          return _buildEmptyMessage();
+          return Column(
+            children: <Widget>[
+              _buildWhatAreYouThinkingButton(),
+              SizedBox(height: 16),
+              _buildEmptyMessage(),
+            ],
+          );
         } else if (state is UserNewsLoadFailure) {
           return _buildErrorMessage();
         } else {
@@ -137,6 +143,7 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
 
   Widget _buildWhatAreYouThinkingButton() {
     return BotiRoundedOutlinedButton(
+      key: Key(UserNewsTabTexts.newPostButtonKey),
       text: UserNewsTabTexts.publishHint,
       onPressed: () {
         _navigateToEditor();

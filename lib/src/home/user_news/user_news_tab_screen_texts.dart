@@ -13,6 +13,6 @@ class UserNewsTabTexts {
   static final String emptyMessage =
       'Seus colegas ainda não postaram nada, corre e seja o primeiro!';
   static final String postListViewKey = 'userNewsTabpostListViewKey';
-
   static final String botiConfirmAlertDialogKey = 'BotiConfirmAlertDialogKey';
+  static final String newPostButtonKey = 'newPostButtonKey';
 }
