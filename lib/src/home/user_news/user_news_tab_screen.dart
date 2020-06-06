@@ -9,6 +9,8 @@ import 'package:botiblog/src/home/user_news/user_news_tab_screen_texts.dart';
 import 'package:botiblog/src/home/user_news/widget/boti_user_post_card.dart';
 import 'package:botiblog/src/shared/theme/app_colors.dart';
 import 'package:botiblog/src/shared/user/user_model.dart';
+import 'package:botiblog/src/shared/widgets/boti_error_message.dart';
+import 'package:botiblog/src/shared/widgets/buttons/boti_rounded_outlined_button.dart';
 import 'package:botiblog/src/shared/widgets/dialog/boti_confirm_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,38 +35,46 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
         child: Column(
           children: <Widget>[
             SizedBox(height: 16),
-            Text(
-              UserNewsTabTexts.introduceMessage,
-              style: TextStyle(fontSize: 16),
-            ),
+            _buildIntroduceMessage(),
             SizedBox(height: 24),
-            BlocBuilder<UserNewsBloc, UserNewsState>(
-              builder: (context, state) {
-                if (state is UserNewsLoadSuccess) {
-                  return Column(
-                    children: <Widget>[
-                      _buildWhatAreYouThinkingButton(),
-                      SizedBox(height: 16),
-                      Divider(),
-                      SizedBox(height: 16),
-                      _buildPostList(state.posts, state.user),
-                    ],
-                  );
-                } else if (state is UserNewsLoadSuccessEmpty) {
-                  return _buildEmptyMessage();
-                } else if (state is UserNewsLoadFailure) {
-                  return _buildErrorMessage();
-                } else {
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 32.0),
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              },
-            )
+            _buildContent(),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildIntroduceMessage() {
+    return Text(
+      UserNewsTabTexts.introduceMessage,
+      style: TextStyle(fontSize: 16),
+    );
+  }
+
+  Widget _buildContent() {
+    return BlocBuilder<UserNewsBloc, UserNewsState>(
+      builder: (context, state) {
+        if (state is UserNewsLoadSuccess) {
+          return Column(
+            children: <Widget>[
+              _buildWhatAreYouThinkingButton(),
+              SizedBox(height: 16),
+              Divider(),
+              SizedBox(height: 16),
+              _buildPostList(state.posts, state.user),
+            ],
+          );
+        } else if (state is UserNewsLoadSuccessEmpty) {
+          return _buildEmptyMessage();
+        } else if (state is UserNewsLoadFailure) {
+          return _buildErrorMessage();
+        } else {
+          return Padding(
+            padding: const EdgeInsets.only(top: 32.0),
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
     );
   }
 
@@ -117,59 +127,21 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
   }
 
   Widget _buildErrorMessage() {
-    return Column(
-      children: <Widget>[
-        Icon(
-          Icons.error,
-          color: AppColors.lightOrange,
-          size: 32,
-        ),
-        SizedBox(height: 8),
-        Text(
-          UserNewsTabTexts.errorMessage,
-          style: TextStyle(color: Colors.red, fontSize: 16),
-        ),
-        FlatButton(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-          textColor: AppColors.blue,
-          child: Text(
-            UserNewsTabTexts.loadScreen,
-            style: TextStyle(color: AppColors.blue),
-          ),
-          onPressed: () {
-            context.bloc<UserNewsBloc>().add(UserNewsLoaded());
-          },
-        ),
-      ],
+    return BotiErrorMessage(
+      errorMessage: UserNewsTabTexts.errorMessage,
+      actionText: UserNewsTabTexts.loadScreen,
+      onPressed: () {
+        context.bloc<UserNewsBloc>().add(UserNewsLoaded());
+      },
     );
   }
 
   Widget _buildWhatAreYouThinkingButton() {
-    return Container(
-      width: double.infinity,
-      child: InkWell(
-        customBorder: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(32),
-          side: BorderSide(color: Color(0xFFAAAAAA)),
-        ),
-        hoverColor: Color(0xFFBABABA),
-        child: Container(
-          decoration: BoxDecoration(
-              border: Border.all(color: Color(0xFFAAAAAA)),
-              borderRadius: BorderRadius.circular(32)),
-          padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-          child: Text(
-            UserNewsTabTexts.publishHint,
-            style: TextStyle(
-              color: Color(0xFFBABABA),
-            ),
-          ),
-        ),
-        onTap: () {
-          _navigateToEditor();
-        },
-      ),
+    return BotiRoundedOutlinedButton(
+      text: UserNewsTabTexts.publishHint,
+      onPressed: () {
+        _navigateToEditor();
+      },
     );
   }
 
