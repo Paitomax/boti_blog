@@ -16,7 +16,7 @@ class UserNewsBloc extends Bloc<UserNewsEvent, UserNewsState> {
 
   UserNewsBloc(this.postBloc, this.postRepository, this.userRepository) {
     _streamSubscription = postBloc.listen((state) {
-      if (state is PostLoadSuccess) add(UserNewsLoaded());
+      if (state is PostLoadSuccess && state.hadChanges) add(UserNewsLoaded());
     });
   }
 
