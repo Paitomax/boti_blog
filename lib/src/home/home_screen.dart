@@ -3,6 +3,7 @@ import 'package:botiblog/src/home/home_screen_texts.dart';
 import 'package:botiblog/src/home/user_news/user_news_tab_screen.dart';
 import 'package:botiblog/src/shared/auth/auth_bloc.dart';
 import 'package:botiblog/src/shared/auth/auth_event.dart';
+import 'package:botiblog/src/shared/consts/app_keys.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: _tabs[_tabIndex],
       appBar: AppBar(
-        title: Text(HomeScreenTexts.title),
+        title: Text(AppKeys.appName),
         actions: <Widget>[
           PopupMenuButton(
             key: Key(HomeScreenTexts.popupMenuButtonKey),

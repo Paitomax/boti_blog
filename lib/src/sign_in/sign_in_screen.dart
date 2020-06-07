@@ -1,4 +1,5 @@
 import 'package:botiblog/src/shared/boti_assets.dart';
+import 'package:botiblog/src/shared/consts/app_keys.dart';
 import 'package:botiblog/src/shared/widgets/buttons/boti_flat_button.dart';
 import 'package:botiblog/src/shared/widgets/buttons/boti_raised_button.dart';
 import 'package:botiblog/src/shared/widgets/inputs/boti_email_input.dart';
@@ -55,7 +56,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 children: <Widget>[
                   SizedBox(height: 16),
                   _buildTitle(),
-                  SizedBox(height: 40),
+                  SizedBox(height: 24),
                   _buildInputs(),
                   SizedBox(height: 24),
                   _buildButtons(),
@@ -80,6 +81,11 @@ class _SignInScreenState extends State<SignInScreen> {
             width: 100,
             height: 100,
           ),
+        ),
+        SizedBox(height: 8),
+        Text(
+          AppKeys.appName,
+          style: Theme.of(context).textTheme.headline4,
         ),
       ],
     );
