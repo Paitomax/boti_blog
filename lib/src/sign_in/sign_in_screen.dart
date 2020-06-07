@@ -1,3 +1,4 @@
+import 'package:botiblog/src/shared/boti_assets.dart';
 import 'package:botiblog/src/shared/widgets/buttons/boti_flat_button.dart';
 import 'package:botiblog/src/shared/widgets/buttons/boti_raised_button.dart';
 import 'package:botiblog/src/shared/widgets/inputs/boti_email_input.dart';
@@ -58,7 +59,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   _buildInputs(),
                   SizedBox(height: 24),
                   _buildButtons(),
-                  SizedBox(height: 8),
+                  SizedBox(height: 16),
                 ],
               ),
             ),
@@ -69,12 +70,18 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   Widget _buildTitle() {
-    return Text(
-      "Boti Blog",
-      style: Theme.of(context)
-          .textTheme
-          .headline4
-          .copyWith(color: Theme.of(context).colorScheme.secondaryVariant),
+    return Column(
+      children: <Widget>[
+        ClipOval(
+          child: Image(
+            image: BotiAssets.logo(),
+            semanticLabel: 'logo',
+            filterQuality: FilterQuality.high,
+            width: 100,
+            height: 100,
+          ),
+        ),
+      ],
     );
   }
 
