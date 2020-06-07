@@ -7,6 +7,7 @@ import 'package:botiblog/src/home/user_news/user_news_event.dart';
 import 'package:botiblog/src/home/user_news/user_news_state.dart';
 import 'package:botiblog/src/home/user_news/user_news_tab_screen_texts.dart';
 import 'package:botiblog/src/home/widget/post_list_view.dart';
+import 'package:botiblog/src/shared/consts/app_limits.dart';
 import 'package:botiblog/src/shared/user/user_model.dart';
 import 'package:botiblog/src/shared/widgets/boti_empty_message.dart';
 import 'package:botiblog/src/shared/widgets/boti_error_message.dart';
@@ -54,8 +55,9 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
   Widget _buildContent() {
     return BlocBuilder<UserNewsBloc, UserNewsState>(
       builder: (context, state) {
+        Widget content;
         if (state is UserNewsLoadSuccess) {
-          return Column(
+          content = Column(
             children: <Widget>[
               _buildWhatAreYouThinkingButton(),
               SizedBox(height: 16),
@@ -65,7 +67,7 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
             ],
           );
         } else if (state is UserNewsLoadSuccessEmpty) {
-          return Column(
+          content = Column(
             children: <Widget>[
               _buildWhatAreYouThinkingButton(),
               SizedBox(height: 16),
@@ -73,10 +75,16 @@ class _UserNewsTabScreenState extends State<UserNewsTabScreen> {
             ],
           );
         } else if (state is UserNewsLoadFailure) {
-          return _buildErrorMessage();
+          content = _buildErrorMessage();
         } else {
-          return _buildProgressIndicator();
+          content = _buildProgressIndicator();
         }
+
+        return AnimatedSwitcher(
+          duration:
+              Duration(milliseconds: AppLimits.transitionTimeInMilliseconds),
+          child: content,
+        );
       },
     );
   }

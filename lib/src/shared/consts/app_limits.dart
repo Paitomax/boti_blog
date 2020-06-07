@@ -5,5 +5,6 @@ class AppLimits {
   static final int passwordMinimum = 6;
   static final int postLimits = 280;
   static final int splashTimeLimitInMilliseconds = 4000;
+  static final int transitionTimeInMilliseconds = 150;
   static final int nameMinimum = 3;
 }
