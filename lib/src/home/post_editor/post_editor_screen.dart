@@ -54,6 +54,7 @@ class _PostEditorScreenState extends State<PostEditorScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
+        titleSpacing: 3.0,
         actions: <Widget>[
           FlatButton(
             key: Key(PostEditorScreenTexts.publishEditButtonKey),
