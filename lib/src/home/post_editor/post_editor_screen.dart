@@ -6,7 +6,6 @@ import 'package:botiblog/src/home/post_editor/post_state.dart';
 import 'package:botiblog/src/home/user_news/model/post_model.dart';
 import 'package:botiblog/src/home/user_news/user_news_tab_screen_texts.dart';
 import 'package:botiblog/src/shared/consts/app_limits.dart';
-import 'package:botiblog/src/shared/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -118,7 +117,6 @@ class _PostEditorScreenState extends State<PostEditorScreen> {
       autofocus: true,
       maxLines: null,
       maxLength: AppLimits.postLimits,
-      cursorColor: Colors.black,
       keyboardType: TextInputType.text,
       decoration: new InputDecoration(
         border: InputBorder.none,
