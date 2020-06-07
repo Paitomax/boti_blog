@@ -17,7 +17,7 @@ void main() {
 
       expect(find.text(SplashScreenTexts.email), findsOneWidget);
       expect(find.text(SplashScreenTexts.name), findsOneWidget);
-      expect(find.byIcon(Icons.flash_on), findsOneWidget);
+      expect(find.byType(Image), findsOneWidget);
     });
   });
 }
