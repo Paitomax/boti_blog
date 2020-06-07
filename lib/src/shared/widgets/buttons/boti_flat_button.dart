@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../theme/app_colors.dart';
-
 class BotiFlatButton extends StatelessWidget {
   final String text;
   final Function onPressed;
@@ -16,7 +14,7 @@ class BotiFlatButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FlatButton(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-      textColor: AppColors.blue,
+      textColor: Theme.of(context).buttonColor,
       child: Text(
         text,
         style: TextStyle(

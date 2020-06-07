@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../theme/app_colors.dart';
-
 class BotiRaisedButton extends StatelessWidget {
   final String text;
   final Function onPressed;
@@ -15,9 +13,9 @@ class BotiRaisedButton extends StatelessWidget {
     return Container(
       width: double.infinity,
       child: RaisedButton(
+        color: Theme.of(context).buttonColor,
+        textColor: Theme.of(context).colorScheme.onPrimary,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-        textColor: AppColors.white,
-        color: AppColors.blue,
         child: Text(
           text,
           style: TextStyle(

@@ -19,20 +19,17 @@ class BotiRoundedOutlinedButton extends StatelessWidget {
         width: double.infinity,
         child: InkWell(
           customBorder: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(32),
+            borderRadius: BorderRadius.circular(24),
             side: BorderSide(color: Color(0xFFAAAAAA)),
           ),
-          hoverColor: AppColors.gray,
           child: Container(
             decoration: BoxDecoration(
                 border: Border.all(color: Color(0xFFAAAAAA)),
-                borderRadius: BorderRadius.circular(32)),
+                borderRadius: BorderRadius.circular(24)),
             padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
             child: Text(
               text,
-              style: TextStyle(
-                color: AppColors.gray,
-              ),
+              style: Theme.of(context).textTheme.caption,
             ),
           ),
           onTap: onPressed,

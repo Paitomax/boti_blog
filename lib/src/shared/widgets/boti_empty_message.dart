@@ -15,14 +15,14 @@ class BotiEmptyMessage extends StatelessWidget {
       children: <Widget>[
         Icon(
           Icons.layers_clear,
-          color: AppColors.blue,
+          color: Theme.of(context).colorScheme.secondaryVariant,
           size: 32,
         ),
         SizedBox(height: 8),
         Text(
           message,
           textAlign: TextAlign.center,
-          style: TextStyle(color: AppColors.orange, fontSize: 16),
+          style: TextStyle(color: Theme.of(context).colorScheme.primaryVariant, fontSize: 16),
         ),
       ],
     );

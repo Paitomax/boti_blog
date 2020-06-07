@@ -58,7 +58,7 @@ class _PostEditorScreenState extends State<PostEditorScreen> {
         actions: <Widget>[
           FlatButton(
             key: Key(PostEditorScreenTexts.publishEditButtonKey),
-            textColor: AppColors.white,
+            textColor: Theme.of(context).colorScheme.onPrimary,
             child: Text(appBarButtonText),
             onPressed: saveEnabled
                 ? () {

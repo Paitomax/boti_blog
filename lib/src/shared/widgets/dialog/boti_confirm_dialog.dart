@@ -1,4 +1,3 @@
-import 'package:botiblog/src/shared/theme/app_colors.dart';
 import 'package:botiblog/src/shared/widgets/dialog/boti_dialog_show.dart';
 import 'package:flutter/material.dart';
 
@@ -33,15 +32,22 @@ class BotiConfirmAlertDialog extends StatelessWidget with BotiAlertDialogShow {
       content: Text(message),
       actions: <Widget>[
         FlatButton(
-          child: Text(primaryButtonText),
+          child: Text(
+            primaryButtonText,
+            style: Theme.of(context)
+                .textTheme
+                .button
+                .copyWith(color: Theme.of(context).colorScheme.primary),
+          ),
           onPressed: onPrimaryButtonPressed,
         ),
         FlatButton(
           child: Text(
             secondaryButtonText,
-            style: TextStyle(
-              color: AppColors.lightOrange,
-            ),
+            style: Theme.of(context)
+                .textTheme
+                .button
+                .copyWith(color: Theme.of(context).colorScheme.primary),
           ),
           onPressed: onSecondaryButtonPressed,
         ),

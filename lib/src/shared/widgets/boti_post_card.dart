@@ -1,6 +1,5 @@
 import 'package:botiblog/src/home/user_news/model/post_model.dart';
 import 'package:botiblog/src/shared/formatters/date_formatter.dart';
-import 'package:botiblog/src/shared/theme/app_colors.dart';
 import 'package:botiblog/src/shared/user/user_model.dart';
 import 'package:flutter/material.dart';
 
@@ -24,63 +23,64 @@ class BotiPostCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _buildHeader(),
+          _buildHeader(context),
           SizedBox(height: 4),
-          _buildContent(),
+          _buildContent(context),
           SizedBox(height: 4),
-          _buildFooter(),
+          _buildFooter(context),
         ],
       ),
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 16.0),
       child: Row(
         children: <Widget>[
-          _buildName(),
-          _buildDeleteButton(),
+          _buildName(context),
+          _buildDeleteButton(context),
         ],
       ),
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16.0),
-      child: _buildMessage(),
+      child: _buildMessage(context),
     );
   }
 
-  Widget _buildFooter() {
+  Widget _buildFooter(BuildContext context) {
     final double padding = _isAuthor() ? 0 : 16;
 
     return Padding(
       padding: EdgeInsets.only(right: 16.0, top: padding, bottom: padding),
       child: Row(
         children: <Widget>[
-          _buildEditButton(),
-          _buildDate(),
+          _buildEditButton(context),
+          _buildDate(context),
         ],
       ),
     );
   }
 
-  Widget _buildName() {
+  Widget _buildName(BuildContext context) {
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.only(top: 16.0),
-        child: Text(post.user.name,
-            style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: AppColors.blue)),
-      ),
+          padding: const EdgeInsets.only(top: 16.0),
+          child: Text(
+            post.user.name,
+            style: Theme.of(context)
+                .textTheme
+                .subtitle1
+                .copyWith(color: Theme.of(context).colorScheme.primary),
+          )),
     );
   }
 
-  Widget _buildDeleteButton() {
+  Widget _buildDeleteButton(BuildContext context) {
     return Visibility(
       visible: _isAuthor(),
       child: InkWell(
@@ -95,16 +95,14 @@ class BotiPostCard extends StatelessWidget {
     );
   }
 
-  Widget _buildMessage() {
+  Widget _buildMessage(BuildContext context) {
     return Text(
       post.post.text,
-      style: TextStyle(
-        color: AppColors.lightOrange,
-      ),
+      style: TextStyle(),
     );
   }
 
-  Widget _buildEditButton() {
+  Widget _buildEditButton(BuildContext context) {
     return Visibility(
       visible: _isAuthor(),
       child: InkWell(
@@ -112,22 +110,20 @@ class BotiPostCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(32),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Icon(Icons.edit, size: 12, color: AppColors.orange),
+          child: Icon(Icons.edit,
+              size: 12, color: Theme.of(context).colorScheme.secondaryVariant),
         ),
         onTap: () => onEditPressed(post),
       ),
     );
   }
 
-  Widget _buildDate() {
+  Widget _buildDate(BuildContext context) {
     return Expanded(
       child: Text(
         DateFormatter.format(post.post.date),
         textAlign: TextAlign.end,
-        style: TextStyle(
-          fontSize: 12,
-          color: Color(0xFFBABABA),
-        ),
+        style: Theme.of(context).textTheme.caption,
       ),
     );
   }

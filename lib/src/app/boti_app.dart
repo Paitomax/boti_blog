@@ -14,6 +14,7 @@ import 'package:botiblog/src/shared/auth/auth_event.dart';
 import 'package:botiblog/src/shared/auth/auth_state.dart';
 import 'package:botiblog/src/shared/current_datetime/current_date.dart';
 import 'package:botiblog/src/shared/current_datetime/current_date_interface.dart';
+import 'package:botiblog/src/shared/theme/boti_app_theme.dart';
 import 'package:botiblog/src/shared/user/user_repository.dart';
 import 'package:botiblog/src/shared/user/user_repository_interface.dart';
 import 'package:botiblog/src/shared/widgets/boti_progress_indicator.dart';
@@ -69,16 +70,16 @@ class _BotiAppState extends State<BotiApp> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = BotiAppTheme();
     final materialApp = MaterialApp(
         title: 'Boti Blog',
         builder: DevicePreview.appBuilder,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
         home: _buildHome(),
+        theme: theme.themeData,
         routes: AppRoutes.routes);
+
     return _providers(
-      child: materialApp,
+      child: Center(child: materialApp),
     );
   }
 

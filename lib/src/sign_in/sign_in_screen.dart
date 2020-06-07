@@ -1,4 +1,3 @@
-import 'package:botiblog/src/shared/theme/app_colors.dart';
 import 'package:botiblog/src/shared/widgets/buttons/boti_flat_button.dart';
 import 'package:botiblog/src/shared/widgets/buttons/boti_raised_button.dart';
 import 'package:botiblog/src/shared/widgets/inputs/boti_email_input.dart';
@@ -72,8 +71,10 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget _buildTitle() {
     return Text(
       "Boti Blog",
-      style: TextStyle(
-          fontSize: 40, fontWeight: FontWeight.bold, color: AppColors.blue),
+      style: Theme.of(context)
+          .textTheme
+          .headline4
+          .copyWith(color: Theme.of(context).colorScheme.secondaryVariant),
     );
   }
 

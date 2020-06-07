@@ -12,6 +12,7 @@ class BotiNewsDataProvider {
     if (result.statusCode >= 200 && result.statusCode < 300) {
       final news = PostResponseModel.fromJson(result.data);
       news.news.sort((b, a) => a.post.date.compareTo(b.post.date));
+      throw Exception();
       return news;
     } else {
       throw Exception('Cant fetch BotiNews');

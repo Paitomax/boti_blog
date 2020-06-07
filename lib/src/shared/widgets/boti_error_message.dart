@@ -19,21 +19,20 @@ class BotiErrorMessage extends StatelessWidget {
       children: <Widget>[
         Icon(
           Icons.error,
-          color: AppColors.lightOrange,
+          color: Theme.of(context).colorScheme.secondaryVariant,
           size: 32,
         ),
         SizedBox(height: 8),
         Text(
           errorMessage,
-          style: TextStyle(color: Colors.red, fontSize: 16),
+          style: TextStyle(color: Theme.of(context).colorScheme.error, fontSize: 16),
         ),
         FlatButton(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-          textColor: AppColors.blue,
+          textColor: Theme.of(context).buttonColor,
           child: Text(
             actionText,
-            style: TextStyle(color: AppColors.blue),
           ),
           onPressed: onPressed,
         ),
