@@ -64,7 +64,6 @@ class _BotiAppState extends State<BotiApp> {
   @override
   void initState() {
     context.bloc<AuthBloc>().add(AuthAppInitiated());
-
     super.initState();
   }
 
@@ -86,17 +85,22 @@ class _BotiAppState extends State<BotiApp> {
   Widget _buildHome() {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (BuildContext context, AuthState state) {
+        Widget newWidget;
+
         if (state is AuthInitial) {
-          return SplashScreen();
+          newWidget = SplashScreen();
         } else if (state is AuthUnauthenticated) {
-          return SignInScreen(
-            savedUser: state.email,
-          );
+          newWidget = SignInScreen(savedUser: state.email);
         } else if (state is AuthAuthenticated) {
-          return HomeScreen();
+          newWidget = HomeScreen();
         } else {
-          return BotiProgressIndicator();
+          newWidget = BotiProgressIndicator();
         }
+
+        return AnimatedSwitcher(
+          duration: Duration(milliseconds: 500),
+          child: newWidget,
+        );
       },
     );
   }
